@@ -12,5 +12,8 @@
   "skirt": "Spódnice",
   "sweater": "Swetry",
   "trousers": "Spodnie",
-  "underwear": "Bielizna"
+  "underwear": "Bielizna",
+  "label_app_name": "Outfitter",
+  "page_title_creator_create": "Dodaj",
+  "page_title_creator_edit": "Edytuj"
 }

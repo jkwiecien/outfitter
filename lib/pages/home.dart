@@ -3,12 +3,23 @@ import 'package:flutter/material.dart';
 
 import '../model/category.dart';
 import '../translations.dart';
+import 'item_creator.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(title: Text('Outfitter')),
+    return Scaffold(
+      appBar:
+          AppBar(title: Text(Translations.of(context).text('label_app_name'))),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ItemCreatorPage()),
+          );
+        },
+      ),
       body: Center(
         child: StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance.collection('categories').snapshots(),
