@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "867000703836",
+    "firebase_url": "https://pocket-outfitter.firebaseio.com",
+    "project_id": "pocket-outfitter",
+    "storage_bucket": "pocket-outfitter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867000703836:android:075f43e6d5d95982",
+        "android_client_info": {
+          "package_name": "co.techbrewery.outfitter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867000703836-hmufsfta3oil36boap8o2nttmu8agtcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBV-0hBn_CCedQdJKf-FCKmz1vqIzlKLgU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
