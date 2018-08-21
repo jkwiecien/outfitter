@@ -25,11 +25,16 @@ class Category {
 
   Category.fromString(String categoryIdString) {
     categoryId = CategoryId.values.firstWhere(
-        (f) => f.toString() == 'Category.$categoryIdString',
+        (c) => c.toString() == 'CategoryId.$categoryIdString',
         orElse: () => null);
+    print("$categoryId created from string: $categoryIdString");
   }
 
   String getLocalisedName(BuildContext context) {
-    return Translations.of(context).text(categoryId.toString());
+    String translationKey = categoryId.toString().replaceAll("CategoryId.", "");
+    print("translationKey: $translationKey");
+    Translations translations = Translations.of(context);
+    print("translations: $translations");
+    return Translations.of(context).text(translationKey);
   }
 }
