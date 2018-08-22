@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outfitter/configuration.dart';
 
 import '../translations.dart';
 
@@ -14,7 +15,25 @@ class ItemCreatorPage extends StatelessWidget {
         padding: EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
-            TextField(),
+            Row(
+              children: <Widget>[
+                Icon(Icons.category),
+                Column(
+                  children: <Widget>[
+                    Text(
+                      Translations
+                          .of(context)
+                          .text('hint_category_input')
+                          .toUpperCase(),
+                      style: TextStyle(
+                          fontSize: FontSizeConfig.LARGE,
+                          fontWeight: FontWeightConfig.MEDIUM,
+                          fontStyle: FontStyleConfig.ITALIC),
+                    )
+                  ],
+                )
+              ],
+            ),
           ],
         ),
       ),

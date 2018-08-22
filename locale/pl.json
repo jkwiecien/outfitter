@@ -15,5 +15,6 @@
   "underwear": "Bielizna",
   "label_app_name": "Outfitter",
   "page_title_creator_create": "Dodaj",
-  "page_title_creator_edit": "Edytuj"
+  "page_title_creator_edit": "Edytuj",
+  "hint_category_input": "Kategoria"
 }
