@@ -16,15 +16,19 @@ class Translations {
   }
 
   static String forKey(String key, BuildContext context) {
-    return Translations.of(context).text(key);
+    Translations t = Translations.of(context);
+//    print('Translations | $t');
+    return t.text(key);
   }
 
   Map<String, String> _sentences;
 
   Future<bool> load() async {
+//    print('Translations | Load file locale/${this.locale.languageCode}.json');
     String data =
         await rootBundle.loadString('locale/${this.locale.languageCode}.json');
     Map<String, dynamic> _result = json.decode(data);
+//    print('Translations | $_result');
 
     this._sentences = new Map();
     _result.forEach((String key, dynamic value) {
@@ -50,9 +54,6 @@ class TranslationsDelegate extends LocalizationsDelegate<Translations> {
   Future<Translations> load(Locale locale) async {
     Translations localizations = new Translations(locale);
     await localizations.load();
-
-    print("Load ${locale.languageCode}");
-
     return localizations;
   }
 

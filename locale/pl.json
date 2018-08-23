@@ -16,5 +16,11 @@
   "label_app_name": "Outfitter",
   "page_title_creator_create": "Dodaj",
   "page_title_creator_edit": "Edytuj",
-  "hint_category_input": "Kategoria"
+  "page_title_pick_category": "Wybierz kategorię",
+  "hint_category_input": "Kategoria",
+  "button_title_category": "Kategoria",
+  "hint_name_input": "Nazwa",
+  "hint_description_input": "Opis",
+  "error_message_general": "Coś poszło nie tak",
+  "label_loading": "Trwa ładowanie danych"
 }

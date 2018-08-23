@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:outfitter/configuration.dart';
+import 'package:outfitter/utils.dart';
 
 class AppBarFactory {
   static const _defaultNavigationIcon = Icons.arrow_back;
@@ -10,7 +10,7 @@ class AppBarFactory {
       IconData navigationIcon: _defaultNavigationIcon,
       Color backgroundColor: _defaultBackgroundColor}) {
     return AppBar(
-        backgroundColor: ColorConfig.THEME_SECONDARY,
+        backgroundColor: backgroundColor,
         elevation: 0.0,
         leading: IconButton(
             icon: Icon(navigationIcon, color: ColorConfig.FONT_PRIMARY),

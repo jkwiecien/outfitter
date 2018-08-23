@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'application.dart';
-import 'configuration.dart';
-import 'pages/home.dart';
+import 'pages/item_editor.dart';
 import 'translations.dart';
+import 'utils.dart';
 
 void main() => runApp(new OutfitterApp());
 
@@ -14,14 +14,11 @@ class OutfitterApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Outfitter',
       theme: ThemeData(
-          fontFamily: 'Rubik',
-          brightness: Brightness.light,
-          primaryColor: ColorConfig.THEME_PRIMARY,
-          accentColor: ColorConfig.THEME_PRIMARY_DARK,
-          textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: ColorConfig.THEME_PRIMARY_DARK,
-              displayColor: ColorConfig.THEME_PRIMARY_DARK,
-              decorationColor: ColorConfig.THEME_PRIMARY_DARK)),
+        fontFamily: 'Rubik',
+        brightness: Brightness.light,
+        primaryColor: ColorConfig.THEME_PRIMARY,
+        accentColor: ColorConfig.THEME_PRIMARY_DARK,
+      ),
       localizationsDelegates: [
         const TranslationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -39,7 +36,7 @@ class OutfitterApp extends StatelessWidget {
 
         return supportedLocales.first;
       },
-      home: HomePage(),
+      home: ItemEditorPage(),
     );
   }
 }

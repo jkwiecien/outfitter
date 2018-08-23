@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:outfitter/configuration.dart';
+import 'package:outfitter/utils.dart';
 import 'package:outfitter/widgets.dart';
 
 import '../translations.dart';
@@ -7,7 +7,6 @@ import '../translations.dart';
 class ItemCreatorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       backgroundColor: ColorConfig.THEME_SECONDARY,
       appBar: AppBarFactory.flatAppBar(context,

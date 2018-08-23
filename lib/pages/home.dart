@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:outfitter/pages/item_creator.dart';
+import 'package:outfitter/pages/item_editor.dart';
 
 import '../model/category.dart';
 import '../translations.dart';
-import 'item_creator.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -16,7 +17,7 @@ class HomePage extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ItemCreatorPage()),
+            MaterialPageRoute(builder: (context) => ItemEditorPage()),
           );
         },
       ),
