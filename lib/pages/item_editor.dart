@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:outfitter/category.dart';
-import 'package:outfitter/category_picker.dart';
+import 'package:outfitter/model/category.dart';
+import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils.dart';
 
