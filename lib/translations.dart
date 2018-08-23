@@ -15,6 +15,10 @@ class Translations {
     return Localizations.of<Translations>(context, Translations);
   }
 
+  static String forKey(String key, BuildContext context) {
+    return Translations.of(context).text(key);
+  }
+
   Map<String, String> _sentences;
 
   Future<bool> load() async {

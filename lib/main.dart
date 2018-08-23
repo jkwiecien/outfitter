@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'application.dart';
+import 'configuration.dart';
 import 'pages/home.dart';
 import 'translations.dart';
 
@@ -12,7 +13,15 @@ class OutfitterApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Outfitter',
-      theme: ThemeData(fontFamily: 'Rubik'),
+      theme: ThemeData(
+          fontFamily: 'Rubik',
+          brightness: Brightness.light,
+          primaryColor: ColorConfig.THEME_PRIMARY,
+          accentColor: ColorConfig.THEME_PRIMARY_DARK,
+          textTheme: Theme.of(context).textTheme.apply(
+              bodyColor: ColorConfig.THEME_PRIMARY_DARK,
+              displayColor: ColorConfig.THEME_PRIMARY_DARK,
+              decorationColor: ColorConfig.THEME_PRIMARY_DARK)),
       localizationsDelegates: [
         const TranslationsDelegate(),
         GlobalMaterialLocalizations.delegate,
