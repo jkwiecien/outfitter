@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:outfitter/pages/item_creator.dart';
-import 'package:outfitter/pages/item_editor.dart';
-
-import '../model/category.dart';
-import '../translations.dart';
+import 'package:outfitter/category.dart';
+import 'package:outfitter/item_editor.dart';
+import 'package:outfitter/translations.dart';
 
 class HomePage extends StatelessWidget {
   @override

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-import 'application.dart';
-import 'pages/item_editor.dart';
-import 'translations.dart';
-import 'utils.dart';
+import 'package:outfitter/application.dart';
+import 'package:outfitter/item_editor.dart';
+import 'package:outfitter/translations.dart';
+import 'package:outfitter/utils.dart';
 
 void main() => runApp(new OutfitterApp());
 

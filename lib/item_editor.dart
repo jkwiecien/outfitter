@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:outfitter/model/category.dart';
+import 'package:outfitter/category.dart';
+import 'package:outfitter/category_picker.dart';
+import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils.dart';
-
-import '../translations.dart';
-import 'category_picker.dart';
 
 class ItemEditorPage extends StatelessWidget {
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../translations.dart';
+import 'package:outfitter/translations.dart';
 
 enum CategoryId {
   accessory,

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils.dart';
 import 'package:outfitter/widgets.dart';
-
-import '../translations.dart';
 
 class ItemCreatorPage extends StatelessWidget {
   @override

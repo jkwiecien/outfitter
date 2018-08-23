@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:outfitter/category.dart';
+import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils.dart';
 import 'package:outfitter/widgets.dart';
-
-import '../model/category.dart';
-import '../translations.dart';
 
 typedef void OnCategoryPicked(Category category);
 
