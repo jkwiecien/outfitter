@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils.dart';
 
+//typedef OnTextChanged(String text);
+
 class ItemNameForm extends StatefulWidget {
   final _state = _ItemNameFormState();
+  Function(String) _onTextChanged;
+
+  ItemNameForm({@required Function(String) onTextChanged}) {
+    _onTextChanged = onTextChanged;
+  }
 
   @override
   State<StatefulWidget> createState() => _state;
@@ -15,12 +22,17 @@ class ItemNameForm extends StatefulWidget {
 
 class _ItemNameFormState extends State<ItemNameForm> {
   final _formKey = GlobalKey<FormState>();
+  final _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
+      onChanged: () {
+        widget._onTextChanged(_textEditingController.text);
+      },
       child: TextFormField(
+        controller: _textEditingController,
         decoration: InputDecoration(
             hintText: Translations.forKey('hint_name_input', context),
             hintStyle: TextStyleFactory.h5(color: ColorConfig.FONT_HINT)),
@@ -35,5 +47,11 @@ class _ItemNameFormState extends State<ItemNameForm> {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
   }
 }

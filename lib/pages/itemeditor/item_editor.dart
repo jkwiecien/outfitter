@@ -15,7 +15,15 @@ class ItemEditorPage extends StatefulWidget {
 class _ItemEditorPageState extends State<ItemEditorPage> {
   final ItemEditorModel _model = ItemEditorModel();
 
-  final ItemNameForm _nameForm = ItemNameForm();
+  ItemNameForm _nameForm;
+
+  @override
+  void initState() {
+    _nameForm = ItemNameForm(onTextChanged: (text) {
+      _model.item.name = text;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
