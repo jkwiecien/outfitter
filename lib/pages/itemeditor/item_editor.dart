@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:outfitter/model/category.dart';
 import 'package:outfitter/pages/category_picker.dart';
+import 'package:outfitter/pages/itemeditor/model.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils.dart';
 
-class ItemEditorPage extends StatelessWidget {
+class ItemEditorPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _ItemEditorPageState();
+}
+
+class _ItemEditorPageState extends State<ItemEditorPage> {
+  final ItemEditorModel _model =
+      ItemEditorModel(Category.fromId(CategoryId.shoes));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +57,8 @@ class ItemEditorPage extends StatelessWidget {
                       ),
                       MaterialButton(
                         child: Text(
-                          Translations
-                              .forKey('button_title_category', context)
+                          _model
+                              .getSelectedCategoryButtonTitle(context)
                               .toUpperCase(),
                           style: TextStyleFactory.button(),
                         ),
@@ -100,6 +109,10 @@ class ItemEditorPage extends StatelessWidget {
   _navigateToCategoryPicker(BuildContext context) async {
     Category category = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => CategoryPickerPage()));
-    print(category.getLocalisedName(context));
+//    print(category.getLocalisedName(context));
+
+    setState(() {
+      _model.selectedCategory = category;
+    });
   }
 }

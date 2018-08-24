@@ -30,6 +30,10 @@ class Category {
     print("$categoryId created from string: $categoryIdString");
   }
 
+  Category.fromId(CategoryId enumId) {
+    categoryId = enumId;
+  }
+
   String getLocalisedName(BuildContext context) {
     String translationKey = categoryId.toString().replaceAll("CategoryId.", "");
     return Translations.of(context).text(translationKey);
