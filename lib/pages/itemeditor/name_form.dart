@@ -32,6 +32,7 @@ class _ItemNameFormState extends State<ItemNameForm> {
         widget._onTextChanged(_textEditingController.text);
       },
       child: TextFormField(
+        style: TextStyleFactory.h5(color: ColorConfig.FONT_PRIMARY),
         controller: _textEditingController,
         decoration: InputDecoration(
             hintText: Translations.forKey('hint_name_input', context),

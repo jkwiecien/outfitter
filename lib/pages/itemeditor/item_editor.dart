@@ -6,6 +6,7 @@ import 'package:outfitter/pages/itemeditor/model.dart';
 import 'package:outfitter/pages/itemeditor/name_form.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils.dart';
+import 'package:outfitter/widgets/beveled_rectangle_button.dart';
 
 class ItemEditorPage extends StatefulWidget {
   @override
@@ -28,6 +29,7 @@ class _ItemEditorPageState extends State<ItemEditorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConfig.BACKGROUND,
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
@@ -105,13 +107,19 @@ class _ItemEditorPageState extends State<ItemEditorPage> {
                     SizedBox(
                       height: PaddingSizeConfig.LARGE,
                     ),
-                    Center(
-                      child: OutlineButton(
-                        child: Text('Zapisz'.toUpperCase()),
-                        onPressed: () {
-                          _saveItem();
-                        },
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Expanded(
+                          child: BeveledRectangleButton(
+                            title: Translations.forKey('action_save', context),
+                            icon: Icons.save,
+                            onPressed: () {
+                              _saveItem();
+                            },
+                          ),
+                        ),
+                      ],
                     )
                   ],
                 ),

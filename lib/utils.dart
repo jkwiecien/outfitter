@@ -49,7 +49,7 @@ class TextStyleFactory {
       color: ColorConfig.FONT_PRIMARY,
       fontWeight: FontWeightConfig.MEDIUM,
       fontSize: 14.0,
-      letterSpacing: 0.75);
+      letterSpacing: 1.2);
 
   static TextStyle caption({color: ColorConfig.FONT_PRIMARY}) => TextStyle(
       color: color,
@@ -94,6 +94,7 @@ class ColorConfig {
   static const THEME_PRIMARY = Color.fromRGBO(254, 219, 208, 1.0);
   static const THEME_SECONDARY = Color.fromRGBO(254, 234, 230, 1.0);
   static const THEME_PRIMARY_DARK = Color.fromRGBO(68, 44, 46, 1.0);
+  static const BACKGROUND = Color.fromRGBO(255, 251, 250, 1.0);
   static const DIVIDER = Color.fromRGBO(68, 44, 46, 0.3);
   static const FONT_PRIMARY = THEME_PRIMARY_DARK;
   static const FONT_HINT = Color.fromRGBO(68, 44, 46, 0.5);
