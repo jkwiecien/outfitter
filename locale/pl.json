@@ -22,5 +22,7 @@
   "hint_name_input": "Nazwa",
   "hint_description_input": "Opis",
   "error_message_general": "Coś poszło nie tak",
+  "error_message_field_required": "Pole wymagane",
+  "error_message_item_name_too_short": "Zbyt krótka nazwa",
   "label_loading": "Trwa ładowanie danych"
 }

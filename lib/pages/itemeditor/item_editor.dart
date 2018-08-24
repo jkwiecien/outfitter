@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/itemeditor/model.dart';
+import 'package:outfitter/pages/itemeditor/name_form.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils.dart';
 
@@ -13,6 +14,8 @@ class ItemEditorPage extends StatefulWidget {
 
 class _ItemEditorPageState extends State<ItemEditorPage> {
   final ItemEditorModel _model = ItemEditorModel();
+
+  final ItemNameForm _nameForm = ItemNameForm();
 
   @override
   Widget build(BuildContext context) {
@@ -71,14 +74,7 @@ class _ItemEditorPageState extends State<ItemEditorPage> {
                   SizedBox(
                     height: PaddingSizeConfig.MEDIUM,
                   ),
-                  TextField(
-                    style: TextStyleFactory.h5(),
-                    decoration: InputDecoration(
-                        hintText:
-                            Translations.forKey('hint_name_input', context),
-                        hintStyle:
-                            TextStyleFactory.h5(color: ColorConfig.FONT_HINT)),
-                  ),
+                  _nameForm,
                   SizedBox(
                     height: PaddingSizeConfig.LARGE,
                   ),
@@ -128,13 +124,15 @@ class _ItemEditorPageState extends State<ItemEditorPage> {
   }
 
   _saveItem() {
-    try {
-      Firestore.instance
-          .collection('categories/${_model.category.toString()}/items')
-          .document()
-          .setData(_model.item.toMap());
-    } catch (error) {
-      print(error.toString());
+    if (_nameForm.validate()) {
+      try {
+        Firestore.instance
+            .collection('categories/${_model.category.toString()}/items')
+            .document()
+            .setData(_model.item.toMap());
+      } catch (error) {
+        print(error.toString());
+      }
     }
   }
 }
