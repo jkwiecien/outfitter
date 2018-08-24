@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:outfitter/model/category.dart';
-import 'package:outfitter/model/item.dart';
+import 'package:outfitter/models/category.dart';
+import 'package:outfitter/models/item.dart';
 import 'package:outfitter/translations.dart';
 
 class ItemEditorModel {

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:outfitter/model/category.dart';
+import 'package:outfitter/models/category.dart';
 import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/itemeditor/model.dart';
 import 'package:outfitter/translations.dart';

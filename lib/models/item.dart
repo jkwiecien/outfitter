@@ -1,5 +1,4 @@
-import 'package:outfitter/model/category.dart';
-import 'dart:convert';
+import 'package:outfitter/models/category.dart';
 
 class Item {
   Category category = Category.fromId(CategoryId.shoes);
