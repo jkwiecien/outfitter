@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:outfitter/model/category.dart';
+import 'package:outfitter/model/item.dart';
 import 'package:outfitter/translations.dart';
 
 class ItemEditorModel {
-  Category selectedCategory;
+  final Item item = Item();
 
-  ItemEditorModel(this.selectedCategory);
-
-  String getSelectedCategoryButtonTitle(BuildContext context) {
-    return selectedCategory != null ? selectedCategory.getLocalisedName(context) : Translations.forKey('button_title_category', context);
+  set category(Category category) {
+    item.category = category;
   }
 
+  get category => item.category;
+
+  String getSelectedCategoryButtonTitle(BuildContext context) {
+    return item.category != null
+        ? item.category.getLocalisedName(context)
+        : Translations.forKey('button_title_category', context);
+  }
 }

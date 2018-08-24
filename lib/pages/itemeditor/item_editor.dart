@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:outfitter/model/category.dart';
 import 'package:outfitter/pages/category_picker.dart';
@@ -11,8 +12,7 @@ class ItemEditorPage extends StatefulWidget {
 }
 
 class _ItemEditorPageState extends State<ItemEditorPage> {
-  final ItemEditorModel _model =
-      ItemEditorModel(Category.fromId(CategoryId.shoes));
+  final ItemEditorModel _model = ItemEditorModel();
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +97,17 @@ class _ItemEditorPageState extends State<ItemEditorPage> {
                         hintStyle: TextStyleFactory.body2(
                             color: ColorConfig.FONT_HINT)),
                   ),
+                  SizedBox(
+                    height: PaddingSizeConfig.LARGE,
+                  ),
+                  Center(
+                    child: OutlineButton(
+                      child: Text('Zapisz'.toUpperCase()),
+                      onPressed: () {
+                        _saveItem();
+                      },
+                    ),
+                  )
                 ],
               ),
             ),
@@ -112,7 +123,18 @@ class _ItemEditorPageState extends State<ItemEditorPage> {
 //    print(category.getLocalisedName(context));
 
     setState(() {
-      _model.selectedCategory = category;
+      _model.category = category;
     });
+  }
+
+  _saveItem() {
+    try {
+      Firestore.instance
+          .collection('categories/${_model.category.toString()}/items')
+          .document()
+          .setData(_model.item.toMap());
+    } catch (error) {
+      print(error.toString());
+    }
   }
 }

@@ -35,7 +35,11 @@ class Category {
   }
 
   String getLocalisedName(BuildContext context) {
-    String translationKey = categoryId.toString().replaceAll("CategoryId.", "");
-    return Translations.of(context).text(translationKey);
+    return Translations.of(context).text(this.toString());
+  }
+
+  @override
+  String toString() {
+    return categoryId.toString().replaceAll("CategoryId.", "");
   }
 }
