@@ -53,66 +53,68 @@ class _ItemEditorPageState extends State<ItemEditorPage> {
             ),
           ),
           SliverFillRemaining(
-            child: Container(
-              padding: EdgeInsets.all(PaddingSizeConfig.MEDIUM),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        Icons.category,
-                        color: ColorConfig.FONT_PRIMARY,
-                        size: 20.0,
-                      ),
-                      MaterialButton(
-                        child: Text(
-                          _model
-                              .getSelectedCategoryButtonTitle(context)
-                              .toUpperCase(),
-                          style: TextStyleFactory.button(),
+            child: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(PaddingSizeConfig.MEDIUM),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.category,
+                          color: ColorConfig.FONT_PRIMARY,
+                          size: 20.0,
                         ),
-                        onPressed: () {
-                          _navigateToCategoryPicker(context);
-                        },
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: PaddingSizeConfig.MEDIUM,
-                  ),
-                  _nameForm,
-                  SizedBox(
-                    height: PaddingSizeConfig.LARGE,
-                  ),
-                  TextField(
-                    style: TextStyleFactory.body2(),
-                    decoration: InputDecoration(
-                        hintText: 'Producent',
-                        hintStyle: TextStyleFactory.body2(
-                            color: ColorConfig.FONT_HINT)),
-                  ),
-                  TextField(
-                    style: TextStyleFactory.body2(),
-                    decoration: InputDecoration(
-                        hintText: Translations.forKey(
-                            'hint_description_input', context),
-                        hintStyle: TextStyleFactory.body2(
-                            color: ColorConfig.FONT_HINT)),
-                  ),
-                  SizedBox(
-                    height: PaddingSizeConfig.LARGE,
-                  ),
-                  Center(
-                    child: OutlineButton(
-                      child: Text('Zapisz'.toUpperCase()),
-                      onPressed: () {
-                        _saveItem();
-                      },
+                        MaterialButton(
+                          child: Text(
+                            _model
+                                .getSelectedCategoryButtonTitle(context)
+                                .toUpperCase(),
+                            style: TextStyleFactory.button(),
+                          ),
+                          onPressed: () {
+                            _navigateToCategoryPicker(context);
+                          },
+                        )
+                      ],
                     ),
-                  )
-                ],
+                    SizedBox(
+                      height: PaddingSizeConfig.MEDIUM,
+                    ),
+                    _nameForm,
+                    SizedBox(
+                      height: PaddingSizeConfig.LARGE,
+                    ),
+                    TextField(
+                      style: TextStyleFactory.body2(),
+                      decoration: InputDecoration(
+                          hintText: 'Producent',
+                          hintStyle: TextStyleFactory.body2(
+                              color: ColorConfig.FONT_HINT)),
+                    ),
+                    TextField(
+                      style: TextStyleFactory.body2(),
+                      decoration: InputDecoration(
+                          hintText: Translations.forKey(
+                              'hint_description_input', context),
+                          hintStyle: TextStyleFactory.body2(
+                              color: ColorConfig.FONT_HINT)),
+                    ),
+                    SizedBox(
+                      height: PaddingSizeConfig.LARGE,
+                    ),
+                    Center(
+                      child: OutlineButton(
+                        child: Text('Zapisz'.toUpperCase()),
+                        onPressed: () {
+                          _saveItem();
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           )
