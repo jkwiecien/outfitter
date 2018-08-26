@@ -8,6 +8,7 @@ class Item {
   var description = '';
   var brand = '';
   MainColor mainColor;
+  List<String> pictures = List();
 
   Map<String, dynamic> toMap() {
     return {'name': name, 'description': description, 'brand': brand};

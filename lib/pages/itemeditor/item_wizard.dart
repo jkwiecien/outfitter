@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:outfitter/application.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/pages/category_picker.dart';
@@ -12,6 +17,7 @@ import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/beveled_rectangle_button.dart';
 import 'package:outfitter/widgets/main_color_box.dart';
 import 'package:outfitter/widgets/widgets.dart';
+import 'package:uuid/uuid.dart';
 
 class ItemWizardPage extends StatefulWidget {
   @override
@@ -276,9 +282,30 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
           size: 40.0,
         ),
         onPressed: () {
-          //TODO
+          getImage();
         },
       ),
     );
+  }
+
+  Future getImage() async {
+    final imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    application.firebaseStorage().then((storage) {
+      final uid = Uuid().v4();
+      final StorageReference ref =
+          storage.ref().child('pictures').child('$uid.jpg');
+      final StorageUploadTask uploadTask =
+          ref.putFile(imageFile, StorageMetadata(contentType: 'image/jpeg'));
+      return uploadTask.future;
+    }).then((uploadTaskSnapshot) {
+      final Uri downloadUrl = uploadTaskSnapshot.downloadUrl;
+      final url = downloadUrl.toString();
+      print("URL: $url");
+      _model.item.pictures.add(url);
+    });
+//
+//    setState(() {
+//      _image = image;
+//    });
   }
 }
