@@ -8,6 +8,7 @@ import 'package:outfitter/pages/itemeditor/model.dart';
 import 'package:outfitter/pages/itemeditor/name_form.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/utils.dart';
+import 'package:outfitter/widgets/beveled_rectangle_button.dart';
 import 'package:outfitter/widgets/widgets.dart';
 
 class ItemWizardPage extends StatefulWidget {
@@ -79,6 +80,9 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                   ),
                   IconButton(
                     icon: Icon(Icons.edit, color: ColorConfig.FONT_PRIMARY),
+                    onPressed: () {
+                      _navigateToCategoryPicker(context);
+                    },
                   ),
                 ],
               ),
@@ -99,13 +103,42 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Informacje'.toUpperCase(),
+                            Translations
+                                .forKey('label_information', context)
+                                .toUpperCase(),
                             style: TextStyleFactory.overline(),
                           ),
                           SizedBox(height: PaddingSizeConfig.SMALL),
                           _nameForm,
                           _descriptionForm,
                           _brandForm
+                        ],
+                      ),
+                    ),
+                  ]),
+            ),
+            DividerFactory.leftCutDivider(),
+            Container(
+              padding: EdgeInsets.all(PaddingSizeConfig.LARGE),
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Icon(
+                      Icons.color_lens,
+                      color: ColorConfig.FONT_PRIMARY,
+                    ),
+                    SizedBox(width: PaddingSizeConfig.LARGE),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            Translations
+                                .forKey('label_main_color', context)
+                                .toUpperCase(),
+                            style: TextStyleFactory.overline(),
+                          ),
+                          SizedBox(height: PaddingSizeConfig.SMALL),
                         ],
                       ),
                     ),
@@ -127,7 +160,9 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Zdjęcia'.toUpperCase(),
+                            Translations
+                                .forKey('label_photos', context)
+                                .toUpperCase(),
                             style: TextStyleFactory.overline(),
                           ),
                           SizedBox(height: PaddingSizeConfig.SMALL),
@@ -136,6 +171,23 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                     ),
                   ]),
             ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(PaddingSizeConfig.LARGE),
+                    child: BeveledRectangleButton(
+                      title: Translations.forKey('action_save', context),
+                      icon: Icons.save,
+                      onPressed: () {
+                        _saveItem();
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -145,8 +197,6 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
   _navigateToCategoryPicker(BuildContext context) async {
     Category category = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => CategoryPickerPage()));
-//    print(category.getLocalisedName(context));
-
     setState(() {
       _model.category = category;
     });

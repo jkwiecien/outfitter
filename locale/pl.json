@@ -28,5 +28,8 @@
   "error_message_item_name_too_short": "Zbyt krótka nazwa",
   "label_loading": "Trwa ładowanie danych",
   "action_save": "Zapisz",
-  "label_not_selected": "Nie wybrano"
+  "label_not_selected": "Nie wybrano",
+  "label_information": "Informacje",
+  "label_main_color": "Kolor główny",
+  "label_photos": "Zdjęcia"
 }
