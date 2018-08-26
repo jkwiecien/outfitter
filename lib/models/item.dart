@@ -1,7 +1,8 @@
 import 'package:outfitter/models/category.dart';
 
 class Item {
-  Category category = Category.fromId(CategoryId.shoes);
+  String id;
+  Category category;
   var name = '';
   var description = '';
   var brand = '';

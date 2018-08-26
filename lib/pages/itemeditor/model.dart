@@ -14,7 +14,9 @@ class ItemEditorModel {
 
   String getSelectedCategoryButtonTitle(BuildContext context) {
     return item.category != null
-        ? item.category.getLocalisedName(context)
-        : Translations.forKey('button_title_category', context);
+        ? item.category.getLocalisedName(context).toUpperCase()
+        : Translations.forKey('label_not_selected', context).toUpperCase();
   }
+
+  bool isEdit() => item.id != null;
 }

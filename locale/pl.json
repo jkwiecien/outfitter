@@ -14,16 +14,19 @@
   "trousers": "Spodnie",
   "underwear": "Bielizna",
   "label_app_name": "Outfitter",
-  "page_title_creator_create": "Dodaj",
-  "page_title_creator_edit": "Edytuj",
+  "page_title_creator_create": "Tworzenie",
+  "page_title_creator_edit": "Edycja",
   "page_title_pick_category": "Wybierz kategorię",
   "hint_category_input": "Kategoria",
   "button_title_category": "Kategoria",
-  "hint_name_input": "Nazwa",
+  "label_category": "Kategoria",
+  "hint_name_input": "NAZWA",
   "hint_description_input": "Opis",
+  "hint_brand_input": "Producent",
   "error_message_general": "Coś poszło nie tak",
   "error_message_field_required": "Pole wymagane",
   "error_message_item_name_too_short": "Zbyt krótka nazwa",
   "label_loading": "Trwa ładowanie danych",
-  "action_save": "Zapisz"
+  "action_save": "Zapisz",
+  "label_not_selected": "Nie wybrano"
 }

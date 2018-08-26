@@ -3,11 +3,11 @@ import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/textfield_formatter.dart';
 import 'package:outfitter/utils/utils.dart';
 
-class ItemNameForm extends StatefulWidget {
+class ItemBrandForm extends StatefulWidget {
   final _state = _ItemNameFormState();
   Function(String) _onTextChanged;
 
-  ItemNameForm({@required Function(String) onTextChanged}) {
+  ItemBrandForm({@required Function(String) onTextChanged}) {
     _onTextChanged = onTextChanged;
   }
 
@@ -19,7 +19,7 @@ class ItemNameForm extends StatefulWidget {
   }
 }
 
-class _ItemNameFormState extends State<ItemNameForm> {
+class _ItemNameFormState extends State<ItemBrandForm> {
   final _formKey = GlobalKey<FormState>();
   final _textEditingController = TextEditingController();
 
@@ -31,22 +31,12 @@ class _ItemNameFormState extends State<ItemNameForm> {
         widget._onTextChanged(_textEditingController.text);
       },
       child: TextFormField(
-        style: TextStyleFactory.subtitle1(color: ColorConfig.FONT_PRIMARY),
-        inputFormatters: [AllCapsTextFormatter()],
+        style: TextStyleFactory.body1(color: ColorConfig.FONT_PRIMARY),
+        inputFormatters: [CapSentenceTextFormatter()],
         controller: _textEditingController,
         decoration: InputDecoration(
-            hintText: Translations.forKey('hint_name_input', context),
-            hintStyle:
-                TextStyleFactory.subtitle1(color: ColorConfig.FONT_HINT)),
-        validator: (value) {
-          if (value.isEmpty) {
-            return Translations.forKey('error_message_field_required', context);
-          }
-          if (value.length <= 2) {
-            return Translations.forKey(
-                'error_message_item_name_too_short', context);
-          }
-        },
+            hintText: Translations.forKey('hint_brand_input', context),
+            hintStyle: TextStyleFactory.body1(color: ColorConfig.FONT_HINT)),
       ),
     );
   }

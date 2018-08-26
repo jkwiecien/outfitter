@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:outfitter/application.dart';
-import 'package:outfitter/pages/itemeditor/item_editor.dart';
+import 'package:outfitter/pages/itemeditor/item_wizard.dart';
 import 'package:outfitter/translations.dart';
-import 'package:outfitter/utils.dart';
+import 'package:outfitter/utils/utils.dart';
 
 void main() => runApp(new OutfitterApp());
 
@@ -35,7 +35,7 @@ class OutfitterApp extends StatelessWidget {
 
         return supportedLocales.first;
       },
-      home: ItemEditorPage(),
+      home: ItemWizardPage(),
     );
   }
 }

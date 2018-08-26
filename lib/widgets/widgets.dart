@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:outfitter/utils.dart';
+import 'package:outfitter/utils/utils.dart';
 
 class AppBarFactory {
   static const _defaultNavigationIcon = Icons.arrow_back;
@@ -27,7 +27,7 @@ class AppBarFactory {
 }
 
 class DividerFactory {
-  static Widget leftCutDivider({offset: 40.0}) {
+  static Widget leftCutDivider({offset: 60.0}) {
     return Container(
       margin: EdgeInsets.fromLTRB(offset, 0.0, 0.0, 0.0),
       padding: EdgeInsets.fromLTRB(

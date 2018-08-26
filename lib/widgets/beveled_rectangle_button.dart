@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:outfitter/utils.dart';
+import 'package:outfitter/utils/utils.dart';
 
 class BeveledRectangleButton extends StatelessWidget {
   Function _onPressed;
