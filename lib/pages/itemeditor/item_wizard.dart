@@ -19,6 +19,8 @@ class ItemWizardPage extends StatefulWidget {
 }
 
 class _ItemWizardPageState extends State<ItemWizardPage> {
+  static const PHOTO_HEIGHT = 100.0;
+
   final ItemEditorModel _model = ItemEditorModel();
 
   ItemNameForm _nameForm;
@@ -189,7 +191,16 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                                 .toUpperCase(),
                             style: TextStyleFactory.overline(),
                           ),
-                          SizedBox(height: PaddingSizeConfig.SMALL),
+                          SizedBox(height: PaddingSizeConfig.LARGE),
+                          Container(
+                            height: PHOTO_HEIGHT,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: <Widget>[
+                                _addPhotoButton,
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -221,9 +232,11 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
   _navigateToCategoryPicker(BuildContext context) async {
     Category category = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => CategoryPickerPage()));
-    setState(() {
-      _model.category = category;
-    });
+    if (category != null) {
+      setState(() {
+        _model.category = category;
+      });
+    }
   }
 
   _saveItem() {
@@ -248,5 +261,24 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
     } else {
       _model.item.mainColor = null;
     }
+  }
+
+  Widget get _addPhotoButton {
+    return Container(
+      width: 130.0,
+      height: PHOTO_HEIGHT,
+      child: RawMaterialButton(
+        fillColor: ColorConfig.LIGHT_GREY,
+        elevation: 0.0,
+        child: Icon(
+          Icons.add_a_photo,
+          color: ColorConfig.FONT_PRIMARY,
+          size: 40.0,
+        ),
+        onPressed: () {
+          //TODO
+        },
+      ),
+    );
   }
 }

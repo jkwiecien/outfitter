@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:outfitter/models/item.dart';
 
 class TextStyleFactory {
   static TextStyle h4({color: ColorConfig.FONT_PRIMARY}) => TextStyle(
@@ -72,5 +71,5 @@ class ColorConfig {
   static const FONT_PRIMARY = THEME_PRIMARY_DARK;
   static const FONT_HINT = Color.fromRGBO(68, 44, 46, 0.5);
   static const FONT_WHITE = Colors.white;
-
+  static const LIGHT_GREY = Color.fromRGBO(224, 224, 224, 1.0);
 }

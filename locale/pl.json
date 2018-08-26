@@ -20,7 +20,7 @@
   "hint_category_input": "Kategoria",
   "button_title_category": "Kategoria",
   "label_category": "Kategoria",
-  "hint_name_input": "NAZWA",
+  "hint_name_input": "NAZWA (wymagana)",
   "hint_description_input": "Opis",
   "hint_brand_input": "Producent",
   "error_message_general": "Coś poszło nie tak",
