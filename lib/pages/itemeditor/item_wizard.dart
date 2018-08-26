@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:outfitter/models/category.dart';
+import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/itemeditor/brand_form.dart';
 import 'package:outfitter/pages/itemeditor/description_form.dart';
@@ -9,6 +10,7 @@ import 'package:outfitter/pages/itemeditor/name_form.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/beveled_rectangle_button.dart';
+import 'package:outfitter/widgets/main_color_box.dart';
 import 'package:outfitter/widgets/widgets.dart';
 
 class ItemWizardPage extends StatefulWidget {
@@ -22,6 +24,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
   ItemNameForm _nameForm;
   ItemDescriptionForm _descriptionForm;
   ItemBrandForm _brandForm;
+  List<MainColorBox> _mainColorBoxes;
 
   @override
   void initState() {
@@ -34,6 +37,21 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
     _brandForm = ItemBrandForm(onTextChanged: (text) {
       _model.item.brand = text;
     });
+
+    _mainColorBoxes = [
+      MainColorBox(MainColor(MainColorId.white), _onColorSelectionChanged),
+      MainColorBox(MainColor(MainColorId.grey), _onColorSelectionChanged),
+      MainColorBox(MainColor(MainColorId.black), _onColorSelectionChanged),
+      MainColorBox(MainColor(MainColorId.red), _onColorSelectionChanged),
+      MainColorBox(MainColor(MainColorId.pink), _onColorSelectionChanged),
+      MainColorBox(MainColor(MainColorId.purple), _onColorSelectionChanged),
+      MainColorBox(MainColor(MainColorId.blue), _onColorSelectionChanged),
+      MainColorBox(MainColor(MainColorId.green), _onColorSelectionChanged),
+      MainColorBox(MainColor(MainColorId.yellow), _onColorSelectionChanged),
+      MainColorBox(MainColor(MainColorId.orange), _onColorSelectionChanged),
+      MainColorBox(MainColor(MainColorId.brown), _onColorSelectionChanged)
+    ];
+
     super.initState();
   }
 
@@ -139,6 +157,12 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                             style: TextStyleFactory.overline(),
                           ),
                           SizedBox(height: PaddingSizeConfig.SMALL),
+                          Container(
+                            height: 40.0,
+                            child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: _mainColorBoxes),
+                          )
                         ],
                       ),
                     ),
@@ -212,6 +236,17 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
       } catch (error) {
         print(error.toString());
       }
+    }
+  }
+
+  _onColorSelectionChanged(MainColorBox mainColorBox) {
+    if (mainColorBox.state.selected) {
+      _model.item.mainColor = mainColorBox.mainColor;
+      _mainColorBoxes.forEach((colorBox) {
+        if (colorBox != mainColorBox) colorBox.state.selected = false;
+      });
+    } else {
+      _model.item.mainColor = null;
     }
   }
 }

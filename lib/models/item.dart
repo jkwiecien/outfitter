@@ -1,18 +1,5 @@
 import 'package:outfitter/models/category.dart';
-
-enum MainColor {
-  none,
-  white,
-  black,
-  red,
-  pink,
-  purple,
-  blue,
-  green,
-  yellow,
-  orange,
-  brown
-}
+import 'package:outfitter/models/main_color.dart';
 
 class Item {
   String id;
@@ -20,7 +7,7 @@ class Item {
   var name = '';
   var description = '';
   var brand = '';
-  MainColor mainColor = MainColor.none;
+  MainColor mainColor;
 
   Map<String, dynamic> toMap() {
     return {'name': name, 'description': description, 'brand': brand};
