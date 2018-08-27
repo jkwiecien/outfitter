@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:outfitter/application.dart';
+import 'package:outfitter/core/application.dart';
 
 class Translations {
   Translations(this.locale);

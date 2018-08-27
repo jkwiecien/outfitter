@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:outfitter/application.dart';
+import 'package:outfitter/core/application.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/pages/category_picker.dart';

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:outfitter/core/configuration.dart';
 
 class Application {
   final List<String> supportedLanguages = ['pl'];
@@ -13,14 +14,14 @@ class Application {
 
   Future<FirebaseApp> firebaseApp() async {
     return await FirebaseApp.configure(
-      name: 'Outfitter',
+      name: Configuration.FIREBASE_APP_NAME,
       options: FirebaseOptions(
         googleAppID: Platform.isIOS
-            ? 'FIXME 1:159623150305:ios:4a213ef3dbd8997b'
-            : '1:867000703836:android:075f43e6d5d95982',
-        gcmSenderID: '867000703836',
-        apiKey: 'AIzaSyAz5UUHUQXmFcXENWb2L1SAJKte3uQd7kQ',
-        projectID: 'pocket-outfitter',
+            ? Configuration.FIREBASE_IOS_APP_ID
+            : Configuration.FIREBASE_ANDROID_APP_ID,
+        gcmSenderID: Configuration.FIREBASE_SENDER_ID,
+        apiKey: Configuration.FIREBASE_PROJECT_API_KEY,
+        projectID: Configuration.FIREBASE_PROJECT_ID,
       ),
     );
   }
@@ -28,7 +29,8 @@ class Application {
   Future<FirebaseStorage> firebaseStorage() async {
     return firebaseApp().then((firebaseApp) {
       return FirebaseStorage(
-          app: firebaseApp, storageBucket: 'gs://pocket-outfitter.appspot.com');
+          app: firebaseApp,
+          storageBucket: Configuration.FIREBASE_STORAGE_BUCKET);
     });
   }
 

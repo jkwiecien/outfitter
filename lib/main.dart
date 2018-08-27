@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:outfitter/application.dart';
+import 'package:outfitter/core/application.dart';
 import 'package:outfitter/pages/itemeditor/item_wizard.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/utils.dart';
