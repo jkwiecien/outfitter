@@ -13,4 +13,9 @@ class Item {
   Map<String, dynamic> toMap() {
     return {'name': name, 'description': description, 'brand': brand};
   }
+
+  void addPicture(String url) {
+    pictures.add(url);
+    pictures = pictures.reversed.toList();
+  }
 }

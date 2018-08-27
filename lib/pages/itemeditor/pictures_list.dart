@@ -19,37 +19,62 @@ class PicturesListView extends StatefulWidget {
 class _PicturesListViewState extends State<PicturesListView> {
   List<String> _urls;
   final Function _onAddPicturePressed;
+  num uploadsInProgress = 0;
 
   _PicturesListViewState(this._urls, this._onAddPicturePressed);
 
   set urls(List<String> updatedUrls) {
     setState(() {
+      uploadsInProgress--;
       _urls = updatedUrls;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_urls.isEmpty) {
-      return _addPhotoButton;
-    } else {
-      final List<Widget> items = List();
-      items.add(_addPhotoButton);
+    final List<Widget> items = List();
+    items.add(_addPhotoButton);
+    for (var i = 0; i < uploadsInProgress; i++) {
+      items.add(_progressIndicator());
+    }
+
+    print('URLS: $_urls');
+    if (_urls != null) {
       _urls.forEach((url) {
+        print('URL: $url');
         print(url);
         items.add(Container(
+          decoration: BoxDecoration(
+              color: ColorConfig.LIGHT_GREY, shape: BoxShape.rectangle),
           margin: EdgeInsets.fromLTRB(0.0, 0.0, PaddingSizeConfig.SMALL, 0.0),
           width: PicturesListView.PHOTO_WIDTH,
           height: PicturesListView.PHOTO_HEIGHT,
           child: Image.network(
             url,
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.fitHeight,
           ),
         ));
       });
-      print(items);
-      return ListView(scrollDirection: Axis.horizontal, children: items);
     }
+
+    return ListView(scrollDirection: Axis.horizontal, children: items);
+  }
+
+  Widget _progressIndicator() {
+    return Container(
+      width: PicturesListView.PHOTO_WIDTH,
+      height: PicturesListView.PHOTO_HEIGHT,
+      margin: EdgeInsets.fromLTRB(0.0, 0.0, PaddingSizeConfig.SMALL, 0.0),
+      decoration: BoxDecoration(
+          color: ColorConfig.LIGHT_GREY, shape: BoxShape.rectangle),
+      child: Center(
+          child: Container(
+              width: 24.0,
+              height: 24.0,
+              child: CircularProgressIndicator(
+                strokeWidth: 3.0,
+              ))),
+    );
   }
 
   Widget get _addPhotoButton {
@@ -70,5 +95,11 @@ class _PicturesListViewState extends State<PicturesListView> {
         },
       ),
     );
+  }
+
+  void notifyUploadStarted() {
+    setState(() {
+      uploadsInProgress++;
+    });
   }
 }

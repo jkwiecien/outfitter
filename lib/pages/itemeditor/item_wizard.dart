@@ -274,6 +274,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
         .pickImage(
             source: ImageSource.gallery, maxWidth: 1200.0, maxHeight: 1200.0)
         .then((imageFile) {
+      _picturesListView.state.notifyUploadStarted();
       application.firebaseStorage().then((storage) {
         final uid = Uuid().v4();
         final StorageReference ref =
@@ -285,7 +286,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
         final Uri downloadUrl = uploadTaskSnapshot.downloadUrl;
         final url = downloadUrl.toString();
         print("URL: $url");
-        _model.item.pictures.add(url);
+        _model.item.addPicture(url);
         return _model.item.pictures;
       }).then((urls) {
         _picturesListView.state.urls = urls;
