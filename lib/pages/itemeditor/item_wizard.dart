@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +10,7 @@ import 'package:outfitter/pages/itemeditor/brand_form.dart';
 import 'package:outfitter/pages/itemeditor/description_form.dart';
 import 'package:outfitter/pages/itemeditor/model.dart';
 import 'package:outfitter/pages/itemeditor/name_form.dart';
+import 'package:outfitter/pages/itemeditor/pictures_list.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/beveled_rectangle_button.dart';
@@ -25,14 +24,13 @@ class ItemWizardPage extends StatefulWidget {
 }
 
 class _ItemWizardPageState extends State<ItemWizardPage> {
-  static const PHOTO_HEIGHT = 100.0;
-
   final ItemEditorModel _model = ItemEditorModel();
 
   ItemNameForm _nameForm;
   ItemDescriptionForm _descriptionForm;
   ItemBrandForm _brandForm;
   List<MainColorBox> _mainColorBoxes;
+  PicturesListView _picturesListView;
 
   @override
   void initState() {
@@ -59,6 +57,9 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
       MainColorBox(MainColor(MainColorId.orange), _onColorSelectionChanged),
       MainColorBox(MainColor(MainColorId.brown), _onColorSelectionChanged)
     ];
+
+    _picturesListView =
+        PicturesListView(_model.item.pictures, _addImageFromGallery);
 
     super.initState();
   }
@@ -199,13 +200,8 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                           ),
                           SizedBox(height: PaddingSizeConfig.LARGE),
                           Container(
-                            height: PHOTO_HEIGHT,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: <Widget>[
-                                _addPhotoButton,
-                              ],
-                            ),
+                            height: PicturesListView.PHOTO_HEIGHT,
+                            child: _picturesListView,
                           ),
                         ],
                       ),
@@ -269,43 +265,31 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
     }
   }
 
-  Widget get _addPhotoButton {
-    return Container(
-      width: 130.0,
-      height: PHOTO_HEIGHT,
-      child: RawMaterialButton(
-        fillColor: ColorConfig.LIGHT_GREY,
-        elevation: 0.0,
-        child: Icon(
-          Icons.add_a_photo,
-          color: ColorConfig.FONT_PRIMARY,
-          size: 40.0,
-        ),
-        onPressed: () {
-          getImage();
-        },
-      ),
-    );
-  }
+  void _addImageFromGallery() {
+//    final url = 'https://firebasestorage.googleapis.com/v0/b/pocket-outfitter.appspot.com/o/pictures%2F0284e33d-f03b-463d-8bd1-b5ad3db401d0.jpg?alt=media&token=0aabd1f6-cc44-4013-be5d-fb27190dc9e2';
+//    _model.item.pictures.add(url);
+//    _picturesListView.state.urls = _model.item.pictures;
 
-  Future getImage() async {
-    final imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-    application.firebaseStorage().then((storage) {
-      final uid = Uuid().v4();
-      final StorageReference ref =
-          storage.ref().child('pictures').child('$uid.jpg');
-      final StorageUploadTask uploadTask =
-          ref.putFile(imageFile, StorageMetadata(contentType: 'image/jpeg'));
-      return uploadTask.future;
-    }).then((uploadTaskSnapshot) {
-      final Uri downloadUrl = uploadTaskSnapshot.downloadUrl;
-      final url = downloadUrl.toString();
-      print("URL: $url");
-      _model.item.pictures.add(url);
+    ImagePicker
+        .pickImage(
+            source: ImageSource.gallery, maxWidth: 1200.0, maxHeight: 1200.0)
+        .then((imageFile) {
+      application.firebaseStorage().then((storage) {
+        final uid = Uuid().v4();
+        final StorageReference ref =
+            storage.ref().child('pictures').child('$uid.jpg');
+        final StorageUploadTask uploadTask =
+            ref.putFile(imageFile, StorageMetadata(contentType: 'image/jpeg'));
+        return uploadTask.future;
+      }).then((uploadTaskSnapshot) {
+        final Uri downloadUrl = uploadTaskSnapshot.downloadUrl;
+        final url = downloadUrl.toString();
+        print("URL: $url");
+        _model.item.pictures.add(url);
+        return _model.item.pictures;
+      }).then((urls) {
+        _picturesListView.state.urls = urls;
+      });
     });
-//
-//    setState(() {
-//      _image = image;
-//    });
   }
 }
