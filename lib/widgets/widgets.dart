@@ -3,12 +3,28 @@ import 'package:outfitter/utils/utils.dart';
 
 class AppBarFactory {
   static const _defaultNavigationIcon = Icons.arrow_back;
-  static const _defaultBackgroundColor = Colors.transparent;
+  static const _transparentColor = Colors.transparent;
+  static const _appBarColor = ColorConfig.THEME_PRIMARY;
+
+  static AppBar mainAppBar(BuildContext context,
+      {String title: '',
+      IconData navigationIcon: _defaultNavigationIcon,
+      Color backgroundColor: _appBarColor}) {
+    return AppBar(
+        backgroundColor: backgroundColor,
+        elevation: 0.0,
+        title: Text(title.toUpperCase(),
+            style: TextStyle(
+                color: ColorConfig.FONT_PRIMARY,
+                decorationColor: ColorConfig.FONT_PRIMARY,
+                fontWeight: FontWeightConfig.MEDIUM,
+                fontSize: FontSizeConfig.LARGE)));
+  }
 
   static AppBar flatAppBar(BuildContext context,
       {String title: '',
       IconData navigationIcon: _defaultNavigationIcon,
-      Color backgroundColor: _defaultBackgroundColor}) {
+      Color backgroundColor: _transparentColor}) {
     return AppBar(
         backgroundColor: backgroundColor,
         elevation: 0.0,
