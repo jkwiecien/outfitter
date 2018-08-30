@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:outfitter/core/application.dart';
 import 'package:outfitter/models/category.dart';
+import 'package:outfitter/models/item.dart';
 import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/models/picture.dart';
 import 'package:outfitter/pages/category_picker.dart';
@@ -247,13 +248,11 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
   _saveItem(BuildContext context) {
     if (_model.category == null) {
       final snackBar = SnackBar(
-          content: Text(Translations.forKey('error_message_no_item_category',
-              context)), duration: Duration(seconds: 3));
+          content: Text(
+              Translations.forKey('error_message_no_item_category', context)),
+          duration: Duration(seconds: 3));
       _scaffoldKey.currentState.showSnackBar(snackBar);
     } else if (_nameForm.validate()) {
-      String id = Uuid().v4();
-      _model.item.id = id;
-
       String categoryItemsPath = 'categories/${_model.category
           .toString()}/items';
 
@@ -275,7 +274,8 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
             .then((querySnapshot) {
           return querySnapshot.documents.first;
         }).then((documentSnapshot) {
-          print("Saved and returned: $documentSnapshot");
+          final Item item = Item.fromSnapshot(documentSnapshot);
+          print(item.toString());
         });
       });
     }

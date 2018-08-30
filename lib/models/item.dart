@@ -1,31 +1,54 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/models/picture.dart';
 
 class Item {
   String id;
+  DateTime dateCreated = DateTime.now();
   Category category;
   var name = '';
   var description = '';
   var brand = '';
   MainColor mainColor;
   List<ItemPicture> pictures = List();
-  DateTime dateCreated = DateTime.now();
+
+  Item();
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'category': category != null ? category.toString() : null,
       'name': name,
       'description': description,
       'brand': brand,
+      'mainColor': mainColor.toString(),
+      'dateCreated': dateCreated,
       'pictures': Map.fromEntries(
           pictures.map((picture) => MapEntry(picture.id, picture.url)))
     };
   }
 
+  Item.fromSnapshot(DocumentSnapshot snapshot) {
+    id = snapshot.documentID;
+    dateCreated = snapshot.data['dateCreated'];
+    name = snapshot.data['name'];
+    description = snapshot.data['description'];
+    brand = snapshot.data['brand'];
+    mainColor = MainColor.fromString(snapshot['mainColor']);
+    final picturesMap = snapshot.data['pictures'];
+    picturesMap.entries.forEach((pictureMapEntry) {
+      pictures.add(ItemPicture(pictureMapEntry.key, pictureMapEntry.value));
+    });
+  }
+
   void addPicture(ItemPicture picture) {
     pictures.add(picture);
     pictures = pictures.reversed.toList();
+  }
+
+  @override
+  String toString() {
+    return '$id created: $dateCreated \nname: $name \nmain color: $mainColor \ndescription: $description √brand: $brand \npictures: ${pictures
+        .map((p) => p.id)}';
   }
 }

@@ -15,7 +15,7 @@ enum MainColorId {
 }
 
 class MainColor {
-  final MainColorId id;
+  MainColorId id;
 
   MainColor(this.id);
 
@@ -46,5 +46,16 @@ class MainColor {
       default:
         return Colors.transparent;
     }
+  }
+
+  MainColor.fromString(String mainColorIdString) {
+    id = MainColorId.values.firstWhere(
+        (c) => c.toString() == 'MainColorId.$mainColorIdString',
+        orElse: () => null);
+  }
+
+  @override
+  String toString() {
+    return id.toString().replaceAll("MainColorId.", "");
   }
 }

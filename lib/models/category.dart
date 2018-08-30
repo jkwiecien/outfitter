@@ -27,7 +27,6 @@ class Category {
     categoryId = CategoryId.values.firstWhere(
         (c) => c.toString() == 'CategoryId.$categoryIdString',
         orElse: () => null);
-    print("$categoryId created from string: $categoryIdString");
   }
 
   Category.fromId(CategoryId enumId) {
