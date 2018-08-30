@@ -11,31 +11,6 @@ class DiscoverPage extends StatefulWidget {
 class _DiscoverPageState extends State<DiscoverPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      key: _scaffoldKey,
-//      backgroundColor: ColorConfig.THEME_PRIMARY,
-//      appBar: AppBarFactory.mainAppBar(context,
-//          title: Translations.forKey('label_app_name', context)),
-//      body: Container(
-//          child: Column(
-//        children: <Widget>[
-//          Expanded(
-//            child: RawMaterialButton(
-//              shape: BeveledRectangleBorder(
-//                  borderRadius:
-//                      BorderRadius.only(topLeft: Radius.circular(40.0))),
-//              elevation: 14.0,
-//              fillColor: ColorConfig.BACKGROUND,
-//              child: Text('affsfafs'),
-//            ),
-//          ),
-//        ],
-//      )),
-//    );
-//  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,4 +39,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
       ),
     );
   }
+
+  void _loadResults() {
+
+  }
+
 }

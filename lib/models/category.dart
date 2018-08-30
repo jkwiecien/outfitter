@@ -41,4 +41,11 @@ class Category {
   String toString() {
     return categoryId.toString().replaceAll("CategoryId.", "");
   }
+
+  @override
+  bool operator ==(other) =>
+      other is Category && categoryId == other.categoryId;
+
+  @override
+  int get hashCode => categoryId.hashCode;
 }

@@ -51,4 +51,10 @@ class Item {
     return '$id created: $dateCreated \nname: $name \nmain color: $mainColor \ndescription: $description √brand: $brand \npictures: ${pictures
         .map((p) => p.id)}';
   }
+
+  @override
+  bool operator ==(other) => other is Item && id == other.id;
+
+  @override
+  int get hashCode => id != null ? id.hashCode : 0;
 }
