@@ -26,6 +26,7 @@
   "error_message_general": "Coś poszło nie tak",
   "error_message_field_required": "Pole wymagane",
   "error_message_item_name_too_short": "Zbyt krótka nazwa",
+  "error_message_no_item_category": "Wybierz kategorię",
   "label_loading": "Trwa ładowanie danych",
   "action_save": "Zapisz",
   "label_not_selected": "Nie wybrano",

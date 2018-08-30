@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outfitter/models/picture.dart';
 import 'package:outfitter/utils/utils.dart';
 
 class PicturesListView extends StatefulWidget {
@@ -8,8 +9,8 @@ class PicturesListView extends StatefulWidget {
 
   _PicturesListViewState get state => _state;
 
-  PicturesListView(List<String> urls, Function onAddPicturePressed) {
-    _state = _PicturesListViewState(urls, onAddPicturePressed);
+  PicturesListView(List<ItemPicture> pictures, Function onAddPicturePressed) {
+    _state = _PicturesListViewState(pictures, onAddPicturePressed);
   }
 
   @override
@@ -17,16 +18,16 @@ class PicturesListView extends StatefulWidget {
 }
 
 class _PicturesListViewState extends State<PicturesListView> {
-  List<String> _urls;
+  List<ItemPicture> _pictures;
   final Function _onAddPicturePressed;
   num uploadsInProgress = 0;
 
-  _PicturesListViewState(this._urls, this._onAddPicturePressed);
+  _PicturesListViewState(this._pictures, this._onAddPicturePressed);
 
-  set urls(List<String> updatedUrls) {
+  set pictures(List<ItemPicture> updatedPictures) {
     setState(() {
       uploadsInProgress--;
-      _urls = updatedUrls;
+      _pictures = updatedPictures;
     });
   }
 
@@ -38,11 +39,8 @@ class _PicturesListViewState extends State<PicturesListView> {
       items.add(_progressIndicator());
     }
 
-    print('URLS: $_urls');
-    if (_urls != null) {
-      _urls.forEach((url) {
-        print('URL: $url');
-        print(url);
+    if (_pictures != null) {
+      _pictures.forEach((picture) {
         items.add(Container(
           decoration: BoxDecoration(
               color: ColorConfig.LIGHT_GREY, shape: BoxShape.rectangle),
@@ -50,7 +48,7 @@ class _PicturesListViewState extends State<PicturesListView> {
           width: PicturesListView.PHOTO_WIDTH,
           height: PicturesListView.PHOTO_HEIGHT,
           child: Image.network(
-            url,
+            picture.url,
             fit: BoxFit.fitHeight,
           ),
         ));

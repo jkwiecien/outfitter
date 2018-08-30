@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:outfitter/core/application.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/main_color.dart';
+import 'package:outfitter/models/picture.dart';
 import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/itemeditor/brand_form.dart';
 import 'package:outfitter/pages/itemeditor/description_form.dart';
@@ -26,6 +27,7 @@ class ItemWizardPage extends StatefulWidget {
 class _ItemWizardPageState extends State<ItemWizardPage> {
   final ItemEditorModel _model = ItemEditorModel();
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   ItemNameForm _nameForm;
   ItemDescriptionForm _descriptionForm;
   ItemBrandForm _brandForm;
@@ -67,6 +69,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: ColorConfig.BACKGROUND,
       appBar: AppBarFactory.flatAppBar(context,
           navigationIcon: Icons.close,
@@ -218,7 +221,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                       title: Translations.forKey('action_save', context),
                       icon: Icons.save,
                       onPressed: () {
-                        _saveItem();
+                        _saveItem(context);
                       },
                     ),
                   ),
@@ -241,16 +244,40 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
     }
   }
 
-  _saveItem() {
-    if (_nameForm.validate()) {
-      try {
-        Firestore.instance
-            .collection('categories/${_model.category.toString()}/items')
-            .document()
-            .setData(_model.item.toMap());
-      } catch (error) {
+  _saveItem(BuildContext context) {
+    if (_model.category == null) {
+      final snackBar = SnackBar(
+          content: Text(Translations.forKey('error_message_no_item_category',
+              context)), duration: Duration(seconds: 3));
+      _scaffoldKey.currentState.showSnackBar(snackBar);
+    } else if (_nameForm.validate()) {
+      String id = Uuid().v4();
+      _model.item.id = id;
+
+      String categoryItemsPath = 'categories/${_model.category
+          .toString()}/items';
+
+      Firestore firestore = Firestore.instance;
+
+      firestore
+          .collection(categoryItemsPath)
+          .document()
+          .setData(_model.item.toMap())
+          .catchError((error) {
         print(error.toString());
-      }
+      }).whenComplete(() {
+        firestore
+            .collection(categoryItemsPath)
+            .where('name', isEqualTo: _model.item.name)
+            .where('dateCreated', isEqualTo: _model.item.dateCreated)
+            .snapshots()
+            .first
+            .then((querySnapshot) {
+          return querySnapshot.documents.first;
+        }).then((documentSnapshot) {
+          print("Saved and returned: $documentSnapshot");
+        });
+      });
     }
   }
 
@@ -269,14 +296,13 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
 //    final url = 'https://firebasestorage.googleapis.com/v0/b/pocket-outfitter.appspot.com/o/pictures%2F0284e33d-f03b-463d-8bd1-b5ad3db401d0.jpg?alt=media&token=0aabd1f6-cc44-4013-be5d-fb27190dc9e2';
 //    _model.item.pictures.add(url);
 //    _picturesListView.state.urls = _model.item.pictures;
-
+    final uid = Uuid().v4();
     ImagePicker
         .pickImage(
             source: ImageSource.gallery, maxWidth: 1200.0, maxHeight: 1200.0)
         .then((imageFile) {
       _picturesListView.state.notifyUploadStarted();
       application.firebaseStorage().then((storage) {
-        final uid = Uuid().v4();
         final StorageReference ref =
             storage.ref().child('pictures').child('$uid.jpg');
         final StorageUploadTask uploadTask =
@@ -285,11 +311,10 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
       }).then((uploadTaskSnapshot) {
         final Uri downloadUrl = uploadTaskSnapshot.downloadUrl;
         final url = downloadUrl.toString();
-        print("URL: $url");
-        _model.item.addPicture(url);
+        _model.item.addPicture(ItemPicture(uid, url));
         return _model.item.pictures;
-      }).then((urls) {
-        _picturesListView.state.urls = urls;
+      }).then((pictures) {
+        _picturesListView.state.pictures = pictures;
       });
     });
   }

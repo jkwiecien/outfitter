@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/pages/category_picker.dart';
@@ -142,15 +141,15 @@ class _ItemEditorPageState extends State<ItemEditorPage> {
   }
 
   _saveItem() {
-    if (_nameForm.validate()) {
-      try {
-        Firestore.instance
-            .collection('categories/${_model.category.toString()}/items')
-            .document()
-            .setData(_model.item.toMap());
-      } catch (error) {
-        print(error.toString());
-      }
-    }
+//    if (_nameForm.validate()) {
+//      try {
+//        Firestore.instance
+//            .collection('categories/${_model.category.toString()}/items')
+//            .document()
+//            .setData(_model.item.toMap());
+//      } catch (error) {
+//        print(error.toString());
+//      }
+//    }
   }
 }
