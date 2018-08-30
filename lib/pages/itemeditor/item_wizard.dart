@@ -34,6 +34,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
   ItemBrandForm _brandForm;
   List<MainColorBox> _mainColorBoxes;
   PicturesListView _picturesListView;
+  BeveledRectangleProgressButtonState _saveButtonState;
 
   @override
   void initState() {
@@ -63,6 +64,12 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
 
     _picturesListView =
         PicturesListView(_model.item.pictures, _addImageFromGallery);
+
+    _saveButtonState = BeveledRectangleProgressButtonState(
+        iconData: Icons.save,
+        onPressed: () {
+          _saveItem(context);
+        });
 
     super.initState();
   }
@@ -218,13 +225,8 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.all(PaddingSizeConfig.LARGE),
-                    child: BeveledRectangleButton(
-                      title: Translations.forKey('action_save', context),
-                      icon: Icons.save,
-                      onPressed: () {
-                        _saveItem(context);
-                      },
-                    ),
+                    child: BeveledRectangleProgressButton(_saveButtonState,
+                        title: Translations.forKey('action_save', context)),
                   ),
                 ),
               ],
@@ -253,6 +255,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
           duration: Duration(seconds: 3));
       _scaffoldKey.currentState.showSnackBar(snackBar);
     } else if (_nameForm.validate()) {
+      _saveButtonState.progress = true;
       String categoryItemsPath = 'categories/${_model.category
           .toString()}/items';
 
@@ -262,9 +265,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
           .collection(categoryItemsPath)
           .document()
           .setData(_model.item.toMap())
-          .catchError((error) {
-        print(error.toString());
-      }).whenComplete(() {
+          .whenComplete(() {
         firestore
             .collection(categoryItemsPath)
             .where('name', isEqualTo: _model.item.name)
@@ -276,6 +277,10 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
         }).then((documentSnapshot) {
           final Item item = Item.fromSnapshot(documentSnapshot);
           print(item.toString());
+          _saveButtonState.progress = false;
+        }).catchError((error) {
+          _saveButtonState.progress = false;
+          print(error);
         });
       });
     }
