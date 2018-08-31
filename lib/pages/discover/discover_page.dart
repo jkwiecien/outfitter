@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
+import 'package:outfitter/pages/category_picker.dart';
+import 'package:outfitter/pages/discover/model.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/widgets.dart';
@@ -16,7 +19,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  List<Item> _items = List();
+  final _model = DiscoverModel();
 
   @override
   void initState() {
@@ -54,6 +57,16 @@ class _DiscoverPageState extends State<DiscoverPage> {
             Container(
               height: 40.0,
               margin: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 20.0),
+              child: RawMaterialButton(
+                  child: Text(
+                    _model.selectedCategory
+                        .getLocalisedName(context)
+                        .toUpperCase(),
+                    style: TextStyleFactory.button(),
+                  ),
+                  onPressed: () {
+                    _navigateToCategoryPicker(context);
+                  }),
             ),
             Expanded(
                 child: GridView.count(
@@ -83,7 +96,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
         .listen((querySnapshot) {
       print('WTF | Loaded items: ${querySnapshot.documents.length}');
       setState(() {
-        _items = querySnapshot.documents
+        _model.items = querySnapshot.documents
             .map((document) => Item.fromSnapshot(document))
             .toList();
       });
@@ -204,5 +217,15 @@ class _DiscoverPageState extends State<DiscoverPage> {
 //    return _items.map((item) {
 //      Text('WTF');
 //    }).toList();
+  }
+
+  void _navigateToCategoryPicker(BuildContext context) async {
+    ItemCategory category = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CategoryPickerPage()));
+    if (category != null) {
+      setState(() {
+        _model.selectedCategory = category;
+      });
+    }
   }
 }
