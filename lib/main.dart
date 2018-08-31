@@ -36,7 +36,8 @@ class OutfitterApp extends StatelessWidget {
 
         return supportedLocales.first;
       },
-      home: DiscoverPage(),
+//      home: DiscoverPage(),
+      home: ItemWizardPage(),
     );
   }
 }
