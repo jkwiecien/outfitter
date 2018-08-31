@@ -11,7 +11,7 @@ class DiscoverPage extends StatefulWidget {
 }
 
 class _DiscoverPageState extends State<DiscoverPage> {
-  static const ITEM_HEIGHT = 180.0;
+  static const ITEM_HEIGHT = 200.0;
   static const ITEM_SPACING = 2.0;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -27,7 +27,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    final double itemWidth = screenSize.width / 2;
+    final double itemWidth = (screenSize.width / 2) - ITEM_SPACING * 2;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -36,6 +36,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
           title: Translations.forKey('label_app_name', context)),
       body: Container(
         margin: EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
+        padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
         decoration: ShapeDecoration(
             color: ColorConfig.BACKGROUND,
             shape: BeveledRectangleBorder(
@@ -52,15 +53,14 @@ class _DiscoverPageState extends State<DiscoverPage> {
           children: <Widget>[
             Container(
               height: 40.0,
-              margin: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 10.0),
+              margin: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 20.0),
             ),
             Expanded(
                 child: GridView.count(
               crossAxisCount: 2,
-              childAspectRatio: (itemWidth / (ITEM_HEIGHT + 1.1)),
+              childAspectRatio: (itemWidth / ITEM_HEIGHT),
               mainAxisSpacing: ITEM_SPACING,
               crossAxisSpacing: ITEM_SPACING,
-              shrinkWrap: true,
               children: _itemsWidgets,
             ))
           ],
@@ -98,6 +98,11 @@ class _DiscoverPageState extends State<DiscoverPage> {
             height: ITEM_HEIGHT,
             child: Stack(
               children: <Widget>[
+                Container(
+                  width: 3000.0,
+                  height: ITEM_HEIGHT,
+                  color: ColorConfig.THEME_SECONDARY,
+                ),
                 Image.network(
                   'https://www.spree.co.za/imgop/w-pdp-600x803/media/catalog/product/s/p/spree170622junepicslg035.jpg',
                   height: ITEM_HEIGHT,
@@ -109,7 +114,11 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     children: <Widget>[
                       Expanded(
                         child: Container(
-                            padding: EdgeInsets.all(PaddingSizeConfig.SMALL),
+                            padding: EdgeInsets.fromLTRB(
+                                PaddingSizeConfig.SMALL,
+                                PaddingSizeConfig.LARGE,
+                                PaddingSizeConfig.SMALL,
+                                PaddingSizeConfig.SMALL),
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
