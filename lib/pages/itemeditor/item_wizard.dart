@@ -238,7 +238,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
   }
 
   _navigateToCategoryPicker(BuildContext context) async {
-    Category category = await Navigator.push(
+    ItemCategory category = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => CategoryPickerPage()));
     if (category != null) {
       setState(() {

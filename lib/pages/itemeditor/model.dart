@@ -6,7 +6,7 @@ import 'package:outfitter/translations.dart';
 class ItemEditorModel {
   final Item item = Item();
 
-  set category(Category category) {
+  set category(ItemCategory category) {
     item.category = category;
   }
 

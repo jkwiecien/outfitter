@@ -5,7 +5,7 @@ import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/widgets.dart';
 
-typedef void OnCategoryPicked(Category category);
+typedef void OnCategoryPicked(ItemCategory category);
 
 class CategoryPickerPage extends StatelessWidget {
   @override
@@ -34,11 +34,11 @@ class CategoryPickerPage extends StatelessWidget {
                     ListTile(
                       onTap: () {
                         final category =
-                            Category.fromString(document.documentID);
+                            ItemCategory.fromString(document.documentID);
                         Navigator.pop(context, category);
                       },
                       title: Text(
-                        Category
+                        ItemCategory
                             .fromString(document.documentID)
                             .getLocalisedName(context)
                             .toUpperCase(),

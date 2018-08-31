@@ -131,7 +131,7 @@ class _ItemEditorPageState extends State<ItemEditorPage> {
   }
 
   _navigateToCategoryPicker(BuildContext context) async {
-    Category category = await Navigator.push(
+    ItemCategory category = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => CategoryPickerPage()));
 //    print(category.getLocalisedName(context));
 

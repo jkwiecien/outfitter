@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
               children:
                   snapshot.data.documents.map((DocumentSnapshot document) {
                 return new ListTile(
-                  title: Text(Category
+                  title: Text(ItemCategory
                       .fromString(document.documentID)
                       .getLocalisedName(context)),
                 );

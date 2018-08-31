@@ -18,18 +18,18 @@ enum CategoryId {
   underwear
 }
 
-class Category {
+class ItemCategory {
   CategoryId categoryId;
 
-  Category(this.categoryId);
+  ItemCategory(this.categoryId);
 
-  Category.fromString(String categoryIdString) {
+  ItemCategory.fromString(String categoryIdString) {
     categoryId = CategoryId.values.firstWhere(
         (c) => c.toString() == 'CategoryId.$categoryIdString',
         orElse: () => null);
   }
 
-  Category.fromId(CategoryId enumId) {
+  ItemCategory.fromId(CategoryId enumId) {
     categoryId = enumId;
   }
 
@@ -44,7 +44,7 @@ class Category {
 
   @override
   bool operator ==(other) =>
-      other is Category && categoryId == other.categoryId;
+      other is ItemCategory && categoryId == other.categoryId;
 
   @override
   int get hashCode => categoryId.hashCode;

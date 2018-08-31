@@ -6,7 +6,7 @@ import 'package:outfitter/models/picture.dart';
 class Item {
   String id;
   DateTime dateCreated = DateTime.now();
-  Category category;
+  ItemCategory category;
   var name = '';
   var description = '';
   var brand = '';
