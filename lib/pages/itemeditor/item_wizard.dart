@@ -306,21 +306,24 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
         .pickImage(
             source: ImageSource.gallery, maxWidth: 1200.0, maxHeight: 1200.0)
         .then((imageFile) {
-      _picturesListView.state.notifyUploadStarted();
-      application.firebaseStorage().then((storage) {
-        final StorageReference ref =
-            storage.ref().child('pictures').child('$uid.jpg');
-        final StorageUploadTask uploadTask =
-            ref.putFile(imageFile, StorageMetadata(contentType: 'image/jpeg'));
-        return uploadTask.future;
-      }).then((uploadTaskSnapshot) {
-        final Uri downloadUrl = uploadTaskSnapshot.downloadUrl;
-        final url = downloadUrl.toString();
-        _model.item.addPicture(ItemPicture(uid, url));
-        return _model.item.pictures;
-      }).then((pictures) {
-        _picturesListView.state.pictures = pictures;
-      });
+      if (imageFile != null) {
+        _picturesListView.state.notifyUploadStarted();
+        print('IMAGE: $imageFile');
+        application.firebaseStorage().then((storage) {
+          final StorageReference ref =
+              storage.ref().child('pictures').child('$uid.jpg');
+          final StorageUploadTask uploadTask = ref.putFile(
+              imageFile, StorageMetadata(contentType: 'image/jpeg'));
+          return uploadTask.future;
+        }).then((uploadTaskSnapshot) {
+          final Uri downloadUrl = uploadTaskSnapshot.downloadUrl;
+          final url = downloadUrl.toString();
+          _model.item.addPicture(ItemPicture(uid, url));
+          return _model.item.pictures;
+        }).then((pictures) {
+          _picturesListView.state.pictures = pictures;
+        });
+      }
     });
   }
 }
