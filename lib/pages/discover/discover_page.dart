@@ -105,13 +105,30 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   fit: BoxFit.cover,
                 ),
                 Align(
-                  child: Container(
-                      padding: EdgeInsets.all(PaddingSizeConfig.SMALL),
-                      color: ColorConfig.THEME_PRIMARY,
-                      child: Text(
-                        'Takie tam buciki',
-                        style: TextStyleFactory.subtitle1(),
-                      )),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                            padding: EdgeInsets.all(PaddingSizeConfig.SMALL),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  ColorConfig.THEME_PRIMARY_DARK,
+                                  Colors.transparent
+                                ],
+                                stops: [0.0, 0.9],
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                              ),
+                            ),
+                            child: Text(
+                              'Takie tam buciki ale z dluzsza nazwa',
+                              style: TextStyleFactory.subtitle1(
+                                  color: ColorConfig.FONT_LIGHT),
+                            )),
+                      ),
+                    ],
+                  ),
                   alignment: FractionalOffset.bottomLeft,
                 )
               ],
