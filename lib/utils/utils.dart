@@ -70,6 +70,6 @@ class ColorConfig {
   static const DIVIDER = Color.fromRGBO(68, 44, 46, 0.3);
   static const FONT_PRIMARY = THEME_PRIMARY_DARK;
   static const FONT_HINT = Color.fromRGBO(68, 44, 46, 0.5);
-  static const FONT_WHITE = Colors.white;
+  static const FONT_LIGHT = Color.fromRGBO(255, 251, 250, 1.0);
   static const LIGHT_GREY = Color.fromRGBO(224, 224, 224, 1.0);
 }

@@ -36,9 +36,11 @@ class Item {
     brand = snapshot.data['brand'];
     mainColor = MainColor.fromString(snapshot['mainColor']);
     final picturesMap = snapshot.data['pictures'];
-    picturesMap.entries.forEach((pictureMapEntry) {
-      pictures.add(ItemPicture(pictureMapEntry.key, pictureMapEntry.value));
-    });
+    if (picturesMap != null) {
+      picturesMap.entries.forEach((pictureMapEntry) {
+        pictures.add(ItemPicture(pictureMapEntry.key, pictureMapEntry.value));
+      });
+    }
   }
 
   void addPicture(ItemPicture picture) {
@@ -48,7 +50,7 @@ class Item {
 
   @override
   String toString() {
-    return '$id created: $dateCreated \nname: $name \nmain color: $mainColor \ndescription: $description √brand: $brand \npictures: ${pictures
+    return '$id created: $dateCreated \nname: $name \nmain color: $mainColor \ndescription: $description \nbrand: $brand \npictures: ${pictures
         .map((p) => p.id)}';
   }
 
