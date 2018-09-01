@@ -29,7 +29,6 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
   final ItemEditorModel _model = ItemEditorModel();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  ItemNameForm _nameForm;
   ItemDescriptionForm _descriptionForm;
   ItemBrandForm _brandForm;
   List<MainColorBox> _mainColorBoxes;
@@ -38,9 +37,6 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
 
   @override
   void initState() {
-    _nameForm = ItemNameForm(onTextChanged: (text) {
-      _model.item.name = text;
-    });
     _descriptionForm = ItemDescriptionForm(onTextChanged: (text) {
       _model.item.description = text;
     });
@@ -147,7 +143,6 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                             style: TextStyleFactory.overline(),
                           ),
                           SizedBox(height: PaddingSizeConfig.SMALL),
-                          _nameForm,
                           _descriptionForm,
                           _brandForm
                         ],
@@ -254,7 +249,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
               Translations.forKey('error_message_no_item_category', context)),
           duration: Duration(seconds: 3));
       _scaffoldKey.currentState.showSnackBar(snackBar);
-    } else if (_nameForm.validate()) {
+    } else {
       _saveButtonState.progress = true;
       String categoryItemsPath = 'categories/${_model.category
           .toString()}/items';
@@ -268,7 +263,8 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
           .whenComplete(() {
         firestore
             .collection(categoryItemsPath)
-            .where('name', isEqualTo: _model.item.name)
+            .where('description', isEqualTo: _model.item.description)
+            .where('brand', isEqualTo: _model.item.brand)
             .where('dateCreated', isEqualTo: _model.item.dateCreated)
             .snapshots()
             .first

@@ -122,6 +122,44 @@ class _DiscoverPageState extends State<DiscoverPage> {
     }
   }
 
+  Widget _descriptionSectionWidget(Item item) {
+    if (item.description != null && item.description.isNotEmpty) {
+      return Align(
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                  padding: EdgeInsets.fromLTRB(
+                      PaddingSizeConfig.SMALL,
+                      PaddingSizeConfig.LARGE,
+                      PaddingSizeConfig.SMALL,
+                      PaddingSizeConfig.SMALL),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        ColorConfig.THEME_PRIMARY_DARK,
+                        Colors.transparent
+                      ],
+                      stops: [0.0, 0.9],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                  ),
+                  child: Text(
+                    item.description,
+                    style: TextStyleFactory.subtitle1(
+                        color: ColorConfig.FONT_LIGHT),
+                  )),
+            ),
+          ],
+        ),
+        alignment: FractionalOffset.bottomLeft,
+      );
+    } else {
+      return Container();
+    }
+  }
+
   List<Widget> get _itemsWidgets {
     return _model.items
         .map((item) => Column(
@@ -136,37 +174,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                         color: ColorConfig.THEME_SECONDARY,
                       ),
                       _primaryPictureWidget(item),
-                      Align(
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                  padding: EdgeInsets.fromLTRB(
-                                      PaddingSizeConfig.SMALL,
-                                      PaddingSizeConfig.LARGE,
-                                      PaddingSizeConfig.SMALL,
-                                      PaddingSizeConfig.SMALL),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        ColorConfig.THEME_PRIMARY_DARK,
-                                        Colors.transparent
-                                      ],
-                                      stops: [0.0, 0.9],
-                                      begin: Alignment.bottomCenter,
-                                      end: Alignment.topCenter,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    item.name,
-                                    style: TextStyleFactory.subtitle1(
-                                        color: ColorConfig.FONT_LIGHT),
-                                  )),
-                            ),
-                          ],
-                        ),
-                        alignment: FractionalOffset.bottomLeft,
-                      )
+                      _descriptionSectionWidget(item),
                     ],
                   ),
                 )

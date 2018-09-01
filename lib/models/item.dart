@@ -7,7 +7,6 @@ class Item {
   String id;
   DateTime dateCreated = DateTime.now();
   ItemCategory category;
-  var name = '';
   var description = '';
   var brand = '';
   MainColor mainColor;
@@ -18,7 +17,6 @@ class Item {
   Map<String, dynamic> toMap() {
     return {
       'category': category != null ? category.toString() : null,
-      'name': name,
       'description': description,
       'brand': brand,
       'mainColor': mainColor.toString(),
@@ -31,7 +29,6 @@ class Item {
   Item.fromSnapshot(DocumentSnapshot snapshot) {
     id = snapshot.documentID;
     dateCreated = snapshot.data['dateCreated'];
-    name = snapshot.data['name'];
     description = snapshot.data['description'];
     brand = snapshot.data['brand'];
     mainColor = MainColor.fromString(snapshot['mainColor']);
@@ -50,7 +47,7 @@ class Item {
 
   @override
   String toString() {
-    return '$id created: $dateCreated \nname: $name \nmain color: $mainColor \ndescription: $description \nbrand: $brand \npictures: ${pictures
+    return '$id created: $dateCreated \nmain color: $mainColor \ndescription: $description \nbrand: $brand \npictures: ${pictures
         .map((p) => p.id)}';
   }
 

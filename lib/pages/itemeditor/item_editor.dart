@@ -20,7 +20,7 @@ class _ItemEditorPageState extends State<ItemEditorPage> {
   @override
   void initState() {
     _nameForm = ItemNameForm(onTextChanged: (text) {
-      _model.item.name = text;
+//      _model.item.name = text;
     });
     super.initState();
   }
