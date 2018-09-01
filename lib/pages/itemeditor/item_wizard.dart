@@ -278,6 +278,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
           final Item item = Item.fromSnapshot(documentSnapshot);
           print(item.toString());
           _saveButtonState.progress = false;
+          Navigator.pop(context, item);
         }).catchError((error) {
           _saveButtonState.progress = false;
           print(error);

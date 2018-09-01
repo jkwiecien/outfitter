@@ -4,6 +4,7 @@ import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
 import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/discover/model.dart';
+import 'package:outfitter/pages/itemeditor/item_wizard.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/widgets.dart';
@@ -35,6 +36,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: ColorConfig.THEME_PRIMARY,
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          backgroundColor: ColorConfig.THEME_PRIMARY_DARK,
+          onPressed: () {
+            _navigateToItemCreator(context);
+          }),
       appBar: AppBarFactory.mainAppBar(context,
           title: Translations.forKey('label_app_name', context)),
       body: Container(
@@ -89,9 +96,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
 //        .snapshots()
 //        .listen((data) =>
 //        data.documents.forEach((doc) => print(doc["title"])));
-    print('WTF | Loading documents');
     Firestore.instance
-        .collection('categories/shoes/items')
+        .collection('categories/${_model.selectedCategory.toString()}/items')
         .snapshots()
         .listen((querySnapshot) {
       print('WTF | Loaded items: ${querySnapshot.documents.length}');
@@ -103,129 +109,88 @@ class _DiscoverPageState extends State<DiscoverPage> {
     });
   }
 
+  Widget _primaryPictureWidget(Item item) {
+    if (item.pictures.isNotEmpty) {
+      return Image.network(
+        item.pictures.first.url,
+        height: ITEM_HEIGHT,
+        width: 3000.0,
+        fit: BoxFit.cover,
+      );
+    } else {
+      return Container();
+    }
+  }
+
   List<Widget> get _itemsWidgets {
-    return List.generate(100, (index) {
-      return Column(
-        children: <Widget>[
-          Container(
-            height: ITEM_HEIGHT,
-            child: Stack(
+    return _model.items
+        .map((item) => Column(
               children: <Widget>[
                 Container(
-                  width: 3000.0,
                   height: ITEM_HEIGHT,
-                  color: ColorConfig.THEME_SECONDARY,
-                ),
-                Image.network(
-                  'https://www.spree.co.za/imgop/w-pdp-600x803/media/catalog/product/s/p/spree170622junepicslg035.jpg',
-                  height: ITEM_HEIGHT,
-                  width: 3000.0,
-                  fit: BoxFit.cover,
-                ),
-                Align(
-                  child: Row(
+                  child: Stack(
                     children: <Widget>[
-                      Expanded(
-                        child: Container(
-                            padding: EdgeInsets.fromLTRB(
-                                PaddingSizeConfig.SMALL,
-                                PaddingSizeConfig.LARGE,
-                                PaddingSizeConfig.SMALL,
-                                PaddingSizeConfig.SMALL),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  ColorConfig.THEME_PRIMARY_DARK,
-                                  Colors.transparent
-                                ],
-                                stops: [0.0, 0.9],
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
-                              ),
-                            ),
-                            child: Text(
-                              'Takie tam buciki ale z dluzsza nazwa',
-                              style: TextStyleFactory.subtitle1(
-                                  color: ColorConfig.FONT_LIGHT),
-                            )),
+                      Container(
+                        width: 3000.0,
+                        height: ITEM_HEIGHT,
+                        color: ColorConfig.THEME_SECONDARY,
                       ),
+                      _primaryPictureWidget(item),
+                      Align(
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Container(
+                                  padding: EdgeInsets.fromLTRB(
+                                      PaddingSizeConfig.SMALL,
+                                      PaddingSizeConfig.LARGE,
+                                      PaddingSizeConfig.SMALL,
+                                      PaddingSizeConfig.SMALL),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        ColorConfig.THEME_PRIMARY_DARK,
+                                        Colors.transparent
+                                      ],
+                                      stops: [0.0, 0.9],
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment.topCenter,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    item.name,
+                                    style: TextStyleFactory.subtitle1(
+                                        color: ColorConfig.FONT_LIGHT),
+                                  )),
+                            ),
+                          ],
+                        ),
+                        alignment: FractionalOffset.bottomLeft,
+                      )
                     ],
                   ),
-                  alignment: FractionalOffset.bottomLeft,
                 )
               ],
-            ),
-          )
-        ],
-      );
-    });
-
-//    _items.forEach((item) {
-//      rows.add(Container(
-//        color: ColorConfig.THEME_SECONDARY,
-//        child: Column(
-//          crossAxisAlignment: CrossAxisAlignment.start,
-//          children: <Widget>[
-//            Row(
-//              children: <Widget>[
-//                Expanded(
-//                  child: Image.network(
-//                    'https://www.spree.co.za/imgop/w-pdp-600x803/media/catalog/product/s/p/spree170622junepicslg035.jpg',
-//                    fit: BoxFit.cover,
-//                    height: 160.0,
-//                  ),
-//                ),
-//              ],
-//            ),
-//            Text(item.name),
-//            Text(item.description),
-//            Text(item.brand),
-//          ],
-//        ),
-//      ));
-//    });
-//    return rows;
-
-//    List<Widget> rows = List();
-//    _items.forEach((item) {
-//      rows.add(Container(
-//        color: ColorConfig.THEME_SECONDARY,
-//        child: Column(
-//          crossAxisAlignment: CrossAxisAlignment.start,
-//          children: <Widget>[
-//            Row(
-//              children: <Widget>[
-//                Expanded(
-//                  child: Image.network(
-//                    'https://www.spree.co.za/imgop/w-pdp-600x803/media/catalog/product/s/p/spree170622junepicslg035.jpg',
-//                    fit: BoxFit.cover,
-//                    height: 160.0,
-//                  ),
-//                ),
-//              ],
-//            ),
-//            Text(item.name),
-//            Text(item.description),
-//            Text(item.brand),
-//          ],
-//        ),
-//      ));
-//    });
-//    return rows;
-
-    //BELOW WON'T WORK
-//    return _items.map((item) {
-//      Text('WTF');
-//    }).toList();
+            ))
+        .toList();
   }
 
   void _navigateToCategoryPicker(BuildContext context) async {
     ItemCategory category = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => CategoryPickerPage()));
-    if (category != null) {
+    if (category != null && category != _model.selectedCategory) {
       setState(() {
         _model.selectedCategory = category;
+        _loadResults();
       });
+    }
+  }
+
+  void _navigateToItemCreator(BuildContext context) async {
+    Item item = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ItemWizardPage()));
+    if (item != null) {
+      //TODO
     }
   }
 }
