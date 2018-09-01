@@ -8,6 +8,7 @@ import 'package:outfitter/pages/itemeditor/item_wizard.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DiscoverPage extends StatefulWidget {
   @override
@@ -111,12 +112,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   Widget _primaryPictureWidget(Item item) {
     if (item.pictures.isNotEmpty) {
-      return Image.network(
-        item.pictures.first.url,
-        height: ITEM_HEIGHT,
-        width: 3000.0,
-        fit: BoxFit.cover,
-      );
+      return CachedNetworkImage(imageUrl: item.pictures.first.url, height: ITEM_HEIGHT, width: 3000.0, fit: BoxFit.cover,);
     } else {
       return Container();
     }
