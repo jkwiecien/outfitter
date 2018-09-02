@@ -1,14 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
 import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/discover/model.dart';
+import 'package:outfitter/pages/item/item_page.dart';
 import 'package:outfitter/pages/itemeditor/item_wizard.dart';
 import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/widgets.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class DiscoverPage extends StatefulWidget {
   @override
@@ -112,7 +113,19 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   Widget _primaryPictureWidget(Item item) {
     if (item.pictures.isNotEmpty) {
-      return CachedNetworkImage(imageUrl: item.pictures.first.url, height: ITEM_HEIGHT, width: 3000.0, fit: BoxFit.cover,);
+      return CachedNetworkImage(
+        imageUrl: item.pictures.first.url,
+        height: ITEM_HEIGHT,
+        width: 3000.0,
+        fit: BoxFit.cover,
+        placeholder: Center(
+            child: Container(
+                width: 24.0,
+                height: 24.0,
+                child: CircularProgressIndicator(
+                  strokeWidth: 3.0,
+                ))),
+      );
     } else {
       return Container();
     }
@@ -120,36 +133,41 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   Widget _descriptionSectionWidget(Item item) {
     if (item.description != null && item.description.isNotEmpty) {
-      return Align(
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                  padding: EdgeInsets.fromLTRB(
-                      PaddingSizeConfig.SMALL,
-                      PaddingSizeConfig.LARGE,
-                      PaddingSizeConfig.SMALL,
-                      PaddingSizeConfig.SMALL),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        ColorConfig.THEME_PRIMARY_DARK,
-                        Colors.transparent
-                      ],
-                      stops: [0.0, 0.9],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
+      return InkWell(
+        onTap: () {
+          _navigateToItemDetails(context, item);
+        },
+        child: Align(
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                    padding: EdgeInsets.fromLTRB(
+                        PaddingSizeConfig.SMALL,
+                        PaddingSizeConfig.LARGE,
+                        PaddingSizeConfig.SMALL,
+                        PaddingSizeConfig.SMALL),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          ColorConfig.THEME_PRIMARY_DARK,
+                          Colors.transparent
+                        ],
+                        stops: [0.0, 0.9],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    item.description,
-                    style: TextStyleFactory.subtitle1(
-                        color: ColorConfig.FONT_LIGHT),
-                  )),
-            ),
-          ],
+                    child: Text(
+                      item.description,
+                      style: TextStyleFactory.subtitle1(
+                          color: ColorConfig.FONT_LIGHT),
+                    )),
+              ),
+            ],
+          ),
+          alignment: FractionalOffset.bottomLeft,
         ),
-        alignment: FractionalOffset.bottomLeft,
       );
     } else {
       return Container();
@@ -196,5 +214,14 @@ class _DiscoverPageState extends State<DiscoverPage> {
     if (item != null) {
       //TODO
     }
+  }
+
+  void _navigateToItemDetails(BuildContext context, Item item) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ItemDetailsPage(ItemDetailsPageState(item)),
+      ),
+    );
   }
 }

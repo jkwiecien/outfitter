@@ -15,7 +15,8 @@ enum CategoryId {
   skirt,
   sweater,
   trousers,
-  underwear
+  underwear,
+  tshirt
 }
 
 class ItemCategory {
@@ -34,7 +35,7 @@ class ItemCategory {
   }
 
   String getLocalisedName(BuildContext context) {
-    return Translations.of(context).text(this.toString());
+    return Translations.of(context).text('label_category_${this.toString()}');
   }
 
   @override

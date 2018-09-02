@@ -4,7 +4,7 @@ import 'package:outfitter/utils/utils.dart';
 
 class PicturesListView extends StatefulWidget {
   static const PHOTO_HEIGHT = 100.0;
-  static const PHOTO_WIDTH = 130.0;
+  static const PHOTO_WIDTH = 80.0;
   _PicturesListViewState _state;
 
   _PicturesListViewState get state => _state;
