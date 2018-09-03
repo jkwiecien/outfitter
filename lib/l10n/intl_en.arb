@@ -1,0 +1,20 @@
+{
+  "labelAppName": "Outfitter EN",
+  "pageTitleItemCreator": "Tworzenie",
+  "pageTitleItemEditor": "Edycja",
+  "pageTitleCategoryPicker": "Wybierz kategorię",
+  "buttonTitleCategory": "Kategoria",
+  "labelCategory": "Kategoria",
+  "hintNameInput": "NAZWA (wymagana)",
+  "hintDescriptionInput": "Opis",
+  "hintBrandInput": "Producent",
+  "errorMessageGeneral": "Coś poszło nie tak",
+  "errorMessageFieldRequired": "Pole wymagane",
+  "errorMessageNoItemCategory": "Wybierz kategorię",
+  "labelLoading": "Trwa ładowanie danych",
+  "actionSave": "Zapisz",
+  "labelNotSelected": "Nie wybrano",
+  "labelInformation": "Informacje",
+  "labelMainColor": "Kolor główny",
+  "labelPhotos": "Zdjęcia"
+}

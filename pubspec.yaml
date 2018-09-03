@@ -40,6 +40,7 @@ flutter:
 
   assets:
   - locale/pl.json
+  - locale/en.json
 
   fonts:
   - family: Rubik

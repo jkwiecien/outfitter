@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:outfitter/l10n/localizations.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
 import 'package:outfitter/pages/category_picker.dart';
@@ -45,7 +46,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
             _navigateToItemCreator(context);
           }),
       appBar: AppBarFactory.mainAppBar(context,
-          title: Translations.forKey('label_app_name', context)),
+          title: OutfitterLocalizations.of(context).labelAppName),
       body: Container(
         margin: EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
         padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),

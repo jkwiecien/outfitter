@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:outfitter/core/configuration.dart';
 
 class Application {
-  final List<String> supportedLanguages = ['pl'];
+  final List<String> supportedLanguages = ['en', 'pl'];
 
   Iterable<Locale> supportedLocales() =>
       supportedLanguages.map<Locale>((lang) => new Locale(lang, ''));
