@@ -1,14 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:outfitter/l10n/localizations.dart';
+import 'package:outfitter/l10n/translations.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
 import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/discover/model.dart';
 import 'package:outfitter/pages/item/item_page.dart';
 import 'package:outfitter/pages/itemeditor/item_wizard.dart';
-import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/widgets.dart';
 
@@ -46,7 +45,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
             _navigateToItemCreator(context);
           }),
       appBar: AppBarFactory.mainAppBar(context,
-          title: OutfitterLocalizations.of(context).labelAppName),
+          title: Translations.of(context).appNameLabel),
       body: Container(
         margin: EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
         padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:outfitter/translations.dart';
+import 'package:outfitter/l10n/translations.dart';
 import 'package:outfitter/utils/textfield_formatter.dart';
 import 'package:outfitter/utils/utils.dart';
 
@@ -35,7 +35,7 @@ class _ItemNameFormState extends State<ItemDescriptionForm> {
         inputFormatters: [CapSentenceTextFormatter()],
         controller: _textEditingController,
         decoration: InputDecoration(
-            hintText: Translations.forKey('hint_description_input', context),
+            hintText: Translations.of(context).descriptionInputHint,
             hintStyle: TextStyleFactory.body1(color: ColorConfig.FONT_HINT)),
       ),
     );

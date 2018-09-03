@@ -1,7 +1,157 @@
 {
-  "@@last_modified": "2018-09-03T15:56:28.920927",
-  "labelAppName": "Outfitter",
-  "@labelAppName": {
+  "@@last_modified": "2018-09-03T17:29:59.965423",
+  "appNameLabel": "Outfitter",
+  "@appNameLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createItemPageTitle": "Tworzenie",
+  "@createItemPageTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editItemPageTitle": "Edycja",
+  "@editItemPageTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "categoryPickerPageTitle": "Wybierz kategorię",
+  "@categoryPickerPageTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "categoryButtonTitle": "Kategoria",
+  "@categoryButtonTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "categoryLabel": "Kategoria",
+  "@categoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "descriptionInputHint": "Opis",
+  "@descriptionInputHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "brandInputHint": "Producent",
+  "@brandInputHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "generalErrorMessage": "Coś poszło nie tak",
+  "@generalErrorMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fieldRequiredErrorMessage": "Pole wymagane",
+  "@fieldRequiredErrorMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "categoryRequiredErrorMessage": "Wybierz kategorię",
+  "@categoryRequiredErrorMessage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "loadingLabel": "Trwa ładowanie danych",
+  "@loadingLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "saveAction": "Zapisz",
+  "@saveAction": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notSelectedLabel": "Nie wybrano",
+  "@notSelectedLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "informationLabel": "Informacje",
+  "@informationLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mainColorLabel": "Kolor główny",
+  "@mainColorLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "photosLabel": "Zdjęcia",
+  "@photosLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "accessoryCategoryLabel": "Dodatek",
+  "@accessoryCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bagCategoryLabel": "Torba",
+  "@bagCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "beachwearCategoryLabel": "Strój plażowy",
+  "@beachwearCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "blouseCategoryLabel": "Bluza",
+  "@blouseCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "coatCategoryLabel": "Plaszcz",
+  "@coatCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dressCategoryLabel": "Sukienka",
+  "@dressCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "jacketCategoryLabel": "Kurtka",
+  "@jacketCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lightJacketLabel": "Marynarka",
+  "@lightJacketLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shoesCategoryLabel": "Buty",
+  "@shoesCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "skirtCategoryLabel": "Spodnica",
+  "@skirtCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sweaterCategoryLabel": "Spodnica",
+  "@sweaterCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "trousersCategoryLabel": "Spodnie",
+  "@trousersCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "underwearCategoryLabel": "BIelizna",
+  "@underwearCategoryLabel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tshirtCategoryLabel": "Podkoszulek",
+  "@tshirtCategoryLabel": {
     "type": "text",
     "placeholders": {}
   }

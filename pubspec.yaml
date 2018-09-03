@@ -38,9 +38,6 @@ flutter:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 
-  assets:
-  - locale/pl.json
-  - locale/en.json
 
   fonts:
   - family: Rubik

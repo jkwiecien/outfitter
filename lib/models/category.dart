@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:outfitter/translations.dart';
+import 'package:outfitter/l10n/translations.dart';
 
 enum CategoryId {
   accessory,
@@ -35,7 +35,7 @@ class ItemCategory {
   }
 
   String getLocalisedName(BuildContext context) {
-    return Translations.of(context).text('label_category_${this.toString()}');
+    return Translations.of(context).dressCategoryLabel;
   }
 
   @override

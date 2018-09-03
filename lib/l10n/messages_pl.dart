@@ -19,6 +19,22 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "labelAppName" : MessageLookupByLibrary.simpleMessage("Outfitter")
+    "appNameLabel" : MessageLookupByLibrary.simpleMessage("Outfitter"),
+    "brandInputHint" : MessageLookupByLibrary.simpleMessage("Producent"),
+    "categoryButtonTitle" : MessageLookupByLibrary.simpleMessage("Kategoria"),
+    "categoryLabel" : MessageLookupByLibrary.simpleMessage("Kategoria"),
+    "categoryPickerPageTitle" : MessageLookupByLibrary.simpleMessage("Wybierz kategorię"),
+    "categoryRequiredErrorMessage" : MessageLookupByLibrary.simpleMessage("Wybierz kategorię"),
+    "createItemPageTitle" : MessageLookupByLibrary.simpleMessage("Tworzenie"),
+    "descriptionInputHint" : MessageLookupByLibrary.simpleMessage("Opis"),
+    "editItemPageTitle" : MessageLookupByLibrary.simpleMessage("Edycja"),
+    "fieldRequiredErrorMessage" : MessageLookupByLibrary.simpleMessage("Pole wymagane"),
+    "generalErrorMessage" : MessageLookupByLibrary.simpleMessage("Coś poszło nie tak"),
+    "informationLabel" : MessageLookupByLibrary.simpleMessage("Informacje"),
+    "loadingLabel" : MessageLookupByLibrary.simpleMessage("Trwa ładowanie danych"),
+    "mainColorLabel" : MessageLookupByLibrary.simpleMessage("Kolor główny"),
+    "notSelectedLabel" : MessageLookupByLibrary.simpleMessage("Nie wybrano"),
+    "photosLabel" : MessageLookupByLibrary.simpleMessage("Zdjęcia"),
+    "saveAction" : MessageLookupByLibrary.simpleMessage("Zapisz")
   };
 }

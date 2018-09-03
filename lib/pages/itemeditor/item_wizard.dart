@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:outfitter/core/application.dart';
+import 'package:outfitter/l10n/translations.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
 import 'package:outfitter/models/main_color.dart';
@@ -11,9 +12,7 @@ import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/itemeditor/brand_form.dart';
 import 'package:outfitter/pages/itemeditor/description_form.dart';
 import 'package:outfitter/pages/itemeditor/model.dart';
-import 'package:outfitter/pages/itemeditor/name_form.dart';
 import 'package:outfitter/pages/itemeditor/pictures_list.dart';
-import 'package:outfitter/translations.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/beveled_rectangle_button.dart';
 import 'package:outfitter/widgets/main_color_box.dart';
@@ -78,8 +77,8 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
       appBar: AppBarFactory.flatAppBar(context,
           navigationIcon: Icons.close,
           title: _model.isEdit()
-              ? Translations.forKey('page_title_creator_edit', context)
-              : Translations.forKey('page_title_creator_create', context)),
+              ? Translations.of(context).editItemPageTitle
+              : Translations.of(context).createItemPageTitle),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -99,9 +98,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          Translations
-                              .forKey('label_category', context)
-                              .toUpperCase(),
+                          Translations.of(context).categoryLabel.toUpperCase(),
                           style: TextStyleFactory.overline(),
                         ),
                         SizedBox(height: PaddingSizeConfig.SMALL),
@@ -137,8 +134,8 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            Translations
-                                .forKey('label_information', context)
+                            Translations.of(context)
+                                .informationLabel
                                 .toUpperCase(),
                             style: TextStyleFactory.overline(),
                           ),
@@ -166,8 +163,8 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            Translations
-                                .forKey('label_main_color', context)
+                            Translations.of(context)
+                                .mainColorLabel
                                 .toUpperCase(),
                             style: TextStyleFactory.overline(),
                           ),
@@ -199,9 +196,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            Translations
-                                .forKey('label_photos', context)
-                                .toUpperCase(),
+                            Translations.of(context).photosLabel.toUpperCase(),
                             style: TextStyleFactory.overline(),
                           ),
                           SizedBox(height: PaddingSizeConfig.LARGE),
@@ -221,7 +216,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                   child: Container(
                     padding: EdgeInsets.all(PaddingSizeConfig.LARGE),
                     child: BeveledRectangleProgressButton(_saveButtonState,
-                        title: Translations.forKey('action_save', context)),
+                        title: Translations.of(context).saveAction),
                   ),
                 ),
               ],
@@ -245,14 +240,13 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
   _saveItem(BuildContext context) {
     if (_model.category == null) {
       final snackBar = SnackBar(
-          content: Text(
-              Translations.forKey('error_message_no_item_category', context)),
+          content: Text(Translations.of(context).categoryRequiredErrorMessage),
           duration: Duration(seconds: 3));
       _scaffoldKey.currentState.showSnackBar(snackBar);
     } else {
       _saveButtonState.progress = true;
-      String categoryItemsPath = 'categories/${_model.category
-          .toString()}/items';
+      String categoryItemsPath =
+          'categories/${_model.category.toString()}/items';
 
       Firestore firestore = Firestore.instance;
 
@@ -299,8 +293,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
 //    _model.item.pictures.add(url);
 //    _picturesListView.state.urls = _model.item.pictures;
     final uid = Uuid().v4();
-    ImagePicker
-        .pickImage(
+    ImagePicker.pickImage(
             source: ImageSource.gallery, maxWidth: 1200.0, maxHeight: 1200.0)
         .then((imageFile) {
       if (imageFile != null) {
