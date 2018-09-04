@@ -3,15 +3,9 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:outfitter/core/configuration.dart';
 
 class Application {
-  final List<String> supportedLanguages = ['pl'];
-
-  Iterable<Locale> supportedLocales() =>
-      supportedLanguages.map<Locale>((lang) => new Locale(lang, ''));
-
   Future<FirebaseApp> firebaseApp() async {
     return await FirebaseApp.configure(
       name: Configuration.FIREBASE_APP_NAME,

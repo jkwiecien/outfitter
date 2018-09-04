@@ -33,7 +33,7 @@
 //        slivers: <Widget>[
 //          SliverAppBar(
 //            title: Text(
-//              Translations.of(context)('page_title_creator_create', context),
+//              S.of(context)('page_title_creator_create', context),
 //              style: TextStyle(color: ColorConfig.FONT_PRIMARY),
 //            ),
 //            leading: IconButton(
@@ -98,7 +98,7 @@
 //                    TextField(
 //                      style: TextStyleFactory.body2(),
 //                      decoration: InputDecoration(
-//                          hintText: Translations.of(context)(
+//                          hintText: S.of(context)(
 //                              'hint_description_input', context),
 //                          hintStyle: TextStyleFactory.body2(
 //                              color: ColorConfig.FONT_HINT)),
@@ -111,7 +111,7 @@
 //                      children: <Widget>[
 //                        Expanded(
 //                          child: BeveledRectangleButton(
-//                            title: Translations.of(context)('action_save', context),
+//                            title: S.of(context)('action_save', context),
 //                            icon: Icons.save,
 //                            onPressed: () {
 //                              _saveItem();

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:outfitter/l10n/translations.dart';
+import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
 import 'package:outfitter/pages/category_picker.dart';
@@ -44,8 +44,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
           onPressed: () {
             _navigateToItemCreator(context);
           }),
-      appBar: AppBarFactory.mainAppBar(context,
-          title: Translations.of(context).appNameLabel),
+      appBar: AppBarFactory.mainAppBar(context, title: S.of(context).appNameLabel),
       body: Container(
         margin: EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
         padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
@@ -69,7 +68,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
               child: RawMaterialButton(
                   child: Text(
                     _model.selectedCategory
-                        .getLocalisedName(context)
+                        .getLocalisedName(context, "many")
                         .toUpperCase(),
                     style: TextStyleFactory.button(),
                   ),

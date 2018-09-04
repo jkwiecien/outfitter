@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:outfitter/core/application.dart';
-import 'package:outfitter/l10n/translations.dart';
+import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/pages/discover/discover_page.dart';
 import 'package:outfitter/utils/utils.dart';
 
@@ -19,11 +18,11 @@ class OutfitterApp extends StatelessWidget {
         accentColor: ColorConfig.THEME_PRIMARY_DARK,
       ),
       localizationsDelegates: [
-        const TranslationsDelegate(),
+        S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: application.supportedLocales(),
+      supportedLocales: S.delegate.supportedLocales,
       localeResolutionCallback:
           (Locale locale, Iterable<Locale> supportedLocales) {
         for (Locale supportedLocale in supportedLocales) {

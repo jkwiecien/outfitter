@@ -3,7 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:outfitter/core/application.dart';
-import 'package:outfitter/l10n/translations.dart';
+import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
 import 'package:outfitter/models/main_color.dart';
@@ -77,8 +77,8 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
       appBar: AppBarFactory.flatAppBar(context,
           navigationIcon: Icons.close,
           title: _model.isEdit()
-              ? Translations.of(context).editItemPageTitle
-              : Translations.of(context).createItemPageTitle),
+              ? S.of(context).editItemPageTitle
+              : S.of(context).createItemPageTitle),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -98,7 +98,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          Translations.of(context).categoryLabel.toUpperCase(),
+                          S.of(context).categoryLabel.toUpperCase(),
                           style: TextStyleFactory.overline(),
                         ),
                         SizedBox(height: PaddingSizeConfig.SMALL),
@@ -134,7 +134,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            Translations.of(context)
+                            S.of(context)
                                 .informationLabel
                                 .toUpperCase(),
                             style: TextStyleFactory.overline(),
@@ -163,7 +163,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            Translations.of(context)
+                            S.of(context)
                                 .mainColorLabel
                                 .toUpperCase(),
                             style: TextStyleFactory.overline(),
@@ -196,7 +196,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            Translations.of(context).photosLabel.toUpperCase(),
+                            S.of(context).photosLabel.toUpperCase(),
                             style: TextStyleFactory.overline(),
                           ),
                           SizedBox(height: PaddingSizeConfig.LARGE),
@@ -216,7 +216,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                   child: Container(
                     padding: EdgeInsets.all(PaddingSizeConfig.LARGE),
                     child: BeveledRectangleProgressButton(_saveButtonState,
-                        title: Translations.of(context).saveAction),
+                        title: S.of(context).saveAction),
                   ),
                 ),
               ],
@@ -240,7 +240,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
   _saveItem(BuildContext context) {
     if (_model.category == null) {
       final snackBar = SnackBar(
-          content: Text(Translations.of(context).categoryRequiredErrorMessage),
+          content: Text(S.of(context).categoryRequiredErrorMessage),
           duration: Duration(seconds: 3));
       _scaffoldKey.currentState.showSnackBar(snackBar);
     } else {

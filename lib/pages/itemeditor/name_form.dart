@@ -35,15 +35,15 @@
 //        inputFormatters: [AllCapsTextFormatter()],
 //        controller: _textEditingController,
 //        decoration: InputDecoration(
-//            hintText: Translations.of(context)('hint_name_input', context),
+//            hintText: S.of(context)('hint_name_input', context),
 //            hintStyle:
 //                TextStyleFactory.subtitle1(color: ColorConfig.FONT_HINT)),
 //        validator: (value) {
 //          if (value.isEmpty) {
-//            return Translations.of(context)('error_message_field_required', context);
+//            return S.of(context)('error_message_field_required', context);
 //          }
 //          if (value.length <= 2) {
-//            return Translations.of(context)(
+//            return S.of(context)(
 //                'error_message_item_name_too_short', context);
 //          }
 //        },

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:outfitter/l10n/translations.dart';
+import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
 
@@ -14,8 +14,8 @@ class ItemEditorModel {
 
   String getSelectedCategoryButtonTitle(BuildContext context) {
     return item.category != null
-        ? item.category.getLocalisedName(context).toUpperCase()
-        : Translations.of(context).notSelectedLabel.toUpperCase();
+        ? item.category.getLocalisedName(context, "many").toUpperCase()
+        : S.of(context).notSelectedLabel.toUpperCase();
   }
 
   bool isEdit() => item.id != null;

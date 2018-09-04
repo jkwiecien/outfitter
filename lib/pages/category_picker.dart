@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:outfitter/l10n/translations.dart';
+import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/widgets.dart';
@@ -14,7 +14,7 @@ class CategoryPickerPage extends StatelessWidget {
       backgroundColor: ColorConfig.THEME_PRIMARY,
       appBar: AppBarFactory.flatAppBar(context,
           backgroundColor: ColorConfig.THEME_PRIMARY,
-          title: Translations.of(context).categoryPickerPageTitle,
+          title: S.of(context).categoryPickerPageTitle,
           navigationIcon: Icons.close),
       body: Center(
         child: StreamBuilder<QuerySnapshot>(
@@ -23,7 +23,7 @@ class CategoryPickerPage extends StatelessWidget {
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData)
               return Text(
-                Translations.of(context).loadingLabel,
+                S.of(context).loadingLabel,
                 style: TextStyleFactory.subtitle1(),
               );
             return ListView(
@@ -39,7 +39,7 @@ class CategoryPickerPage extends StatelessWidget {
                       },
                       title: Text(
                         ItemCategory.fromString(document.documentID)
-                            .getLocalisedName(context)
+                            .getLocalisedName(context, "many")
                             .toUpperCase(),
                         style: TextStyleFactory.button(),
                         textAlign: TextAlign.center,
