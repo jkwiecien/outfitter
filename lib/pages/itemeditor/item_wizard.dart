@@ -14,6 +14,7 @@ import 'package:outfitter/pages/itemeditor/description_form.dart';
 import 'package:outfitter/pages/itemeditor/model.dart';
 import 'package:outfitter/pages/itemeditor/name_form.dart';
 import 'package:outfitter/pages/itemeditor/pictures_list.dart';
+import 'package:outfitter/pages/itemeditor/size_form.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/beveled_rectangle_button.dart';
 import 'package:outfitter/widgets/main_color_box.dart';
@@ -35,6 +36,7 @@ class ItemWizardPageState extends State<ItemWizardPage> {
   ItemNameForm _nameForm;
   ItemDescriptionForm _descriptionForm;
   ItemBrandForm _brandForm;
+  ItemSizeForm _sizeForm;
   List<MainColorBox> _mainColorBoxes;
   PicturesListView _picturesListView;
   BeveledRectangleProgressButtonState _saveButtonState;
@@ -58,6 +60,11 @@ class ItemWizardPageState extends State<ItemWizardPage> {
     _brandForm = ItemBrandForm(
         ItemBrandFormState(_model.item.brand, onTextChanged: (text) {
       _model.item.brand = text;
+    }));
+
+    _sizeForm =
+        ItemSizeForm(ItemSizeFormState(_model.item.size, onTextChanged: (text) {
+      _model.item.size = text;
     }));
 
     _mainColorBoxes = MainColor.allColors().map((mainColor) {
@@ -148,7 +155,8 @@ class ItemWizardPageState extends State<ItemWizardPage> {
                           SizedBox(height: PaddingSizeConfig.SMALL),
                           _nameForm,
                           _descriptionForm,
-                          _brandForm
+                          _brandForm,
+                          _sizeForm
                         ],
                       ),
                     ),

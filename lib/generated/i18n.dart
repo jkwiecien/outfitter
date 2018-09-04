@@ -39,6 +39,7 @@ class S implements WidgetsLocalizations {
   String get notSelectedLabel => "Nie wybrano";
   String get photosLabel => "Zdjęcia";
   String get saveAction => "Zapisz";
+  String get sizeInputHint => "Rozmiar";
   String accessoryCategory(String count) {
     switch (count) {
       case "1":

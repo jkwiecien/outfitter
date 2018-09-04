@@ -52,6 +52,7 @@
   "descriptionInputHint": "Opis",
   "nameInputHint": "Nazwa",
   "brandInputHint": "Producent",
+  "sizeInputHint": "Rozmiar",
   "generalErrorMessage": "Coś poszło nie tak",
   "fieldRequiredErrorMessage": "Pole wymagane",
   "categoryRequiredErrorMessage": "Wybierz kategorię",

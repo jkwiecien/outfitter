@@ -11,6 +11,7 @@ class Item {
   var name = '';
   var description = '';
   var brand = '';
+  String size;
   MainColor mainColor;
   List<ItemPicture> pictures = List();
 
@@ -20,6 +21,7 @@ class Item {
       'category': category.toString(),
       'description': description,
       'brand': brand,
+      'size': size,
       'mainColor': mainColor.toString(),
       'dateCreated': dateCreated,
       'pictures': Map.fromEntries(
@@ -36,6 +38,7 @@ class Item {
     dateCreated = snapshot.data['dateCreated'];
     description = snapshot.data['description'];
     brand = snapshot.data['brand'];
+    size = snapshot.data['size'];
     mainColor = MainColor.fromString(snapshot['mainColor']);
     final picturesMap = snapshot.data['pictures'];
     if (picturesMap != null) {
