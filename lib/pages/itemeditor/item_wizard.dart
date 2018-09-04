@@ -12,6 +12,7 @@ import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/itemeditor/brand_form.dart';
 import 'package:outfitter/pages/itemeditor/description_form.dart';
 import 'package:outfitter/pages/itemeditor/model.dart';
+import 'package:outfitter/pages/itemeditor/name_form.dart';
 import 'package:outfitter/pages/itemeditor/pictures_list.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/beveled_rectangle_button.dart';
@@ -31,6 +32,7 @@ class ItemWizardPage extends StatefulWidget {
 class ItemWizardPageState extends State<ItemWizardPage> {
   ItemEditorModel _model;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  ItemNameForm _nameForm;
   ItemDescriptionForm _descriptionForm;
   ItemBrandForm _brandForm;
   List<MainColorBox> _mainColorBoxes;
@@ -43,6 +45,11 @@ class ItemWizardPageState extends State<ItemWizardPage> {
 
   @override
   void initState() {
+    _nameForm =
+        ItemNameForm(ItemNameFormState(_model.item.name, onTextChanged: (text) {
+      _model.item.name = text;
+    }));
+
     _descriptionForm = ItemDescriptionForm(ItemDescriptionFormState(
         _model.item.description, onTextChanged: (text) {
       _model.item.description = text;
@@ -53,57 +60,10 @@ class ItemWizardPageState extends State<ItemWizardPage> {
       _model.item.brand = text;
     }));
 
-    _mainColorBoxes = [
-      MainColorBox(MainColorBoxState(
-          MainColor(MainColorId.grey),
-          _model.item.mainColor.id == MainColorId.grey,
-          _onColorSelectionChanged)),
-
-      MainColorBox(MainColorBoxState(
-          MainColor(MainColorId.black),
-          _model.item.mainColor.id == MainColorId.black,
-          _onColorSelectionChanged)),
-
-      MainColorBox(MainColorBoxState(
-          MainColor(MainColorId.red),
-          _model.item.mainColor.id == MainColorId.red,
-          _onColorSelectionChanged)),
-
-      MainColorBox(MainColorBoxState(
-          MainColor(MainColorId.pink),
-          _model.item.mainColor.id == MainColorId.pink,
-          _onColorSelectionChanged)),
-
-      MainColorBox(MainColorBoxState(
-          MainColor(MainColorId.purple),
-          _model.item.mainColor.id == MainColorId.purple,
-          _onColorSelectionChanged)),
-
-      MainColorBox(MainColorBoxState(
-          MainColor(MainColorId.blue),
-          _model.item.mainColor.id == MainColorId.blue,
-          _onColorSelectionChanged)),
-
-      MainColorBox(MainColorBoxState(
-          MainColor(MainColorId.green),
-          _model.item.mainColor.id == MainColorId.green,
-          _onColorSelectionChanged)),
-
-      MainColorBox(MainColorBoxState(
-          MainColor(MainColorId.yellow),
-          _model.item.mainColor.id == MainColorId.yellow,
-          _onColorSelectionChanged)),
-
-      MainColorBox(MainColorBoxState(
-          MainColor(MainColorId.orange),
-          _model.item.mainColor.id == MainColorId.orange,
-          _onColorSelectionChanged)),
-
-      MainColorBox(MainColorBoxState(
-          MainColor(MainColorId.brown),
-          _model.item.mainColor.id == MainColorId.brown,
-          _onColorSelectionChanged)),
-    ];
+    _mainColorBoxes = MainColor.allColors().map((mainColor) {
+      return MainColorBox(MainColorBoxState(mainColor,
+          _model.item.mainColor == mainColor, _onColorSelectionChanged));
+    }).toList(growable: false);
 
     _picturesListView =
         PicturesListView(_model.item.pictures, _addImageFromGallery);
@@ -186,6 +146,7 @@ class ItemWizardPageState extends State<ItemWizardPage> {
                             style: TextStyleFactory.overline(),
                           ),
                           SizedBox(height: PaddingSizeConfig.SMALL),
+                          _nameForm,
                           _descriptionForm,
                           _brandForm
                         ],

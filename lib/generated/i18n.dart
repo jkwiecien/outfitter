@@ -35,6 +35,7 @@ class S implements WidgetsLocalizations {
   String get informationLabel => "Informacje";
   String get loadingLabel => "Trwa ładowanie danych";
   String get mainColorLabel => "Kolor główny";
+  String get nameInputHint => "Nazwa";
   String get notSelectedLabel => "Nie wybrano";
   String get photosLabel => "Zdjęcia";
   String get saveAction => "Zapisz";

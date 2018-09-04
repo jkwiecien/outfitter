@@ -50,6 +50,7 @@
   "categoryButtonTitle": "Kategoria",
   "categoryLabel": "Kategoria",
   "descriptionInputHint": "Opis",
+  "nameInputHint": "Nazwa",
   "brandInputHint": "Producent",
   "generalErrorMessage": "Coś poszło nie tak",
   "fieldRequiredErrorMessage": "Pole wymagane",

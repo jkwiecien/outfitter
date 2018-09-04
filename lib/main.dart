@@ -34,7 +34,7 @@ class OutfitterApp extends StatelessWidget {
 
         return supportedLocales.first;
       },
-//      home: DiscoverPage(),
+//      home: ItemWizardPage(ItemWizardPageState(Item.newInstance())),
       home: DiscoverPage(),
     );
   }
