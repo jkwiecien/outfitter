@@ -28,6 +28,11 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorConfig.BACKGROUND,
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.favorite_border, color: Colors.white),
+            onPressed: () {
+              //TODO
+            }),
         key: _scaffoldKey,
         body: CustomScrollView(
           slivers: <Widget>[
@@ -115,7 +120,10 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
 
   void _navigateToItemEditor(BuildContext context) async {
     Item updatedItem = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ItemWizardPage(ItemWizardPageState(_model.item))));
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ItemWizardPage(ItemWizardPageState(_model.item))));
     if (updatedItem != null) {
       setState(() {
         _model.item = updatedItem;

@@ -8,6 +8,7 @@ class Item {
   String id;
   DateTime dateCreated = DateTime.now();
   ItemCategory category;
+  var name = '';
   var description = '';
   var brand = '';
   MainColor mainColor;
@@ -15,6 +16,7 @@ class Item {
 
   Map<String, dynamic> toMap() {
     return {
+      'name': name,
       'category': category.toString(),
       'description': description,
       'brand': brand,
@@ -30,6 +32,7 @@ class Item {
   Item.fromSnapshot(DocumentSnapshot snapshot) {
     id = snapshot.documentID;
     category = ItemCategory.fromString(snapshot.data['category']);
+    name = snapshot.data['name'];
     dateCreated = snapshot.data['dateCreated'];
     description = snapshot.data['description'];
     brand = snapshot.data['brand'];
