@@ -132,7 +132,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
   }
 
   Widget _descriptionSectionWidget(Item item) {
-    if (item.description != null && item.description.isNotEmpty) {
+    if ((item.name != null && item.name.isNotEmpty) ||
+        (item.brand != null && item.brand.isNotEmpty)) {
       return Align(
         child: Row(
           children: <Widget>[
@@ -155,7 +156,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ),
                   ),
                   child: Text(
-                    item.description,
+                    item.getLocalisedDisplayName(context),
                     style: TextStyleFactory.subtitle1(
                         color: ColorConfig.FONT_LIGHT),
                   )),

@@ -46,7 +46,9 @@ class Item {
   }
 
   String getLocalisedDisplayName(BuildContext context) {
-    if (brand != null && brand.isNotEmpty) {
+    if (name != null && name.isNotEmpty) {
+      return name;
+    } else if (brand != null && brand.isNotEmpty) {
       return '${category.getLocalisedName(context, "1")} $brand';
     } else {
       return category.getLocalisedName(context, "1");
