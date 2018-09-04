@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:outfitter/models/item.dart';
 import 'package:outfitter/pages/item/model.dart';
+import 'package:outfitter/pages/itemeditor/item_wizard.dart';
 import 'package:outfitter/utils/utils.dart';
 
 class ItemDetailsPage extends StatefulWidget {
@@ -37,6 +38,7 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   }),
+              actions: <Widget>[_likeActionWidget, _editActionWidget],
               floating: false,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
@@ -68,12 +70,22 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
         ));
   }
 
-  Widget get _likeWidget => IconButton(
+  Widget get _likeActionWidget => IconButton(
         onPressed: () {
           //TODO
         },
         icon: Icon(
           Icons.favorite_border,
+          color: ColorConfig.FONT_PRIMARY,
+        ),
+      );
+
+  Widget get _editActionWidget => IconButton(
+        onPressed: () {
+          _navigateToItemEditor(context);
+        },
+        icon: Icon(
+          Icons.edit,
           color: ColorConfig.FONT_PRIMARY,
         ),
       );
@@ -92,22 +104,22 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
                 ))),
       );
 
-  Widget get _appBarWidget => AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0.0,
-      actions: <Widget>[_likeWidget],
-      leading: IconButton(
-          icon: Icon(Icons.close, color: ColorConfig.FONT_PRIMARY),
-          onPressed: () {
-            Navigator.pop(context);
-          }));
-
   Widget get _descriptionWidget {
     final item = _model.item;
     if (item.description != null && item.description.isNotEmpty) {
       return Text(item.description, style: TextStyleFactory.body1());
     } else {
       return Container();
+    }
+  }
+
+  void _navigateToItemEditor(BuildContext context) async {
+    Item updatedItem = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ItemWizardPage(ItemWizardPageState(_model.item))));
+    if (updatedItem != null) {
+      setState(() {
+        _model.item = updatedItem;
+      });
     }
   }
 }

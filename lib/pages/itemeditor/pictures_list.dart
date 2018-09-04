@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:outfitter/models/picture.dart';
 import 'package:outfitter/utils/utils.dart';
@@ -47,9 +48,9 @@ class _PicturesListViewState extends State<PicturesListView> {
           margin: EdgeInsets.fromLTRB(0.0, 0.0, PaddingSizeConfig.SMALL, 0.0),
           width: PicturesListView.PHOTO_WIDTH,
           height: PicturesListView.PHOTO_HEIGHT,
-          child: Image.network(
-            picture.url,
-            fit: BoxFit.fitHeight,
+          child: CachedNetworkImage(
+            imageUrl: picture.url,
+            fit: BoxFit.cover,
           ),
         ));
       });

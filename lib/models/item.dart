@@ -13,8 +13,6 @@ class Item {
   MainColor mainColor;
   List<ItemPicture> pictures = List();
 
-  Item();
-
   Map<String, dynamic> toMap() {
     return {
       'category': category.toString(),
@@ -26,6 +24,8 @@ class Item {
           pictures.map((picture) => MapEntry(picture.id, picture.url)))
     };
   }
+
+  Item.newInstance();
 
   Item.fromSnapshot(DocumentSnapshot snapshot) {
     id = snapshot.documentID;

@@ -1,8 +1,7 @@
 import 'package:outfitter/models/item.dart';
 
 class ItemDetailsModel {
-  Item _item;
-  Item get item => _item;
+  Item item;
 
-  ItemDetailsModel(this._item);
+  ItemDetailsModel(this.item);
 }

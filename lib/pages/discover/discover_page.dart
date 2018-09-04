@@ -210,7 +210,10 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   void _navigateToItemCreator(BuildContext context) async {
     Item item = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ItemWizardPage()));
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ItemWizardPage(ItemWizardPageState(Item.newInstance()))));
     if (item != null) {
       //TODO
     }

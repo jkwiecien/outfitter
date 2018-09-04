@@ -3,20 +3,26 @@ import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/utils/utils.dart';
 
 class MainColorBox extends StatefulWidget {
-  final _ColorBoxState state = _ColorBoxState();
-  final MainColor mainColor;
-  final Function(MainColorBox colorBox) _onSelectedChanged;
+  final MainColorBoxState _state;
 
-  MainColorBox(this.mainColor, this._onSelectedChanged);
+  MainColorBoxState get state => _state;
+
+  MainColorBox(this._state);
 
   @override
-  State<StatefulWidget> createState() => state;
+  State<StatefulWidget> createState() => _state;
 }
 
-class _ColorBoxState extends State<MainColorBox> {
+class MainColorBoxState extends State<MainColorBox> {
   bool _selected = false;
 
   bool get selected => _selected;
+  final MainColor _mainColor;
+
+  MainColor get mainColor => _mainColor;
+  final Function(MainColorBox colorBox) _onSelectedChanged;
+
+  MainColorBoxState(this._mainColor, this._selected, this._onSelectedChanged);
 
   set selected(value) {
     setState(() {
@@ -29,7 +35,7 @@ class _ColorBoxState extends State<MainColorBox> {
     return GestureDetector(
       onTap: () {
         selected = !selected;
-        widget._onSelectedChanged(widget);
+        _onSelectedChanged(widget);
       },
       child: Container(
         width: 24.0,
@@ -48,7 +54,7 @@ class _ColorBoxState extends State<MainColorBox> {
         child: DecoratedBox(
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: widget.mainColor.color,
+              color: _mainColor.color,
               border: new Border.all(
                 width: 1.0,
                 color: Colors.grey,

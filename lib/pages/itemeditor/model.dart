@@ -4,7 +4,10 @@ import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
 
 class ItemEditorModel {
-  final Item item = Item();
+  final Item item;
+  final bool editMode;
+
+  ItemEditorModel(this.item, this.editMode);
 
   set category(ItemCategory category) {
     item.category = category;
@@ -17,6 +20,4 @@ class ItemEditorModel {
         ? item.category.getLocalisedName(context, "many").toUpperCase()
         : S.of(context).notSelectedLabel.toUpperCase();
   }
-
-  bool isEdit() => item.id != null;
 }

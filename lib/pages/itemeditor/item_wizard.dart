@@ -20,13 +20,16 @@ import 'package:outfitter/widgets/widgets.dart';
 import 'package:uuid/uuid.dart';
 
 class ItemWizardPage extends StatefulWidget {
+  ItemWizardPageState _state;
+
+  ItemWizardPage(this._state);
+
   @override
-  State<StatefulWidget> createState() => _ItemWizardPageState();
+  State<StatefulWidget> createState() => _state;
 }
 
-class _ItemWizardPageState extends State<ItemWizardPage> {
-  final ItemEditorModel _model = ItemEditorModel();
-
+class ItemWizardPageState extends State<ItemWizardPage> {
+  ItemEditorModel _model;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   ItemDescriptionForm _descriptionForm;
   ItemBrandForm _brandForm;
@@ -34,27 +37,72 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
   PicturesListView _picturesListView;
   BeveledRectangleProgressButtonState _saveButtonState;
 
+  ItemWizardPageState(Item item) {
+    _model = ItemEditorModel(item, item.id != null);
+  }
+
   @override
   void initState() {
-    _descriptionForm = ItemDescriptionForm(onTextChanged: (text) {
+    _descriptionForm = ItemDescriptionForm(ItemDescriptionFormState(
+        _model.item.description, onTextChanged: (text) {
       _model.item.description = text;
-    });
-    _brandForm = ItemBrandForm(onTextChanged: (text) {
+    }));
+
+    _brandForm = ItemBrandForm(
+        ItemBrandFormState(_model.item.brand, onTextChanged: (text) {
       _model.item.brand = text;
-    });
+    }));
 
     _mainColorBoxes = [
-      MainColorBox(MainColor(MainColorId.white), _onColorSelectionChanged),
-      MainColorBox(MainColor(MainColorId.grey), _onColorSelectionChanged),
-      MainColorBox(MainColor(MainColorId.black), _onColorSelectionChanged),
-      MainColorBox(MainColor(MainColorId.red), _onColorSelectionChanged),
-      MainColorBox(MainColor(MainColorId.pink), _onColorSelectionChanged),
-      MainColorBox(MainColor(MainColorId.purple), _onColorSelectionChanged),
-      MainColorBox(MainColor(MainColorId.blue), _onColorSelectionChanged),
-      MainColorBox(MainColor(MainColorId.green), _onColorSelectionChanged),
-      MainColorBox(MainColor(MainColorId.yellow), _onColorSelectionChanged),
-      MainColorBox(MainColor(MainColorId.orange), _onColorSelectionChanged),
-      MainColorBox(MainColor(MainColorId.brown), _onColorSelectionChanged)
+      MainColorBox(MainColorBoxState(
+          MainColor(MainColorId.grey),
+          _model.item.mainColor.id == MainColorId.grey,
+          _onColorSelectionChanged)),
+
+      MainColorBox(MainColorBoxState(
+          MainColor(MainColorId.black),
+          _model.item.mainColor.id == MainColorId.black,
+          _onColorSelectionChanged)),
+
+      MainColorBox(MainColorBoxState(
+          MainColor(MainColorId.red),
+          _model.item.mainColor.id == MainColorId.red,
+          _onColorSelectionChanged)),
+
+      MainColorBox(MainColorBoxState(
+          MainColor(MainColorId.pink),
+          _model.item.mainColor.id == MainColorId.pink,
+          _onColorSelectionChanged)),
+
+      MainColorBox(MainColorBoxState(
+          MainColor(MainColorId.purple),
+          _model.item.mainColor.id == MainColorId.purple,
+          _onColorSelectionChanged)),
+
+      MainColorBox(MainColorBoxState(
+          MainColor(MainColorId.blue),
+          _model.item.mainColor.id == MainColorId.blue,
+          _onColorSelectionChanged)),
+
+      MainColorBox(MainColorBoxState(
+          MainColor(MainColorId.green),
+          _model.item.mainColor.id == MainColorId.green,
+          _onColorSelectionChanged)),
+
+      MainColorBox(MainColorBoxState(
+          MainColor(MainColorId.yellow),
+          _model.item.mainColor.id == MainColorId.yellow,
+          _onColorSelectionChanged)),
+
+      MainColorBox(MainColorBoxState(
+          MainColor(MainColorId.orange),
+          _model.item.mainColor.id == MainColorId.orange,
+          _onColorSelectionChanged)),
+
+      MainColorBox(MainColorBoxState(
+          MainColor(MainColorId.brown),
+          _model.item.mainColor.id == MainColorId.brown,
+          _onColorSelectionChanged)),
     ];
 
     _picturesListView =
@@ -76,7 +124,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
       backgroundColor: ColorConfig.BACKGROUND,
       appBar: AppBarFactory.flatAppBar(context,
           navigationIcon: Icons.close,
-          title: _model.isEdit()
+          title: _model.editMode
               ? S.of(context).editItemPageTitle
               : S.of(context).createItemPageTitle),
       body: SingleChildScrollView(
@@ -134,9 +182,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            S.of(context)
-                                .informationLabel
-                                .toUpperCase(),
+                            S.of(context).informationLabel.toUpperCase(),
                             style: TextStyleFactory.overline(),
                           ),
                           SizedBox(height: PaddingSizeConfig.SMALL),
@@ -163,9 +209,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            S.of(context)
-                                .mainColorLabel
-                                .toUpperCase(),
+                            S.of(context).mainColorLabel.toUpperCase(),
                             style: TextStyleFactory.overline(),
                           ),
                           SizedBox(height: PaddingSizeConfig.SMALL),
@@ -279,7 +323,7 @@ class _ItemWizardPageState extends State<ItemWizardPage> {
 
   _onColorSelectionChanged(MainColorBox mainColorBox) {
     if (mainColorBox.state.selected) {
-      _model.item.mainColor = mainColorBox.mainColor;
+      _model.item.mainColor = mainColorBox.state.mainColor;
       _mainColorBoxes.forEach((colorBox) {
         if (colorBox != mainColorBox) colorBox.state.selected = false;
       });

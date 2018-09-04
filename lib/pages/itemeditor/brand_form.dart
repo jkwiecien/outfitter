@@ -4,12 +4,9 @@ import 'package:outfitter/utils/textfield_formatter.dart';
 import 'package:outfitter/utils/utils.dart';
 
 class ItemBrandForm extends StatefulWidget {
-  final _state = _ItemNameFormState();
-  Function(String) _onTextChanged;
+  final _state;
 
-  ItemBrandForm({@required Function(String) onTextChanged}) {
-    _onTextChanged = onTextChanged;
-  }
+  ItemBrandForm(this._state);
 
   @override
   State<StatefulWidget> createState() => _state;
@@ -19,16 +16,30 @@ class ItemBrandForm extends StatefulWidget {
   }
 }
 
-class _ItemNameFormState extends State<ItemBrandForm> {
+class ItemBrandFormState extends State<ItemBrandForm> {
   final _formKey = GlobalKey<FormState>();
-  final _textEditingController = TextEditingController();
+  TextEditingController _textEditingController;
+
+  String _initialText;
+  Function(String) _onTextChanged;
+
+  ItemBrandFormState(this._initialText,
+      {@required Function(String) onTextChanged}) {
+    _onTextChanged = onTextChanged;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController(text: _initialText);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       onChanged: () {
-        widget._onTextChanged(_textEditingController.text);
+        _onTextChanged(_textEditingController.text);
       },
       child: TextFormField(
         style: TextStyleFactory.body1(color: ColorConfig.FONT_PRIMARY),
