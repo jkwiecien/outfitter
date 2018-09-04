@@ -54,7 +54,7 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Bluzałke',
+                        _model.item.getLocalisedDisplayName(context),
                         style: TextStyleFactory.h5(),
                       ),
                       SizedBox(height: PaddingSizeConfig.SMALL),

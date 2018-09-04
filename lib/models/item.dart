@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/models/picture.dart';
@@ -16,7 +17,7 @@ class Item {
 
   Map<String, dynamic> toMap() {
     return {
-      'category': category != null ? category.toString() : null,
+      'category': category.toString(),
       'description': description,
       'brand': brand,
       'mainColor': mainColor.toString(),
@@ -28,6 +29,7 @@ class Item {
 
   Item.fromSnapshot(DocumentSnapshot snapshot) {
     id = snapshot.documentID;
+    category = ItemCategory.fromString(snapshot.data['category']);
     dateCreated = snapshot.data['dateCreated'];
     description = snapshot.data['description'];
     brand = snapshot.data['brand'];
@@ -40,6 +42,14 @@ class Item {
     }
   }
 
+  String getLocalisedDisplayName(BuildContext context) {
+    if (brand != null && brand.isNotEmpty) {
+      return '${category.getLocalisedName(context, "1")} $brand';
+    } else {
+      return category.getLocalisedName(context, "1");
+    }
+  }
+
   void addPicture(ItemPicture picture) {
     pictures.add(picture);
     pictures = pictures.reversed.toList();
@@ -47,8 +57,7 @@ class Item {
 
   @override
   String toString() {
-    return '$id created: $dateCreated \nmain color: $mainColor \ndescription: $description \nbrand: $brand \npictures: ${pictures
-        .map((p) => p.id)}';
+    return '$id created: $dateCreated \nmain color: $mainColor \ndescription: $description \nbrand: $brand \npictures: ${pictures.map((p) => p.id)}';
   }
 
   @override

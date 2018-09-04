@@ -44,7 +44,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
           onPressed: () {
             _navigateToItemCreator(context);
           }),
-      appBar: AppBarFactory.mainAppBar(context, title: S.of(context).appNameLabel),
+      appBar:
+          AppBarFactory.mainAppBar(context, title: S.of(context).appNameLabel),
       body: Container(
         margin: EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
         padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
@@ -132,41 +133,36 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   Widget _descriptionSectionWidget(Item item) {
     if (item.description != null && item.description.isNotEmpty) {
-      return InkWell(
-        onTap: () {
-          _navigateToItemDetails(context, item);
-        },
-        child: Align(
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                    padding: EdgeInsets.fromLTRB(
-                        PaddingSizeConfig.SMALL,
-                        PaddingSizeConfig.LARGE,
-                        PaddingSizeConfig.SMALL,
-                        PaddingSizeConfig.SMALL),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          ColorConfig.THEME_PRIMARY_DARK,
-                          Colors.transparent
-                        ],
-                        stops: [0.0, 0.9],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                      ),
+      return Align(
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                  padding: EdgeInsets.fromLTRB(
+                      PaddingSizeConfig.SMALL,
+                      PaddingSizeConfig.LARGE,
+                      PaddingSizeConfig.SMALL,
+                      PaddingSizeConfig.SMALL),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        ColorConfig.THEME_PRIMARY_DARK,
+                        Colors.transparent
+                      ],
+                      stops: [0.0, 0.9],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
                     ),
-                    child: Text(
-                      item.description,
-                      style: TextStyleFactory.subtitle1(
-                          color: ColorConfig.FONT_LIGHT),
-                    )),
-              ),
-            ],
-          ),
-          alignment: FractionalOffset.bottomLeft,
+                  ),
+                  child: Text(
+                    item.description,
+                    style: TextStyleFactory.subtitle1(
+                        color: ColorConfig.FONT_LIGHT),
+                  )),
+            ),
+          ],
         ),
+        alignment: FractionalOffset.bottomLeft,
       );
     } else {
       return Container();
@@ -175,23 +171,28 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   List<Widget> get _itemsWidgets {
     return _model.items
-        .map((item) => Column(
-              children: <Widget>[
-                Container(
-                  height: ITEM_HEIGHT,
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        width: 3000.0,
-                        height: ITEM_HEIGHT,
-                        color: ColorConfig.THEME_SECONDARY,
-                      ),
-                      _primaryPictureWidget(item),
-                      _descriptionSectionWidget(item),
-                    ],
-                  ),
-                )
-              ],
+        .map((item) => InkWell(
+              onTap: () {
+                _navigateToItemDetails(context, item);
+              },
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: ITEM_HEIGHT,
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          width: 3000.0,
+                          height: ITEM_HEIGHT,
+                          color: ColorConfig.THEME_SECONDARY,
+                        ),
+                        _primaryPictureWidget(item),
+                        _descriptionSectionWidget(item),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ))
         .toList();
   }
