@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:outfitter/generated/i18n.dart';
-import 'package:outfitter/pages/discover/discover_page.dart';
+import 'package:outfitter/pages/auth/auth_page.dart';
 import 'package:outfitter/utils/utils.dart';
 
 void main() => runApp(new OutfitterApp());
@@ -35,7 +35,8 @@ class OutfitterApp extends StatelessWidget {
         return supportedLocales.first;
       },
 //      home: ItemWizardPage(ItemWizardPageState(Item.newInstance())),
-      home: DiscoverPage(),
+//      home: DiscoverPage(),
+      home: AuthPage(),
     );
   }
 }

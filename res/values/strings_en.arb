@@ -61,5 +61,6 @@
   "notSelectedLabel": "Nie wybrano",
   "informationLabel": "Informacje",
   "mainColorLabel": "Kolor główny",
-  "photosLabel": "Zdjęcia"
+  "photosLabel": "Zdjęcia",
+  "signInButtonTitle": "Zaloguj"
 }
