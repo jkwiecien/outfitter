@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:outfitter/core/application.dart';
 import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
@@ -311,14 +310,13 @@ class ItemWizardPageState extends State<ItemWizardPage> {
         .then((imageFile) {
       if (imageFile != null) {
         _picturesListView.state.notifyUploadStarted();
-        print('IMAGE: $imageFile');
-        application.firebaseStorage().then((storage) {
-          final StorageReference ref =
-              storage.ref().child('pictures').child('$uid.jpg');
-          final StorageUploadTask uploadTask = ref.putFile(
-              imageFile, StorageMetadata(contentType: 'image/jpeg'));
-          return uploadTask.future;
-        }).then((uploadTaskSnapshot) {
+//        print('IMAGE: $imageFile');
+        final StorageReference ref =
+            FirebaseStorage.instance.ref().child('pictures').child('$uid.jpg');
+        ref
+            .putFile(imageFile, StorageMetadata(contentType: 'image/jpeg'))
+            .future
+            .then((uploadTaskSnapshot) {
           final Uri downloadUrl = uploadTaskSnapshot.downloadUrl;
           final url = downloadUrl.toString();
           _model.item.addPicture(ItemPicture(uid, url));

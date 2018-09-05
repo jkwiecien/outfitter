@@ -8,27 +8,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:outfitter/core/configuration.dart';
 
 class Application {
-  Future<FirebaseApp> firebaseApp() async {
-    return await FirebaseApp.configure(
-      name: Configuration.FIREBASE_APP_NAME,
-      options: FirebaseOptions(
-        googleAppID: Platform.isIOS
-            ? Configuration.FIREBASE_IOS_APP_ID
-            : Configuration.FIREBASE_ANDROID_APP_ID,
-        gcmSenderID: Configuration.FIREBASE_SENDER_ID,
-        apiKey: Configuration.FIREBASE_PROJECT_API_KEY,
-        projectID: Configuration.FIREBASE_PROJECT_ID,
-      ),
-    );
-  }
-
-  Future<FirebaseStorage> firebaseStorage() async {
-    return firebaseApp().then((firebaseApp) {
-      return FirebaseStorage(
-          app: firebaseApp,
-          storageBucket: Configuration.FIREBASE_STORAGE_BUCKET);
-    });
-  }
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
