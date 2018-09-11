@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
@@ -32,6 +33,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   @override
   Widget build(BuildContext context) {
+    timeDilation = 2.0;
     var screenSize = MediaQuery.of(context).size;
     final double itemWidth = (screenSize.width / 2) - ITEM_SPACING * 2;
 
@@ -172,27 +174,32 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   List<Widget> get _itemsWidgets {
     return _model.items
-        .map((item) => InkWell(
-              onTap: () {
-                _navigateToItemDetails(context, item);
-              },
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: ITEM_HEIGHT,
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          width: 3000.0,
-                          height: ITEM_HEIGHT,
-                          color: ColorConfig.THEME_SECONDARY,
+        .map((item) => Hero(
+              tag: item,
+              child: Material(
+                child: InkWell(
+                  onTap: () {
+                    _navigateToItemDetails(context, item);
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: ITEM_HEIGHT,
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              width: 3000.0,
+                              height: ITEM_HEIGHT,
+                              color: ColorConfig.THEME_SECONDARY,
+                            ),
+                            _primaryPictureWidget(item),
+                            _descriptionSectionWidget(item),
+                          ],
                         ),
-                        _primaryPictureWidget(item),
-                        _descriptionSectionWidget(item),
-                      ],
-                    ),
-                  )
-                ],
+                      )
+                    ],
+                  ),
+                ),
               ),
             ))
         .toList();

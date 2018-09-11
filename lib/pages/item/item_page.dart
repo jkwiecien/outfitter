@@ -95,18 +95,21 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
         ),
       );
 
-  Widget get _imageSectionWidget => CachedNetworkImage(
-        imageUrl: _model.item.pictures.first.url,
-        height: PHOTO_HEIGHT,
-        width: 3000.0,
-        fit: BoxFit.cover,
-        placeholder: Center(
-            child: Container(
-                width: 24.0,
-                height: 24.0,
-                child: CircularProgressIndicator(
-                  strokeWidth: 3.0,
-                ))),
+  Widget get _imageSectionWidget => Hero(
+    tag: _model.item,
+        child: CachedNetworkImage(
+          imageUrl: _model.item.pictures.first.url,
+          height: PHOTO_HEIGHT,
+          width: 3000.0,
+          fit: BoxFit.cover,
+          placeholder: Center(
+              child: Container(
+                  width: 24.0,
+                  height: 24.0,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3.0,
+                  ))),
+        ),
       );
 
   Widget get _descriptionWidget {
