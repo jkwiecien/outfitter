@@ -7,7 +7,6 @@ import 'package:outfitter/models/item.dart';
 import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/discover/model.dart';
 import 'package:outfitter/pages/item/item_page.dart';
-import 'package:outfitter/pages/itemeditor/item_wizard.dart';
 import 'package:outfitter/utils/utils.dart';
 
 class DiscoverPage extends StatefulWidget {
@@ -36,20 +35,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
     final double itemWidth = (screenSize.width / 2) - ITEM_SPACING * 2;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          height: 40.0,
-          margin: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 20.0),
-          child: RawMaterialButton(
-              child: Text(
-                _model.selectedCategory
-                    .getLocalisedName(context, "many")
-                    .toUpperCase(),
-                style: TextStyleFactory.button(),
-              ),
-              onPressed: () {
-                _navigateToCategoryPicker(context);
-              }),
+          margin: EdgeInsets.fromLTRB(PaddingSizeConfig.MEDIUM,
+              PaddingSizeConfig.SMALL, 0.0, PaddingSizeConfig.SMALL),
+          child: _categoryButton,
         ),
         Expanded(
             child: GridView.count(
@@ -175,6 +166,23 @@ class _DiscoverPageState extends State<DiscoverPage> {
         .toList();
   }
 
+  Widget get _categoryButton => RawMaterialButton(
+      child: Row(
+        children: <Widget>[
+          Icon(Icons.category, color: ColorConfig.FONT_PRIMARY),
+          SizedBox(width: PaddingSizeConfig.MEDIUM),
+          Text(
+            _model.selectedCategory
+                .getLocalisedName(context, "many")
+                .toUpperCase(),
+            style: TextStyleFactory.button(),
+          ),
+        ],
+      ),
+      onPressed: () {
+        _navigateToCategoryPicker(context);
+      });
+
   void _navigateToCategoryPicker(BuildContext context) async {
     ItemCategory category = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => CategoryPickerPage()));
@@ -183,17 +191,6 @@ class _DiscoverPageState extends State<DiscoverPage> {
         _model.selectedCategory = category;
         _loadResults();
       });
-    }
-  }
-
-  void _navigateToItemCreator(BuildContext context) async {
-    Item item = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                ItemWizardPage(ItemWizardPageState(Item.newInstance()))));
-    if (item != null) {
-      //TODO
     }
   }
 
