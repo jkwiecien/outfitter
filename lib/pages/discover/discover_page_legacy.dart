@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
 import 'package:outfitter/pages/category_picker.dart';
@@ -9,13 +10,14 @@ import 'package:outfitter/pages/discover/model.dart';
 import 'package:outfitter/pages/item/item_page.dart';
 import 'package:outfitter/pages/itemeditor/item_wizard.dart';
 import 'package:outfitter/utils/utils.dart';
+import 'package:outfitter/widgets/widgets.dart';
 
-class DiscoverPage extends StatefulWidget {
+class DiscoverPageLegacy extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _DiscoverPageState();
 }
 
-class _DiscoverPageState extends State<DiscoverPage> {
+class _DiscoverPageState extends State<DiscoverPageLegacy> {
   static const ITEM_HEIGHT = 200.0;
   static const ITEM_SPACING = 2.0;
 
@@ -31,35 +33,63 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 1.0;
+    timeDilation = 2.0;
     var screenSize = MediaQuery.of(context).size;
     final double itemWidth = (screenSize.width / 2) - ITEM_SPACING * 2;
 
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 40.0,
-          margin: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 20.0),
-          child: RawMaterialButton(
-              child: Text(
-                _model.selectedCategory
-                    .getLocalisedName(context, "many")
-                    .toUpperCase(),
-                style: TextStyleFactory.button(),
-              ),
-              onPressed: () {
-                _navigateToCategoryPicker(context);
-              }),
+    return Scaffold(
+      key: _scaffoldKey,
+      backgroundColor: ColorConfig.THEME_PRIMARY,
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          backgroundColor: ColorConfig.THEME_PRIMARY_DARK,
+          onPressed: () {
+            _navigateToItemCreator(context);
+          }),
+      appBar:
+          AppBarFactory.mainAppBar(context, title: S.of(context).appNameLabel),
+      body: Container(
+        margin: EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
+        padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+        decoration: ShapeDecoration(
+            color: ColorConfig.BACKGROUND,
+            shape: BeveledRectangleBorder(
+                borderRadius:
+                    BorderRadius.only(topLeft: Radius.circular(40.0))),
+            shadows: List.of([
+              BoxShadow(
+                  color: Colors.black,
+                  blurRadius: 6.0,
+                  spreadRadius: 2.0,
+                  offset: Offset(5.0, 5.0))
+            ])),
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 40.0,
+              margin: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 20.0),
+              child: RawMaterialButton(
+                  child: Text(
+                    _model.selectedCategory
+                        .getLocalisedName(context, "many")
+                        .toUpperCase(),
+                    style: TextStyleFactory.button(),
+                  ),
+                  onPressed: () {
+                    _navigateToCategoryPicker(context);
+                  }),
+            ),
+            Expanded(
+                child: GridView.count(
+              crossAxisCount: 2,
+              childAspectRatio: (itemWidth / ITEM_HEIGHT),
+              mainAxisSpacing: ITEM_SPACING,
+              crossAxisSpacing: ITEM_SPACING,
+              children: _itemsWidgets,
+            ))
+          ],
         ),
-        Expanded(
-            child: GridView.count(
-          crossAxisCount: 2,
-          childAspectRatio: (itemWidth / ITEM_HEIGHT),
-          mainAxisSpacing: ITEM_SPACING,
-          crossAxisSpacing: ITEM_SPACING,
-          children: _itemsWidgets,
-        ))
-      ],
+      ),
     );
   }
 
