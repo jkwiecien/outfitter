@@ -40,7 +40,15 @@ class _DiscoverPageState extends State<DiscoverPage> {
         Container(
           margin: EdgeInsets.fromLTRB(PaddingSizeConfig.MEDIUM,
               PaddingSizeConfig.SMALL, 0.0, PaddingSizeConfig.SMALL),
-          child: _categoryButton,
+          child: Row(
+            children: <Widget>[
+              Expanded(child: _categoryButton),
+              Container(
+                  padding: EdgeInsets.fromLTRB(
+                      PaddingSizeConfig.LARGE, 0.0, 0.0, 0.0),
+                  child: _filtersButton)
+            ],
+          ),
         ),
         Expanded(
             child: GridView.count(
@@ -182,6 +190,13 @@ class _DiscoverPageState extends State<DiscoverPage> {
       onPressed: () {
         _navigateToCategoryPicker(context);
       });
+
+  Widget get _filtersButton => IconButton(
+        icon: Icon(Icons.tune, color: ColorConfig.FONT_PRIMARY),
+        onPressed: () {
+          //TODO
+        },
+      );
 
   void _navigateToCategoryPicker(BuildContext context) async {
     ItemCategory category = await Navigator.push(
