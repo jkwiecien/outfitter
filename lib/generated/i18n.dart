@@ -31,6 +31,7 @@ class S implements WidgetsLocalizations {
   String get descriptionInputHint => "Opis";
   String get editItemPageTitle => "Edycja";
   String get fieldRequiredErrorMessage => "Pole wymagane";
+  String get filtersLabel => "Filtry";
   String get generalErrorMessage => "Coś poszło nie tak";
   String get informationLabel => "Informacje";
   String get loadingLabel => "Trwa ładowanie danych";

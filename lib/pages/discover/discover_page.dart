@@ -2,10 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
 import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/discover/model.dart';
+import 'package:outfitter/pages/filters/filters.dart';
+import 'package:outfitter/pages/filters/filters_page.dart';
 import 'package:outfitter/pages/item/item_page.dart';
 import 'package:outfitter/utils/utils.dart';
 
@@ -17,8 +20,6 @@ class DiscoverPage extends StatefulWidget {
 class _DiscoverPageState extends State<DiscoverPage> {
   static const ITEM_HEIGHT = 200.0;
   static const ITEM_SPACING = 2.0;
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final _model = DiscoverModel();
 
@@ -177,12 +178,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
   Widget get _categoryButton => RawMaterialButton(
       child: Row(
         children: <Widget>[
-          Icon(Icons.category, color: ColorConfig.FONT_PRIMARY),
-          SizedBox(width: PaddingSizeConfig.MEDIUM),
           Text(
-            _model.selectedCategory
-                .getLocalisedName(context, "many")
-                .toUpperCase(),
+            '${S.of(context).categoryLabel.toUpperCase()}:  ${_model.selectedCategory.getLocalisedName(context, "many").toUpperCase()}',
             style: TextStyleFactory.button(),
           ),
         ],
@@ -194,7 +191,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
   Widget get _filtersButton => IconButton(
         icon: Icon(Icons.tune, color: ColorConfig.FONT_PRIMARY),
         onPressed: () {
-          //TODO
+          _navigateToFiltersPicker(context);
         },
       );
 
@@ -207,6 +204,15 @@ class _DiscoverPageState extends State<DiscoverPage> {
         _loadResults();
       });
     }
+  }
+
+  void _navigateToFiltersPicker(BuildContext context) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FiltersPage(FiltersPageState(Filters())),
+      ),
+    );
   }
 
   void _navigateToItemDetails(BuildContext context, Item item) {

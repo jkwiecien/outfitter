@@ -62,5 +62,6 @@
   "informationLabel": "Informacje",
   "mainColorLabel": "Kolor główny",
   "photosLabel": "Zdjęcia",
-  "signInButtonTitle": "Zaloguj"
+  "signInButtonTitle": "Zaloguj",
+  "filtersLabel": "Filtry"
 }
