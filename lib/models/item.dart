@@ -15,6 +15,7 @@ class Item {
   MainColor mainColor;
   List<ItemPicture> pictures = List();
   num price = 0.0;
+  bool archived = false;
 
   Map<String, dynamic> toMap() {
     return {
