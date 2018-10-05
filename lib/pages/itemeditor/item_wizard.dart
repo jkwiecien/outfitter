@@ -13,6 +13,7 @@ import 'package:outfitter/pages/itemeditor/description_form.dart';
 import 'package:outfitter/pages/itemeditor/model.dart';
 import 'package:outfitter/pages/itemeditor/name_form.dart';
 import 'package:outfitter/pages/itemeditor/pictures_list.dart';
+import 'package:outfitter/pages/itemeditor/price_form.dart';
 import 'package:outfitter/pages/itemeditor/size_form.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/beveled_rectangle_button.dart';
@@ -193,6 +194,8 @@ class ItemWizardPageState extends State<ItemWizardPage> {
                   ]),
             ),
             DividerFactory.leftCutDivider(),
+            _visibilityAndTradeSection,
+            DividerFactory.leftCutDivider(),
             Container(
               padding: EdgeInsets.all(PaddingSizeConfig.LARGE),
               child: Row(
@@ -304,7 +307,7 @@ class ItemWizardPageState extends State<ItemWizardPage> {
 //    final url = 'https://firebasestorage.googleapis.com/v0/b/pocket-outfitter.appspot.com/o/pictures%2F0284e33d-f03b-463d-8bd1-b5ad3db401d0.jpg?alt=media&token=0aabd1f6-cc44-4013-be5d-fb27190dc9e2';
 //    _model.item.pictures.add(url);
 //    _picturesListView.state.urls = _model.item.pictures;
-    final uid = Uuid().v4();
+    final uid = Uuid().v1();
     ImagePicker.pickImage(
             source: ImageSource.gallery, maxWidth: 1200.0, maxHeight: 1200.0)
         .then((imageFile) {
@@ -315,11 +318,11 @@ class ItemWizardPageState extends State<ItemWizardPage> {
             FirebaseStorage.instance.ref().child('pictures').child('$uid.jpg');
         ref
             .putFile(imageFile, StorageMetadata(contentType: 'image/jpeg'))
-            .future
+            .onComplete
             .then((uploadTaskSnapshot) {
-          final Uri downloadUrl = uploadTaskSnapshot.downloadUrl;
-          final url = downloadUrl.toString();
-          _model.item.addPicture(ItemPicture(uid, url));
+          return uploadTaskSnapshot.ref.getDownloadURL();
+        }).then((downloadUrl) {
+          _model.item.addPicture(ItemPicture(uid, downloadUrl));
           return _model.item.pictures;
         }).then((pictures) {
           _picturesListView.state.pictures = pictures;
@@ -327,4 +330,70 @@ class ItemWizardPageState extends State<ItemWizardPage> {
       }
     });
   }
+
+  Widget get _visibilityAndTradeSection => Container(
+        padding: EdgeInsets.all(PaddingSizeConfig.LARGE),
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Icon(
+                Icons.monetization_on,
+                color: ColorConfig.FONT_PRIMARY,
+              ),
+              SizedBox(width: PaddingSizeConfig.LARGE),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      S.of(context).visibilityAndTradeLabel.toUpperCase(),
+                      style: TextStyleFactory.overline(),
+                    ),
+                    SizedBox(height: PaddingSizeConfig.SMALL),
+                    CheckboxListTile(
+                        title: Text(S.of(context).privateCollectionLabel),
+                        value: _model.privateCollection,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _model.privateCollection = value;
+                          });
+                        }),
+                    CheckboxListTile(
+                        title: Text(S.of(context).forSaleLabel),
+                        value: _model.forSale,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _model.forSale = value;
+                          });
+                        }),
+                    _priceInputSection
+                  ],
+                ),
+              ),
+            ]),
+      );
+
+  Widget get _priceInputSection => _model.forSale
+      ? Container(
+          padding: EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
+          child: Row(
+            children: <Widget>[
+              Text(
+                'Cena',
+                style: TextStyleFactory.body1(),
+              ),
+              Container(
+                width: PaddingSizeConfig.MEDIUM,
+              ),
+              Container(
+                width: 100.0,
+                child: PriceForm(
+                    PriceFormState(_model.item.price, onPriceChanged: (price) {
+                  _model.item.price = price;
+                })),
+              )
+            ],
+          ),
+        )
+      : Container();
 }

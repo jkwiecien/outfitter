@@ -6,6 +6,23 @@ import 'package:outfitter/models/item.dart';
 class ItemEditorModel {
   final Item item;
   final bool editMode;
+  bool _privateCollection = false;
+
+  bool get privateCollection => _privateCollection;
+
+  set privateCollection(bool private) {
+    _privateCollection = private;
+    if (private) _forSale = false;
+  }
+
+  bool _forSale = false;
+
+  bool get forSale => _forSale;
+
+  set forSale(bool forSale) {
+    _forSale = forSale;
+    if (_forSale) _privateCollection = false;
+  }
 
   ItemEditorModel(this.item, this.editMode);
 

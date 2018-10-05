@@ -45,8 +45,6 @@ class _OutfitterAppState extends State<OutfitterApp> {
 
         return supportedLocales.first;
       },
-//      home: ItemWizardPage(ItemWizardPageState(Item.newInstance())),
-//      home: DiscoverPage(),
       home: _initialPage(),
     );
   }
@@ -69,6 +67,7 @@ class _OutfitterAppState extends State<OutfitterApp> {
     switch (_authState) {
       case _AuthState.OK:
         return NavigationPage();
+//        return ItemWizardPage(ItemWizardPageState(Item.newInstance()));
       case _AuthState.CHECKING:
         return Center(child: Text('LOADING'));
       default:

@@ -32,6 +32,7 @@ class S implements WidgetsLocalizations {
   String get editItemPageTitle => "Edycja";
   String get fieldRequiredErrorMessage => "Pole wymagane";
   String get filtersLabel => "Filtry";
+  String get forSaleLabel => "Na sprzedaż";
   String get generalErrorMessage => "Coś poszło nie tak";
   String get informationLabel => "Informacje";
   String get loadingLabel => "Trwa ładowanie danych";
@@ -39,9 +40,11 @@ class S implements WidgetsLocalizations {
   String get nameInputHint => "Nazwa";
   String get notSelectedLabel => "Nie wybrano";
   String get photosLabel => "Zdjęcia";
+  String get privateCollectionLabel => "Kolekcja prywatna";
   String get saveAction => "Zapisz";
   String get signInButtonTitle => "Zaloguj";
   String get sizeInputHint => "Rozmiar";
+  String get visibilityAndTradeLabel => "Widoczność i handel";
   String accessoryCategory(String count) {
     switch (count) {
       case "1":

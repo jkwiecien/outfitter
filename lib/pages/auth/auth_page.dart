@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:outfitter/core/application.dart';
 import 'package:outfitter/generated/i18n.dart';
-import 'package:outfitter/pages/discover/discover_page_legacy.dart';
+import 'package:outfitter/navigation/navigation_page.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/beveled_rectangle_button.dart';
 
@@ -58,7 +58,7 @@ class AuthPageState extends State<AuthPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DiscoverPageLegacy(),
+        builder: (context) => NavigationPage(),
       ),
     );
   }

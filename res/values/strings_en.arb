@@ -63,5 +63,8 @@
   "mainColorLabel": "Kolor główny",
   "photosLabel": "Zdjęcia",
   "signInButtonTitle": "Zaloguj",
-  "filtersLabel": "Filtry"
+  "filtersLabel": "Filtry",
+  "visibilityAndTradeLabel": "Widoczność i handel",
+  "privateCollectionLabel": "Kolekcja prywatna",
+  "forSaleLabel": "Na sprzedaż"
 }

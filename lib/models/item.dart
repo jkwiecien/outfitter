@@ -14,6 +14,7 @@ class Item {
   String size;
   MainColor mainColor;
   List<ItemPicture> pictures = List();
+  num price = 0.0;
 
   Map<String, dynamic> toMap() {
     return {
