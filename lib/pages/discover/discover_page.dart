@@ -2,10 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
-import 'package:outfitter/generated/i18n.dart';
-import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
-import 'package:outfitter/pages/category_picker.dart';
+import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/pages/discover/model.dart';
 import 'package:outfitter/pages/filters/filters.dart';
 import 'package:outfitter/pages/filters/filters_page.dart';
@@ -43,7 +41,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
               PaddingSizeConfig.SMALL, 0.0, PaddingSizeConfig.SMALL),
           child: Row(
             children: <Widget>[
-              Expanded(child: _categoryButton),
+              Expanded(child: _selectedFiltersSection),
               Container(
                   padding: EdgeInsets.fromLTRB(
                       PaddingSizeConfig.LARGE, 0.0, 0.0, 0.0),
@@ -70,11 +68,15 @@ class _DiscoverPageState extends State<DiscoverPage> {
 //        .snapshots()
 //        .listen((data) =>
 //        data.documents.forEach((doc) => print(doc["title"])));
-    Firestore.instance
-        .collection('categories/${_model.selectedCategory.toString()}/items')
-        .snapshots()
-        .listen((querySnapshot) {
-      print('WTF | Loaded items: ${querySnapshot.documents.length}');
+    final MainColor colorFilter = _model.selectedFilters.color;
+
+    Query query = Firestore.instance.collection(
+        'categories/${_model.selectedFilters.category.toString()}/items');
+
+    if (colorFilter != null)
+      query = query.where('mainColor', isEqualTo: colorFilter.toString());
+
+    query.snapshots().listen((querySnapshot) {
       setState(() {
         _model.items = querySnapshot.documents
             .map((document) => Item.fromSnapshot(document))
@@ -175,18 +177,37 @@ class _DiscoverPageState extends State<DiscoverPage> {
         .toList();
   }
 
-  Widget get _categoryButton => RawMaterialButton(
-      child: Row(
-        children: <Widget>[
-          Text(
-            '${S.of(context).categoryLabel.toUpperCase()}:  ${_model.selectedCategory.getLocalisedName(context, "many").toUpperCase()}',
-            style: TextStyleFactory.button(),
-          ),
-        ],
-      ),
-      onPressed: () {
-        _navigateToCategoryPicker(context);
-      });
+  Widget get _selectedFiltersSection {
+    MainColor selectedColor = _model.selectedFilters.color;
+    return Row(
+      children: <Widget>[
+        Text(
+          _model.selectedFilters.category
+              .getLocalisedName(context, "many")
+              .toUpperCase(),
+          style: TextStyleFactory.button(),
+        ),
+        Container(width: PaddingSizeConfig.MEDIUM),
+        Container(
+          width: 24.0,
+          height: 24.0,
+          margin: EdgeInsets.fromLTRB(0.0, 0.0, PaddingSizeConfig.SMALL, 0.0),
+          padding: EdgeInsets.all(2.0),
+          child: selectedColor != null
+              ? DecoratedBox(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: selectedColor.color,
+                      border: new Border.all(
+                        width: 1.0,
+                        color: Colors.grey,
+                      )),
+                )
+              : Container(),
+        )
+      ],
+    );
+  }
 
   Widget get _filtersButton => IconButton(
         icon: Icon(Icons.tune, color: ColorConfig.FONT_PRIMARY),
@@ -195,24 +216,20 @@ class _DiscoverPageState extends State<DiscoverPage> {
         },
       );
 
-  void _navigateToCategoryPicker(BuildContext context) async {
-    ItemCategory category = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => CategoryPickerPage()));
-    if (category != null && category != _model.selectedCategory) {
+  void _navigateToFiltersPicker(BuildContext context) async {
+    Filters filters = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            FiltersPage(FiltersPageState(_model.selectedFilters)),
+      ),
+    );
+    if (filters != null) {
       setState(() {
-        _model.selectedCategory = category;
+        _model.selectedFilters = filters;
         _loadResults();
       });
     }
-  }
-
-  void _navigateToFiltersPicker(BuildContext context) async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => FiltersPage(FiltersPageState(Filters())),
-      ),
-    );
   }
 
   void _navigateToItemDetails(BuildContext context, Item item) {

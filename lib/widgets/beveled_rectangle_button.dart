@@ -64,6 +64,7 @@ class BeveledRectangleProgressButtonState
   IconData _iconData;
   Function _onPressed;
   bool _progress = false;
+  Color _buttonColor;
 
   set progress(bool value) {
     setState(() {
@@ -71,9 +72,15 @@ class BeveledRectangleProgressButtonState
     });
   }
 
-  BeveledRectangleProgressButtonState({iconData, Function onPressed}) {
+  BeveledRectangleProgressButtonState(
+      {iconData, Color buttonColor, Function onPressed}) {
     _iconData = iconData;
     _onPressed = onPressed;
+    if (buttonColor != null)
+      _buttonColor = buttonColor;
+    else
+      _buttonColor = ColorConfig.THEME_PRIMARY;
+//    _fillColor = fillColor != null ? fillColor : ColorConfig.THEME_PRIMARY;
   }
 
   @override
@@ -84,7 +91,7 @@ class BeveledRectangleProgressButtonState
         shape: BeveledRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0))),
         elevation: 4.0,
-        fillColor: ColorConfig.THEME_PRIMARY,
+        fillColor: _buttonColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

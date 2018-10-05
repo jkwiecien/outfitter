@@ -5,6 +5,7 @@ import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/filters/filters.dart';
 import 'package:outfitter/utils/utils.dart';
+import 'package:outfitter/widgets/beveled_rectangle_button.dart';
 import 'package:outfitter/widgets/main_color_box.dart';
 import 'package:outfitter/widgets/widgets.dart';
 
@@ -27,8 +28,8 @@ class FiltersPageState extends State<FiltersPage> {
   @override
   void initState() {
     _mainColorBoxes = MainColor.allColors().map((mainColor) {
-      return MainColorBox(MainColorBoxState(mainColor,
-          _filters.selectedColor == mainColor, _onColorSelectionChanged));
+      return MainColorBox(MainColorBoxState(
+          mainColor, _filters.color == mainColor, _onColorSelectionChanged));
     }).toList(growable: false);
     super.initState();
   }
@@ -64,7 +65,7 @@ class FiltersPageState extends State<FiltersPage> {
                       ),
                       SizedBox(height: PaddingSizeConfig.SMALL),
                       Text(
-                        _filters.selectedCategory
+                        _filters.category
                             .getLocalisedName(context, "many")
                             .toUpperCase(),
                         style: TextStyleFactory.subtitle2(),
@@ -111,6 +112,17 @@ class FiltersPageState extends State<FiltersPage> {
                     ),
                   ),
                 ]),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(PaddingSizeConfig.LARGE),
+            child: BeveledRectangleProgressButton(
+              BeveledRectangleProgressButtonState(
+                  buttonColor: ColorConfig.THEME_SECONDARY,
+                  onPressed: () {
+                    Navigator.pop(context, _filters);
+                  }),
+              title: S.of(context).applyFiltersButtonTitle,
+            ),
           )
         ],
       ),
@@ -119,12 +131,12 @@ class FiltersPageState extends State<FiltersPage> {
 
   _onColorSelectionChanged(MainColorBox mainColorBox) {
     if (mainColorBox.state.selected) {
-      _filters.selectedColor = mainColorBox.state.mainColor;
+      _filters.color = mainColorBox.state.mainColor;
       _mainColorBoxes.forEach((colorBox) {
         if (colorBox != mainColorBox) colorBox.state.selected = false;
       });
     } else {
-      _filters.selectedColor = null;
+      _filters.color = null;
     }
   }
 
@@ -133,7 +145,7 @@ class FiltersPageState extends State<FiltersPage> {
         context, MaterialPageRoute(builder: (context) => CategoryPickerPage()));
     if (category != null) {
       setState(() {
-        _filters.selectedCategory = category;
+        _filters.category = category;
       });
     }
   }

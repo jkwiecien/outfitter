@@ -22,6 +22,7 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get appNameLabel => "Outfitter";
+  String get applyFiltersButtonTitle => "Zastosuj";
   String get brandInputHint => "Producent";
   String get categoryButtonTitle => "Kategoria";
   String get categoryLabel => "Kategoria";

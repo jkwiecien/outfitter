@@ -99,11 +99,29 @@ class MainColor {
   }
 
   static List<MainColor> allColors() {
-    return [MainColor.white(), MainColor.grey(), MainColor.black(), MainColor.red(), MainColor.pink(), MainColor.purple(), MainColor.blue(), MainColor.green(), MainColor.yellow(), MainColor.orange(), MainColor.brown()];
+    return [
+      MainColor.white(),
+      MainColor.grey(),
+      MainColor.black(),
+      MainColor.red(),
+      MainColor.pink(),
+      MainColor.purple(),
+      MainColor.blue(),
+      MainColor.green(),
+      MainColor.yellow(),
+      MainColor.orange(),
+      MainColor.brown()
+    ];
   }
 
   @override
   String toString() {
     return id.toString().replaceAll("MainColorId.", "");
   }
+
+  @override
+  bool operator ==(other) => other is MainColor && id == other.id;
+
+  @override
+  int get hashCode => id != null ? id.hashCode : 0;
 }
