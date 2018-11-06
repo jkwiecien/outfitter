@@ -34,6 +34,7 @@ class S implements WidgetsLocalizations {
   String get fieldRequiredErrorMessage => "Pole wymagane";
   String get filtersLabel => "Filtry";
   String get forSaleLabel => "Na sprzedaż";
+  String get forSaleOnlyLabel => "Tylko na sprzedaż";
   String get generalErrorMessage => "Coś poszło nie tak";
   String get informationLabel => "Informacje";
   String get loadingLabel => "Trwa ładowanie danych";

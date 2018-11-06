@@ -62,16 +62,19 @@ class _DiscoverPageState extends State<DiscoverPage> {
   }
 
   void _loadResults() {
-//    Firestore.instance
-//        .collection('talks')
-//        .where("topic", isEqualTo: "flutter")
-//        .snapshots()
-//        .listen((data) =>
-//        data.documents.forEach((doc) => print(doc["title"])));
     final MainColor colorFilter = _model.selectedFilters.color;
 
-    Query query = Firestore.instance.collection(
-        'categories/${_model.selectedFilters.category.toString()}/items');
+    Query query = Firestore.instance
+        .collection(
+            'categories/${_model.selectedFilters.category.toString()}/items')
+        .where('visibility_status', isEqualTo: VisibilityStatus.STATUS_PUBLIC);
+
+    if (_model.selectedFilters.forSaleOnly) {
+      query = query.where('sale_status', isEqualTo: SaleStatus.FOR_SALE);
+    } else {
+      query = query.where('sale_status',
+          isGreaterThanOrEqualTo: SaleStatus.NOT_FOR_SALE);
+    }
 
     if (colorFilter != null)
       query = query.where('mainColor', isEqualTo: colorFilter.toString());
@@ -178,7 +181,6 @@ class _DiscoverPageState extends State<DiscoverPage> {
   }
 
   Widget get _selectedFiltersSection {
-    MainColor selectedColor = _model.selectedFilters.color;
     return Row(
       children: <Widget>[
         Text(
@@ -188,26 +190,40 @@ class _DiscoverPageState extends State<DiscoverPage> {
           style: TextStyleFactory.button(),
         ),
         Container(width: PaddingSizeConfig.MEDIUM),
-        Container(
+        _colorFilterWidget,
+        _forSaleOnlyFilterWidget
+      ],
+    );
+  }
+
+  Widget get _colorFilterWidget => _model.selectedFilters.color != null
+      ? Container(
           width: 24.0,
           height: 24.0,
           margin: EdgeInsets.fromLTRB(0.0, 0.0, PaddingSizeConfig.SMALL, 0.0),
           padding: EdgeInsets.all(2.0),
-          child: selectedColor != null
-              ? DecoratedBox(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: selectedColor.color,
-                      border: new Border.all(
-                        width: 1.0,
-                        color: Colors.grey,
-                      )),
-                )
-              : Container(),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _model.selectedFilters.color.color,
+                border: new Border.all(
+                  width: 1.0,
+                  color: Colors.grey,
+                )),
+          ))
+      : Container();
+
+  Widget get _forSaleOnlyFilterWidget => _model.selectedFilters.forSaleOnly
+      ? Container(
+          width: 24.0,
+          height: 24.0,
+          margin: EdgeInsets.fromLTRB(0.0, 0.0, PaddingSizeConfig.SMALL, 0.0),
+          child: Icon(
+            Icons.monetization_on,
+            color: ColorConfig.FONT_PRIMARY,
+          ),
         )
-      ],
-    );
-  }
+      : Container();
 
   Widget get _filtersButton => IconButton(
         icon: Icon(Icons.tune, color: ColorConfig.FONT_PRIMARY),

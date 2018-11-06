@@ -67,5 +67,6 @@
   "visibilityAndTradeLabel": "Widoczność i handel",
   "privateCollectionLabel": "Kolekcja prywatna",
   "forSaleLabel": "Na sprzedaż",
-  "applyFiltersButtonTitle": "Zastosuj"
+  "applyFiltersButtonTitle": "Zastosuj",
+  "forSaleOnlyLabel": "Tylko na sprzedaż"
 }

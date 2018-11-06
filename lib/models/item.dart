@@ -4,6 +4,18 @@ import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/models/picture.dart';
 
+class VisibilityStatus {
+  static const int STATUS_ARCHIVED = 0;
+  static const int STATUS_PRIVATE = 1;
+  static const int STATUS_PUBLIC = 2;
+}
+
+class SaleStatus {
+  static const int SOLD = 0;
+  static const int NOT_FOR_SALE = 1;
+  static const int FOR_SALE = 2;
+}
+
 class Item {
   String id;
   DateTime dateCreated = DateTime.now();
@@ -15,7 +27,8 @@ class Item {
   MainColor mainColor;
   List<ItemPicture> pictures = List();
   num price = 0.0;
-  bool archived = false;
+  var visibilityStatus = VisibilityStatus.STATUS_PUBLIC;
+  var saleStatus = SaleStatus.NOT_FOR_SALE;
 
   Map<String, dynamic> toMap() {
     return {
@@ -26,6 +39,9 @@ class Item {
       'size': size,
       'mainColor': mainColor.toString(),
       'dateCreated': dateCreated,
+      'visibility_status': visibilityStatus,
+      'sale_status': saleStatus,
+      'price': price,
       'pictures': Map.fromEntries(
           pictures.map((picture) => MapEntry(picture.id, picture.url)))
     };

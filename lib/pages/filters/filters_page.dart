@@ -113,6 +113,8 @@ class FiltersPageState extends State<FiltersPage> {
                   ),
                 ]),
           ),
+          DividerFactory.leftCutDivider(),
+          _visibilityAndTradeSection,
           Padding(
             padding: const EdgeInsets.all(PaddingSizeConfig.LARGE),
             child: BeveledRectangleProgressButton(
@@ -127,6 +129,48 @@ class FiltersPageState extends State<FiltersPage> {
         ],
       ),
     );
+  }
+
+  Widget get _visibilityAndTradeSection => Container(
+        padding: EdgeInsets.all(PaddingSizeConfig.LARGE),
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Icon(
+                Icons.monetization_on,
+                color: ColorConfig.FONT_PRIMARY,
+              ),
+              SizedBox(width: PaddingSizeConfig.LARGE),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      S.of(context).visibilityAndTradeLabel.toUpperCase(),
+                      style: TextStyleFactory.overline(),
+                    ),
+                    SizedBox(height: PaddingSizeConfig.SMALL),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(S.of(context).forSaleOnlyLabel,
+                              style: TextStyleFactory.subtitle1()),
+                        ),
+                        Switch(
+                            value: _filters.forSaleOnly,
+                            onChanged: _onForSaleOnlyChanged),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ]),
+      );
+
+  _onForSaleOnlyChanged(bool value) {
+    setState(() {
+      _filters.forSaleOnly = value;
+    });
   }
 
   _onColorSelectionChanged(MainColorBox mainColorBox) {

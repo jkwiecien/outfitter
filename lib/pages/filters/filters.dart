@@ -4,4 +4,5 @@ import 'package:outfitter/models/main_color.dart';
 class Filters {
   MainColor color;
   ItemCategory category = ItemCategory.fromId(CategoryId.shoes);
+  bool forSaleOnly = false;
 }
