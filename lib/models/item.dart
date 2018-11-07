@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:outfitter/core/application.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/models/picture.dart';
@@ -18,6 +19,7 @@ class SaleStatus {
 
 class Item {
   String id;
+  String userId;
   DateTime dateCreated = DateTime.now();
   ItemCategory category;
   var name = '';
@@ -32,6 +34,7 @@ class Item {
 
   Map<String, dynamic> toMap() {
     return {
+      'user_id': userId,
       'name': name,
       'category': category.toString(),
       'description': description,
@@ -47,10 +50,14 @@ class Item {
     };
   }
 
-  Item.newInstance();
+  Item.newInstance() {
+    userId = application.user.uid;
+    dateCreated = DateTime.now();
+  }
 
   Item.fromSnapshot(DocumentSnapshot snapshot) {
     id = snapshot.documentID;
+    userId = snapshot.data['user_id'];
     category = ItemCategory.fromString(snapshot.data['category']);
     name = snapshot.data['name'];
     dateCreated = snapshot.data['dateCreated'];
@@ -58,6 +65,8 @@ class Item {
     brand = snapshot.data['brand'];
     size = snapshot.data['size'];
     mainColor = MainColor.fromString(snapshot['mainColor']);
+    visibilityStatus = snapshot.data['visibility_status'];
+    saleStatus = snapshot.data['sale_status'];
     final picturesMap = snapshot.data['pictures'];
     if (picturesMap != null) {
       picturesMap.entries.forEach((pictureMapEntry) {

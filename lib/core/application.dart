@@ -19,6 +19,8 @@ class Application {
   }
 
   Application._internal();
+
+  FirebaseUser user;
 }
 
 Application application = new Application();

@@ -23,6 +23,7 @@ class AuthPageState extends State<AuthPage> {
         BeveledRectangleProgressButtonState(onPressed: () {
       _signIn(context).then((FirebaseUser user) {
         //TODO
+        application.user = user;
         _googleSignInButtonState.progress = false;
         _navigateToApp();
       }).catchError((e) => print(e));
