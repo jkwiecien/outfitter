@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:outfitter/core/application.dart';
 import 'package:outfitter/generated/i18n.dart';
-import 'package:outfitter/navigation/navigation_page.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/beveled_rectangle_button.dart';
 
@@ -22,10 +21,9 @@ class AuthPageState extends State<AuthPage> {
     _googleSignInButtonState =
         BeveledRectangleProgressButtonState(onPressed: () {
       _signIn(context).then((FirebaseUser user) {
-        //TODO
         application.user = user;
         _googleSignInButtonState.progress = false;
-        _navigateToApp();
+        Navigator.pop(context, user);
       }).catchError((e) => print(e));
     });
     super.initState();
@@ -53,14 +51,5 @@ class AuthPageState extends State<AuthPage> {
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
     return await application.firebaseAuth.signInWithGoogle(
         idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-  }
-
-  void _navigateToApp() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => NavigationPage(),
-      ),
-    );
   }
 }

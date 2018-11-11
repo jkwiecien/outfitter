@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:outfitter/core/application.dart';
 import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/models/item.dart';
+import 'package:outfitter/pages/auth/auth_page.dart';
 import 'package:outfitter/pages/discover/discover_page.dart';
 import 'package:outfitter/pages/itemeditor/item_wizard.dart';
 import 'package:outfitter/utils/utils.dart';
@@ -15,23 +16,23 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
-    return  DefaultTabController(
+    return DefaultTabController(
       length: 2,
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
             backgroundColor: ColorConfig.THEME_PRIMARY_DARK,
             onPressed: () {
-              _navigateToItemCreator(context);
+              _onCreateClicked(context);
             }),
         appBar: AppBar(
           bottom: TabBar(
             tabs: [
               Tab(
                   icon: Icon(
-                    MdiIcons.accountMultipleOutline,
-                    color: ColorConfig.FONT_PRIMARY,
-                  )),
+                MdiIcons.accountMultipleOutline,
+                color: ColorConfig.FONT_PRIMARY,
+              )),
               Tab(
                   icon: Icon(MdiIcons.accountBoxOutline,
                       color: ColorConfig.FONT_PRIMARY)),
@@ -47,6 +48,16 @@ class _NavigationPageState extends State<NavigationPage> {
         ),
       ),
     );
+  }
+
+  void _onCreateClicked(BuildContext context) async {
+    if (application.isLoggedIn()) {
+      _navigateToItemCreator(context);
+    } else {
+      final user = await Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AuthPage()));
+      if (user != null) _navigateToItemCreator(context);
+    }
   }
 
   void _navigateToItemCreator(BuildContext context) async {

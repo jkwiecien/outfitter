@@ -1,22 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:outfitter/core/application.dart';
 import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/navigation/navigation_page.dart';
-import 'package:outfitter/pages/auth/auth_page.dart';
 import 'package:outfitter/utils/utils.dart';
 
 void main() => runApp(new OutfitterApp());
+
+enum _InitState { PROGRESS, FINISHED, ERROR }
 
 class OutfitterApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _OutfitterAppState();
 }
 
-enum _AuthState { CHECKING, OK, ERROR }
-
 class _OutfitterAppState extends State<OutfitterApp> {
-  _AuthState _authState = _AuthState.CHECKING;
+  _InitState _initState = _InitState.PROGRESS;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,7 @@ class _OutfitterAppState extends State<OutfitterApp> {
 
         return supportedLocales.first;
       },
-      home: _initialPage(),
+      home: _initialPage,
     );
   }
 
@@ -56,22 +55,27 @@ class _OutfitterAppState extends State<OutfitterApp> {
   }
 
   void _checkAuth() {
-    FirebaseAuth.instance.currentUser().then((firebaseUser) {
+    application.firebaseAuth.currentUser().then((user) {
+      application.user = user;
+    }).whenComplete(() {
       setState(() {
-        _authState = firebaseUser != null ? _AuthState.OK : _AuthState.ERROR;
+        _initState = _InitState.FINISHED;
+      });
+    }).catchError((error) {
+      setState(() {
+        _initState = _InitState.ERROR;
       });
     });
   }
 
-  Widget _initialPage() {
-    switch (_authState) {
-      case _AuthState.OK:
+  Widget get _initialPage {
+    switch (_initState) {
+      case _InitState.FINISHED:
         return NavigationPage();
-//        return ItemWizardPage(ItemWizardPageState(Item.newInstance()));
-      case _AuthState.CHECKING:
-        return Center(child: Text('LOADING'));
+      case _InitState.ERROR:
+        return Center(child: Text('Error'));
       default:
-        return AuthPage();
+        return Center(child: Text('LOADING'));
     }
   }
 }
