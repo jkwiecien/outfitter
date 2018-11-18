@@ -16,7 +16,8 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -28,8 +29,8 @@ android {
 
     defaultConfig {
         applicationId "co.techbrewery.outfitter"
-        minSdkVersion 21
-        targetSdkVersion 27
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -50,11 +51,19 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation "com.google.android.gms:play-services-base:$play_services_base_version"
+    implementation "com.google.firebase:firebase-core:$firebase_core_version"
+}
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+configurations.all {
+    resolutionStrategy {
+        eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'com.android.support') {
+                details.useVersion support_library_version
+            }
+        }
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
