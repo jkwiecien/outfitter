@@ -21,6 +21,7 @@ class Item {
   String id;
   String userId;
   DateTime dateCreated = DateTime.now();
+  DateTime dateBought;
   ItemCategory category;
   var name = '';
   var description = '';
@@ -42,6 +43,7 @@ class Item {
       'size': size,
       'mainColor': mainColor.toString(),
       'dateCreated': dateCreated,
+      'dateBought': dateBought,
       'visibility_status': visibilityStatus,
       'sale_status': saleStatus,
       'price': price,
@@ -60,7 +62,8 @@ class Item {
     userId = snapshot.data['user_id'];
     category = ItemCategory.fromString(snapshot.data['category']);
     name = snapshot.data['name'];
-    dateCreated = snapshot.data['dateCreated'];
+    dateCreated = snapshot.data['date_created'];
+    dateCreated = snapshot.data['date_bought'];
     description = snapshot.data['description'];
     brand = snapshot.data['brand'];
     size = snapshot.data['size'];
