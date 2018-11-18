@@ -68,5 +68,7 @@
   "privateCollectionLabel": "Kolekcja prywatna",
   "forSaleLabel": "Na sprzedaż",
   "applyFiltersButtonTitle": "Zastosuj",
-  "forSaleOnlyLabel": "Tylko na sprzedaż"
+  "forSaleOnlyLabel": "Tylko na sprzedaż",
+  "discoverTabTitle": "Odkrywanie",
+  "myItemsTanTitle": "Moja szafa"
 }

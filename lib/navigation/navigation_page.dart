@@ -29,11 +29,13 @@ class _NavigationPageState extends State<NavigationPage> {
           bottom: TabBar(
             tabs: [
               Tab(
+                  text: S.of(context).discoverTabTitle,
                   icon: Icon(
-                MdiIcons.accountMultipleOutline,
-                color: ColorConfig.FONT_PRIMARY,
-              )),
+                    Icons.search,
+                    color: ColorConfig.FONT_PRIMARY,
+                  )),
               Tab(
+                  text: S.of(context).myItemsTanTitle,
                   icon: Icon(MdiIcons.accountBoxOutline,
                       color: ColorConfig.FONT_PRIMARY)),
             ],

@@ -30,6 +30,7 @@ class S implements WidgetsLocalizations {
   String get categoryRequiredErrorMessage => "Wybierz kategorię";
   String get createItemPageTitle => "Tworzenie";
   String get descriptionInputHint => "Opis";
+  String get discoverTabTitle => "Odkrywanie";
   String get editItemPageTitle => "Edycja";
   String get fieldRequiredErrorMessage => "Pole wymagane";
   String get filtersLabel => "Filtry";
@@ -39,6 +40,7 @@ class S implements WidgetsLocalizations {
   String get informationLabel => "Informacje";
   String get loadingLabel => "Trwa ładowanie danych";
   String get mainColorLabel => "Kolor główny";
+  String get myItemsTanTitle => "Moja szafa";
   String get nameInputHint => "Nazwa";
   String get notSelectedLabel => "Nie wybrano";
   String get photosLabel => "Zdjęcia";
