@@ -34,6 +34,12 @@ class ItemCategory {
     categoryId = enumId;
   }
 
+  static List<ItemCategory> allCategories() {
+    return CategoryId.values.map((id) {
+      return ItemCategory(id);
+    }).toList();
+  }
+
   String getLocalisedName(BuildContext context, String howMany) {
     switch (categoryId) {
       case CategoryId.accessory:

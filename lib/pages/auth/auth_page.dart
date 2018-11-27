@@ -7,6 +7,7 @@ import 'package:outfitter/core/application.dart';
 import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/beveled_rectangle_button.dart';
+import 'package:outfitter/widgets/widgets.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -14,6 +15,8 @@ class AuthPage extends StatefulWidget {
 }
 
 class AuthPageState extends State<AuthPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   BeveledRectangleProgressButtonState _googleSignInButtonState;
 
   @override
@@ -32,15 +35,21 @@ class AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBarFactory.flatAppBar(context,
+          navigationIcon: Icons.close, title: S.of(context).authPageTitle),
       backgroundColor: ColorConfig.BACKGROUND,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          BeveledRectangleProgressButton(
-            _googleSignInButtonState,
-            title: S.of(context).signInButtonTitle,
-          )
-        ],
+      body: Padding(
+        padding: EdgeInsets.all(PaddingSizeConfig.LARGE),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            BeveledRectangleProgressButton(
+              _googleSignInButtonState,
+              title: S.of(context).googleSignInButtonTitle,
+            )
+          ],
+        ),
       ),
     );
   }

@@ -19,6 +19,7 @@ class FiltersPage extends StatefulWidget {
 }
 
 class FiltersPageState extends State<FiltersPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final Filters _filters;
 
   FiltersPageState(this._filters);
@@ -37,6 +38,7 @@ class FiltersPageState extends State<FiltersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: ColorConfig.THEME_PRIMARY,
       appBar: AppBarFactory.flatAppBar(context,
           backgroundColor: ColorConfig.THEME_PRIMARY,

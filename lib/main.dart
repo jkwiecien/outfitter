@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:outfitter/core/application.dart';
 import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/navigation/navigation_page.dart';
 import 'package:outfitter/utils/utils.dart';
@@ -15,7 +14,7 @@ class OutfitterApp extends StatefulWidget {
 }
 
 class _OutfitterAppState extends State<OutfitterApp> {
-  _InitState _initState = _InitState.PROGRESS;
+//  _InitState _initState = _InitState.PROGRESS;
 
   @override
   Widget build(BuildContext context) {
@@ -44,38 +43,38 @@ class _OutfitterAppState extends State<OutfitterApp> {
 
         return supportedLocales.first;
       },
-      home: _initialPage,
+      home: NavigationPage(),
     );
   }
 
-  @override
-  void initState() {
-    _checkAuth();
-    super.initState();
-  }
+//  @override
+//  void initState() {
+//    _checkAuth();
+//    super.initState();
+//  }
 
-  void _checkAuth() {
-    application.firebaseAuth.currentUser().then((user) {
-      application.user = user;
-    }).whenComplete(() {
-      setState(() {
-        _initState = _InitState.FINISHED;
-      });
-    }).catchError((error) {
-      setState(() {
-        _initState = _InitState.ERROR;
-      });
-    });
-  }
+//  void _checkAuth() {
+//    application.firebaseAuth.currentUser().then((user) {
+//      application.user = user;
+//    }).whenComplete(() {
+//      setState(() {
+//        _initState = _InitState.FINISHED;
+//      });
+//    }).catchError((error) {
+//      setState(() {
+//        _initState = _InitState.ERROR;
+//      });
+//    });
+//  }
 
-  Widget get _initialPage {
-    switch (_initState) {
-      case _InitState.FINISHED:
-        return NavigationPage();
-      case _InitState.ERROR:
-        return Center(child: Text('Error'));
-      default:
-        return Center(child: Text('LOADING'));
-    }
-  }
+//  Widget get _initialPage {
+//    switch (_initState) {
+//      case _InitState.FINISHED:
+//        return NavigationPage();
+//      case _InitState.ERROR:
+//        return Center(child: Text('Error'));
+//      default:
+//        return Center(child: Text('LOADING'));
+//    }
+//  }
 }

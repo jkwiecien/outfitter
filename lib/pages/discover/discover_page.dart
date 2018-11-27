@@ -34,6 +34,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
     final double itemWidth = (screenSize.width / 2) - ITEM_SPACING * 2;
 
     return Column(
+      key: ValueKey<String>('DiscoverPage'),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(

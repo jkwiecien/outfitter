@@ -6,6 +6,7 @@ import 'package:outfitter/models/item.dart';
 import 'package:outfitter/pages/auth/auth_page.dart';
 import 'package:outfitter/pages/discover/discover_page.dart';
 import 'package:outfitter/pages/itemeditor/item_wizard.dart';
+import 'package:outfitter/pages/wardrobe/wardrobe_page.dart';
 import 'package:outfitter/utils/utils.dart';
 
 class NavigationPage extends StatefulWidget {
@@ -14,11 +15,14 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        key: _scaffoldKey,
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
             backgroundColor: ColorConfig.THEME_PRIMARY_DARK,
@@ -45,7 +49,7 @@ class _NavigationPageState extends State<NavigationPage> {
         body: TabBarView(
           children: [
             DiscoverPage(),
-            Icon(Icons.directions_transit),
+            WardrobePage(),
           ],
         ),
       ),
@@ -69,7 +73,9 @@ class _NavigationPageState extends State<NavigationPage> {
             builder: (context) =>
                 ItemWizardPage(ItemWizardPageState(Item.newInstance()))));
     if (item != null) {
-      //TODO
+      setState(() {
+        //TODO
+      });
     }
   }
 }
