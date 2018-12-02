@@ -73,8 +73,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
     if (_model.selectedFilters.forSaleOnly) {
       query = query.where('sale_status', isEqualTo: SaleStatus.FOR_SALE);
     } else {
-      query = query.where('sale_status',
-          isGreaterThanOrEqualTo: SaleStatus.NOT_FOR_SALE);
+      query = query.where('sale_status', isEqualTo: SaleStatus.NOT_FOR_SALE);
     }
 
     if (colorFilter != null)

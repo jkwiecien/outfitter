@@ -11,7 +11,11 @@ class Application {
     return _application;
   }
 
-  Application._internal();
+  Application._internal() {
+    firebaseAuth.currentUser().then((user) {
+      application.user = user;
+    });
+  }
 
   FirebaseUser user;
 

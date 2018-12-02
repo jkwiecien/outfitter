@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:outfitter/core/application.dart';
 import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/navigation/navigation_page.dart';
 import 'package:outfitter/utils/utils.dart';
@@ -21,6 +22,7 @@ class _OutfitterAppState extends State<OutfitterApp> {
     return new MaterialApp(
       title: 'Outfitter',
       theme: ThemeData(
+        iconTheme: const IconThemeData(color: ColorConfig.THEME_PRIMARY),
         fontFamily: 'Rubik',
         brightness: Brightness.light,
         primaryColor: ColorConfig.THEME_PRIMARY,
@@ -47,11 +49,11 @@ class _OutfitterAppState extends State<OutfitterApp> {
     );
   }
 
-//  @override
-//  void initState() {
-//    _checkAuth();
-//    super.initState();
-//  }
+  @override
+  void initState() {
+    application.isLoggedIn();
+    super.initState();
+  }
 
 //  void _checkAuth() {
 //    application.firebaseAuth.currentUser().then((user) {
