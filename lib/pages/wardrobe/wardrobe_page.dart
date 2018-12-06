@@ -26,9 +26,9 @@ class _WardrobePageState extends State<WardrobePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       key: ValueKey<String>('WardrobePage'),
-      crossAxisAlignment: CrossAxisAlignment.start,
+      primary: true,
       children: ItemCategory.allCategories()
           .map((category) => categorySection(context, category))
           .toList(),
@@ -70,7 +70,9 @@ class _WardrobePageState extends State<WardrobePage> {
       children: <Widget>[
         Text(category.getLocalisedName(context, 'many')),
         GridView.count(
-          crossAxisCount: 2,
+          physics: NeverScrollableScrollPhysics(),
+          crossAxisCount: 4,
+          shrinkWrap: true,
           childAspectRatio: (itemWidth / ITEM_HEIGHT),
           mainAxisSpacing: ITEM_SPACING,
           crossAxisSpacing: ITEM_SPACING,
