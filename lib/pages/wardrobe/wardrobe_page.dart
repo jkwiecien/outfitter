@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:outfitter/core/application.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
+import 'package:outfitter/pages/item/item_page.dart';
 import 'package:outfitter/pages/wardrobe/wardrobe_model.dart';
 import 'package:outfitter/utils/utils.dart';
 
@@ -40,8 +41,7 @@ class _WardrobePageState extends State<WardrobePage> {
     ItemCategory.allCategories().forEach((category) {
       Query query = Firestore.instance
           .collection('categories/${category.toString()}/items')
-          .where('visibility_status',
-              isGreaterThan: VisibilityStatus.STATUS_ARCHIVED)
+          .where('visibility_status', isGreaterThan: Status.STATUS_ARCHIVED)
           .where('user_id', isEqualTo: user.uid);
 
       query.snapshots().listen((querySnapshot) {
@@ -64,22 +64,32 @@ class _WardrobePageState extends State<WardrobePage> {
     final double itemWidth = (screenSize.width / 4) - ITEM_SPACING * 2;
 
     var items = _model.getItems(category);
-    var firstItems = items.take(3).toList();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(category.getLocalisedName(context, 'many')),
-        GridView.count(
-          physics: NeverScrollableScrollPhysics(),
-          crossAxisCount: 4,
-          shrinkWrap: true,
-          childAspectRatio: (itemWidth / ITEM_HEIGHT),
-          mainAxisSpacing: ITEM_SPACING,
-          crossAxisSpacing: ITEM_SPACING,
-          children: _itemsWidgets(firstItems),
-        )
-      ],
-    );
+
+    if (items.length > 0) {
+      var firstItems = items.take(3).toList();
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(PaddingSizeConfig.MEDIUM),
+            child: Text(
+                category.getLocalisedName(context, 'many').toUpperCase(),
+                style: TextStyleFactory.h6()),
+          ),
+          GridView.count(
+            physics: NeverScrollableScrollPhysics(),
+            crossAxisCount: 4,
+            shrinkWrap: true,
+            childAspectRatio: (itemWidth / ITEM_HEIGHT),
+            mainAxisSpacing: ITEM_SPACING,
+            crossAxisSpacing: ITEM_SPACING,
+            children: _itemsWidgets(firstItems),
+          )
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 
   List<Widget> _itemsWidgets(List<Item> items) {
@@ -89,7 +99,7 @@ class _WardrobePageState extends State<WardrobePage> {
               child: Material(
                 child: InkWell(
                   onTap: () {
-//            _navigateToItemDetails(context, item);
+                    _navigateToItemDetails(context, item);
                   },
                   child: Column(
                     children: <Widget>[
@@ -172,5 +182,14 @@ class _WardrobePageState extends State<WardrobePage> {
     } else {
       return Container();
     }
+  }
+
+  void _navigateToItemDetails(BuildContext context, Item item) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ItemDetailsPage(ItemDetailsPageState(item)),
+      ),
+    );
   }
 }

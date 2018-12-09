@@ -5,16 +5,12 @@ import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/models/picture.dart';
 
-class VisibilityStatus {
+class Status {
   static const int STATUS_ARCHIVED = 0;
-  static const int STATUS_PRIVATE = 1;
-  static const int STATUS_PUBLIC = 2;
-}
-
-class SaleStatus {
-  static const int SOLD = 0;
-  static const int NOT_FOR_SALE = 1;
-  static const int FOR_SALE = 2;
+  static const int SOLD = 1;
+  static const int PRIVATE = 2;
+  static const int PUBLIC = 3;
+  static const int FOR_SALE = 4;
 }
 
 class Item {
@@ -30,8 +26,7 @@ class Item {
   MainColor mainColor;
   List<ItemPicture> pictures = List();
   num price = 0.0;
-  var visibilityStatus = VisibilityStatus.STATUS_PUBLIC;
-  var saleStatus = SaleStatus.NOT_FOR_SALE;
+  var status = Status.PUBLIC;
 
   Map<String, dynamic> toMap() {
     return {
@@ -44,8 +39,7 @@ class Item {
       'mainColor': mainColor.toString(),
       'dateCreated': dateCreated,
       'dateBought': dateBought,
-      'visibility_status': visibilityStatus,
-      'sale_status': saleStatus,
+      'status': status,
       'price': price,
       'pictures': Map.fromEntries(
           pictures.map((picture) => MapEntry(picture.id, picture.url)))
@@ -68,8 +62,7 @@ class Item {
     brand = snapshot.data['brand'];
     size = snapshot.data['size'];
     mainColor = MainColor.fromString(snapshot['mainColor']);
-    visibilityStatus = snapshot.data['visibility_status'];
-    saleStatus = snapshot.data['sale_status'];
+    status = snapshot.data['status'];
     final picturesMap = snapshot.data['pictures'];
     if (picturesMap != null) {
       picturesMap.entries.forEach((pictureMapEntry) {

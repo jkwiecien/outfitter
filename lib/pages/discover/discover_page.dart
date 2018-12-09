@@ -65,15 +65,13 @@ class _DiscoverPageState extends State<DiscoverPage> {
   void _loadResults() {
     final MainColor colorFilter = _model.selectedFilters.color;
 
-    Query query = Firestore.instance
-        .collection(
-            'categories/${_model.selectedFilters.category.toString()}/items')
-        .where('visibility_status', isEqualTo: VisibilityStatus.STATUS_PUBLIC);
+    Query query = Firestore.instance.collection(
+        'categories/${_model.selectedFilters.category.toString()}/items');
 
     if (_model.selectedFilters.forSaleOnly) {
-      query = query.where('sale_status', isEqualTo: SaleStatus.FOR_SALE);
+      query = query.where('status', isEqualTo: Status.FOR_SALE);
     } else {
-      query = query.where('sale_status', isEqualTo: SaleStatus.NOT_FOR_SALE);
+      query = query.where('status', isEqualTo: Status.PUBLIC);
     }
 
     if (colorFilter != null)
