@@ -43,7 +43,6 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   }),
-              actions: <Widget>[_likeActionWidget, _editActionWidget],
               floating: false,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
@@ -75,28 +74,8 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
         ));
   }
 
-  Widget get _likeActionWidget => IconButton(
-        onPressed: () {
-          //TODO
-        },
-        icon: Icon(
-          Icons.favorite_border,
-          color: ColorConfig.FONT_PRIMARY,
-        ),
-      );
-
-  Widget get _editActionWidget => IconButton(
-        onPressed: () {
-          _navigateToItemEditor(context);
-        },
-        icon: Icon(
-          Icons.edit,
-          color: ColorConfig.FONT_PRIMARY,
-        ),
-      );
-
   Widget get _imageSectionWidget => Hero(
-    tag: _model.item,
+        tag: _model.item,
         child: CachedNetworkImage(
           imageUrl: _model.item.pictures.first.url,
           height: PHOTO_HEIGHT,
