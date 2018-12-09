@@ -71,7 +71,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
     if (_model.selectedFilters.forSaleOnly) {
       query = query.where('status', isEqualTo: Status.FOR_SALE);
     } else {
-      query = query.where('status', isEqualTo: Status.PUBLIC);
+      query = query.where('status', isGreaterThanOrEqualTo: Status.PUBLIC);
     }
 
     if (colorFilter != null)

@@ -41,8 +41,8 @@ class _WardrobePageState extends State<WardrobePage> {
     ItemCategory.allCategories().forEach((category) {
       Query query = Firestore.instance
           .collection('categories/${category.toString()}/items')
-          .where('visibility_status', isGreaterThan: Status.STATUS_ARCHIVED)
-          .where('user_id', isEqualTo: user.uid);
+          .where('user_id', isEqualTo: user.uid)
+          .where('visibility_status', isGreaterThan: Status.STATUS_ARCHIVED);
 
       query.snapshots().listen((querySnapshot) {
         final items = querySnapshot.documents
@@ -54,6 +54,9 @@ class _WardrobePageState extends State<WardrobePage> {
   }
 
   void _onCategoryLoaded(ItemCategory category, List<Item> items) {
+    if (items.length > 0) {
+      print("${items.length} fetched: from category: $category");
+    }
     setState(() {
       _model.addItems(items);
     });
