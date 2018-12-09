@@ -38,11 +38,12 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
           slivers: <Widget>[
             SliverAppBar(
               expandedHeight: PHOTO_HEIGHT,
-              leading: IconButton(
-                  icon: Icon(Icons.close, color: ColorConfig.FONT_PRIMARY),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
+              leading: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _createActionButton(Icons.close, () {
+                  Navigator.pop(context);
+                }),
+              ),
               floating: false,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
@@ -72,6 +73,16 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
             )
           ],
         ));
+  }
+
+  Widget _createActionButton(IconData iconData, Function onPressed) {
+    return Container(
+      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+      child: IconButton(
+          iconSize: 24.0,
+          icon: Icon(iconData, color: ColorConfig.FONT_PRIMARY),
+          onPressed: onPressed),
+    );
   }
 
   Widget get _imageSectionWidget => Hero(
