@@ -71,5 +71,6 @@
   "applyFiltersButtonTitle": "Zastosuj",
   "forSaleOnlyLabel": "Tylko na sprzedaż",
   "discoverTabTitle": "Odkrywanie",
-  "myItemsTanTitle": "Moja szafa"
+  "myItemsTanTitle": "Moja szafa",
+  "loginRequiredToBrowseWardrobeLabel": "Musisz się zalogować, by móc przeglądać i dodawać swoją garderobę."
 }

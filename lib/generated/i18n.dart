@@ -38,6 +38,7 @@ class S implements WidgetsLocalizations {
   String get googleSignInButtonTitle => "Zaloguj z Google";
   String get informationLabel => "Informacje";
   String get loadingLabel => "Trwa ładowanie danych";
+  String get loginRequiredToBrowseWardrobeLabel => "Musisz się zalogować, by móc przeglądać i dodawać swoją garderobę.";
   String get mainColorLabel => "Kolor główny";
   String get myItemsTanTitle => "Moja szafa";
   String get nameInputHint => "Nazwa";

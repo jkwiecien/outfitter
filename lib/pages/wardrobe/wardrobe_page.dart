@@ -2,11 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:outfitter/core/application.dart';
+import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
+import 'package:outfitter/pages/auth/auth_page.dart';
 import 'package:outfitter/pages/item/item_page.dart';
 import 'package:outfitter/pages/wardrobe/wardrobe_model.dart';
 import 'package:outfitter/utils/utils.dart';
+import 'package:outfitter/widgets/beveled_rectangle_button.dart';
 
 class WardrobePage extends StatefulWidget {
   @override
@@ -22,19 +25,47 @@ class _WardrobePageState extends State<WardrobePage> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    if (application.isLoggedIn()) _loadData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      key: ValueKey<String>('WardrobePage'),
-      primary: true,
-      children: ItemCategory.allCategories()
-          .map((category) => categorySection(context, category))
-          .toList(),
-    );
+    if (application.isLoggedIn())
+      return _contentWidget;
+    else
+      return _unauthorizedWidget;
   }
+
+  Widget get _contentWidget => ListView(
+        primary: true,
+        children: ItemCategory.allCategories()
+            .map((category) => categorySection(context, category))
+            .toList(),
+      );
+
+  Widget get _unauthorizedWidget => Container(
+          child: Container(
+        padding: const EdgeInsets.all(PaddingSizeConfig.LARGE),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: PaddingSizeConfig.LARGE),
+              child: Text(
+                S.of(context).loginRequiredToBrowseWardrobeLabel,
+                style: TextStyleFactory.body1(),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            BeveledRectangleProgressButton(
+              BeveledRectangleProgressButtonState(onPressed: () {
+                _navigateToAuthPage(context);
+              }),
+              title: S.of(context).authPageTitle,
+            )
+          ],
+        ),
+      ));
 
   void _loadData() {
     final user = application.user;
@@ -194,5 +225,11 @@ class _WardrobePageState extends State<WardrobePage> {
         builder: (context) => ItemDetailsPage(ItemDetailsPageState(item)),
       ),
     );
+  }
+
+  void _navigateToAuthPage(BuildContext context) async {
+    await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AuthPage()));
+    setState(() {});
   }
 }
