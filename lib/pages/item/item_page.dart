@@ -27,48 +27,39 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorConfig.BACKGROUND,
+        backgroundColor: Colors.black,
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.favorite_border, color: Colors.white),
             onPressed: () {
               //TODO
             }),
         key: _scaffoldKey,
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              expandedHeight: PHOTO_HEIGHT,
-              leading: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: _createActionButton(Icons.close, () {
-                  Navigator.pop(context);
-                }),
-              ),
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: SizedBox(
-                  height: 220.0,
-                  child: _imageSectionWidget,
-                ),
-              ),
-            ),
-            SliverFillRemaining(
-              child: SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.all(PaddingSizeConfig.LARGE),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        _model.item.getLocalisedDisplayName(context),
-                        style: TextStyleFactory.h5(),
+        body: Stack(
+          children: <Widget>[
+            _imageSectionWidget,
+            _appBar,
+            Padding(
+              padding: const EdgeInsets.all(PaddingSizeConfig.LARGE),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  ConstrainedBox(
+                    constraints:
+                        const BoxConstraints(minWidth: double.infinity),
+                    child: Card(
+                      color: ColorConfig.BACKGROUND,
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            _model.item.getLocalisedDisplayName(context),
+                            style: TextStyleFactory.h5(),
+                          ),
+                          _descriptionWidget
+                        ],
                       ),
-                      SizedBox(height: PaddingSizeConfig.SMALL),
-                      _descriptionWidget,
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
             )
           ],
@@ -79,13 +70,16 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
     return Container(
       decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
       child: IconButton(
-          iconSize: 24.0,
+          iconSize: 20.0,
           icon: Icon(iconData, color: ColorConfig.FONT_PRIMARY),
           onPressed: onPressed),
     );
   }
 
-  Widget get _imageSectionWidget => Hero(
+  Widget get _imageSectionWidget => FractionallySizedBox(
+      widthFactor: 1.0,
+      heightFactor: 0.8,
+      child: Hero(
         tag: _model.item,
         child: CachedNetworkImage(
           imageUrl: _model.item.pictures.first.url,
@@ -100,7 +94,7 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
                     strokeWidth: 3.0,
                   ))),
         ),
-      );
+      ));
 
   Widget get _descriptionWidget {
     final item = _model.item;
@@ -109,6 +103,23 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
     } else {
       return Container();
     }
+  }
+
+  Widget get _appBar {
+    return Positioned(
+      top: 0.0,
+      left: 0.0,
+      right: 0.0,
+      child: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          leading: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: _createActionButton(Icons.close, () {
+              Navigator.pop(context);
+            }),
+          )),
+    );
   }
 
   void _navigateToItemEditor(BuildContext context) async {
