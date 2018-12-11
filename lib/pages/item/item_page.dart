@@ -28,42 +28,39 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.favorite_border, color: Colors.white),
-            onPressed: () {
-              //TODO
-            }),
         key: _scaffoldKey,
         body: Stack(
-          children: <Widget>[
-            _imageSectionWidget,
-            _appBar,
-            Padding(
-              padding: const EdgeInsets.all(PaddingSizeConfig.LARGE),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  ConstrainedBox(
-                    constraints:
-                        const BoxConstraints(minWidth: double.infinity),
-                    child: Card(
-                      color: ColorConfig.BACKGROUND,
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            _model.item.getLocalisedDisplayName(context),
-                            style: TextStyleFactory.h5(),
-                          ),
-                          _descriptionWidget
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
+          children: <Widget>[_imageSectionWidget, _appBar, _detailsWidget],
         ));
+  }
+
+  Widget get _detailsWidget {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: ConstrainedBox(
+          constraints:
+              const BoxConstraints(minWidth: double.infinity, maxHeight: 220.0),
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: PaddingSizeConfig.SMALL, right: PaddingSizeConfig.SMALL),
+            child: Container(
+              color: ColorConfig.BACKGROUND,
+              child: Padding(
+                padding: const EdgeInsets.all(PaddingSizeConfig.MEDIUM),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      _model.item.getLocalisedDisplayName(context),
+                      style: TextStyleFactory.h5(),
+                    ),
+                    _descriptionWidget
+                  ],
+                ),
+              ),
+            ),
+          )),
+    );
   }
 
   Widget _createActionButton(IconData iconData, Function onPressed) {
