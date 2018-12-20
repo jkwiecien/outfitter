@@ -30,7 +30,12 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
         backgroundColor: Colors.black,
         key: _scaffoldKey,
         body: Stack(
-          children: <Widget>[_imageSectionWidget, _appBar, _detailsWidget],
+          children: <Widget>[
+            _imageSectionWidget,
+            _appBar,
+            _detailsWidget,
+            const Positioned(top: 0.0, left: 0.0, child: const ActionsPane())
+          ],
         ));
   }
 
@@ -60,16 +65,6 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
               ),
             ),
           )),
-    );
-  }
-
-  Widget _createActionButton(IconData iconData, Function onPressed) {
-    return Container(
-      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-      child: IconButton(
-          iconSize: 20.0,
-          icon: Icon(iconData, color: ColorConfig.FONT_PRIMARY),
-          onPressed: onPressed),
     );
   }
 
@@ -104,19 +99,14 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
 
   Widget get _appBar {
     return Positioned(
-      top: 0.0,
-      left: 0.0,
-      right: 0.0,
-      child: AppBar(
+        top: 0.0,
+        left: 0.0,
+        right: 0.0,
+        child: AppBar(
+          leading: const SizedBox(),
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          leading: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: _createActionButton(Icons.close, () {
-              Navigator.pop(context);
-            }),
-          )),
-    );
+        ));
   }
 
   void _navigateToItemEditor(BuildContext context) async {
@@ -130,5 +120,48 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
         _model.item = updatedItem;
       });
     }
+  }
+}
+
+class ActionsPane extends StatelessWidget {
+  const ActionsPane();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: PaddingSizeConfig.LARGE, top: 54.0),
+      child: Column(children: <Widget>[
+        ActionButton(Icons.close, onPressed: () {
+          Navigator.pop(context);
+        }),
+        const SizedBox(height: PaddingSizeConfig.MEDIUM),
+        ActionButton(Icons.edit, onPressed: () {
+          //TODO
+        }),
+        const SizedBox(height: PaddingSizeConfig.MEDIUM),
+        ActionButton(Icons.favorite_border, onPressed: () {
+          //TODO
+        })
+      ]),
+    );
+  }
+}
+
+class ActionButton extends StatelessWidget {
+  final IconData iconData;
+  final Function onPressed;
+
+  const ActionButton(this.iconData, {@required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration:
+          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+      child: IconButton(
+          iconSize: 20.0,
+          icon: Icon(iconData, color: ColorConfig.FONT_PRIMARY),
+          onPressed: onPressed),
+    );
   }
 }
