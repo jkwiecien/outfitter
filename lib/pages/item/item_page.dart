@@ -30,12 +30,7 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
         backgroundColor: Colors.black,
         key: _scaffoldKey,
         body: Stack(
-          children: <Widget>[
-            _imageSectionWidget,
-            _appBar,
-            _detailsWidget,
-            const Positioned(top: 0.0, left: 0.0, child: const ActionsPane())
-          ],
+          children: <Widget>[_imageSectionWidget, _appBar, _detailsWidget],
         ));
   }
 
@@ -103,7 +98,12 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
         left: 0.0,
         right: 0.0,
         child: AppBar(
-          leading: const SizedBox(),
+          leading: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ActionButton(Icons.close, onPressed: () {
+              Navigator.pop(context);
+            }),
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0.0,
         ));
