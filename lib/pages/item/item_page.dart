@@ -35,31 +35,35 @@ class ItemDetailsPageState extends State<ItemDetailsPage> {
   }
 
   Widget get _detailsWidget {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: ConstrainedBox(
-          constraints:
-              const BoxConstraints(minWidth: double.infinity, maxHeight: 220.0),
-          child: Padding(
-            padding: const EdgeInsets.only(
-                left: PaddingSizeConfig.SMALL, right: PaddingSizeConfig.SMALL),
-            child: Container(
-              color: ColorConfig.BACKGROUND,
-              child: Padding(
-                padding: const EdgeInsets.all(PaddingSizeConfig.MEDIUM),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      _model.item.getLocalisedDisplayName(context),
-                      style: TextStyleFactory.h5(),
-                    ),
-                    _descriptionWidget
-                  ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        const ActionsPane(),
+        ConstrainedBox(
+            constraints: const BoxConstraints(
+                minWidth: double.infinity, maxHeight: 220.0),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: PaddingSizeConfig.SMALL,
+                  right: PaddingSizeConfig.SMALL),
+              child: Container(
+                color: ColorConfig.BACKGROUND,
+                child: Padding(
+                  padding: const EdgeInsets.all(PaddingSizeConfig.MEDIUM),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        _model.item.getLocalisedDisplayName(context),
+                        style: TextStyleFactory.h5(),
+                      ),
+                      _descriptionWidget
+                    ],
+                  ),
                 ),
               ),
-            ),
-          )),
+            )),
+      ],
     );
   }
 
@@ -129,16 +133,12 @@ class ActionsPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: PaddingSizeConfig.LARGE, top: 54.0),
-      child: Column(children: <Widget>[
-        ActionButton(Icons.close, onPressed: () {
-          Navigator.pop(context);
-        }),
-        const SizedBox(height: PaddingSizeConfig.MEDIUM),
+      padding: const EdgeInsets.all(PaddingSizeConfig.LARGE),
+      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
         ActionButton(Icons.edit, onPressed: () {
           //TODO
         }),
-        const SizedBox(height: PaddingSizeConfig.MEDIUM),
+        const SizedBox(width: PaddingSizeConfig.LARGE),
         ActionButton(Icons.favorite_border, onPressed: () {
           //TODO
         })
