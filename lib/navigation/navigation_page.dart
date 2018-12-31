@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:outfitter/core/application.dart';
 import 'package:outfitter/generated/i18n.dart';
+import 'package:outfitter/models/app_state.dart';
 import 'package:outfitter/models/item.dart';
 import 'package:outfitter/pages/auth/auth_page.dart';
-import 'package:outfitter/pages/discover/discover_page.dart';
 import 'package:outfitter/pages/itemeditor/item_wizard.dart';
 import 'package:outfitter/pages/wardrobe/wardrobe_page.dart';
 import 'package:outfitter/utils/utils.dart';
+import 'package:redux/redux.dart';
 
 class NavigationPage extends StatefulWidget {
+  final Store<AppState> store;
+
+  NavigationPage(this.store);
+
   @override
   State<StatefulWidget> createState() => _NavigationPageState();
 }
@@ -48,7 +53,7 @@ class _NavigationPageState extends State<NavigationPage> {
         ),
         body: TabBarView(
           children: [
-            DiscoverPage(),
+//            DiscoverPage(),
             WardrobePage(),
           ],
         ),

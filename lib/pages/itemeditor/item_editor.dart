@@ -1,7 +1,7 @@
 //import 'package:flutter/material.dart';
 //import 'package:outfitter/models/category.dart';
 //import 'package:outfitter/pages/category_picker.dart';
-//import 'package:outfitter/pages/itemeditor/model.dart';
+//import 'package:outfitter/pages/itemeditor/discover_model.dart';
 //import 'package:outfitter/pages/itemeditor/name_form.dart';
 //import 'package:outfitter/translations.dart';
 //import 'package:outfitter/utils/utils.dart';

@@ -1,4 +1,4 @@
-import 'package:outfitter/models/User.dart';
+import 'package:outfitter/models/user.dart';
 
 class Like {
   final User user;

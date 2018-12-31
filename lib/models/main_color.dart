@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 enum MainColorId {
+  none,
   white,
   grey,
   black,
@@ -14,54 +15,11 @@ enum MainColorId {
   brown
 }
 
+@immutable
 class MainColor {
-  MainColorId id;
+  final MainColorId id;
 
-  MainColor(this.id);
-
-  MainColor.white() {
-    this.id = MainColorId.white;
-  }
-
-  MainColor.grey() {
-    this.id = MainColorId.grey;
-  }
-
-  MainColor.black() {
-    this.id = MainColorId.black;
-  }
-
-  MainColor.red() {
-    this.id = MainColorId.red;
-  }
-
-  MainColor.pink() {
-    this.id = MainColorId.pink;
-  }
-
-  MainColor.purple() {
-    this.id = MainColorId.purple;
-  }
-
-  MainColor.blue() {
-    this.id = MainColorId.blue;
-  }
-
-  MainColor.green() {
-    this.id = MainColorId.green;
-  }
-
-  MainColor.yellow() {
-    this.id = MainColorId.yellow;
-  }
-
-  MainColor.orange() {
-    this.id = MainColorId.orange;
-  }
-
-  MainColor.brown() {
-    this.id = MainColorId.brown;
-  }
+  MainColor.fromId(this.id);
 
   Color get color {
     switch (id) {
@@ -92,25 +50,24 @@ class MainColor {
     }
   }
 
-  MainColor.fromString(String mainColorIdString) {
-    id = MainColorId.values.firstWhere(
-        (c) => c.toString() == 'MainColorId.$mainColorIdString',
-        orElse: () => null);
-  }
+  MainColor.fromString(String mainColorIdString)
+      : id = MainColorId.values.firstWhere(
+            (c) => c.toString() == 'MainColorId.$mainColorIdString',
+            orElse: () => null);
 
   static List<MainColor> allColors() {
     return [
-      MainColor.white(),
-      MainColor.grey(),
-      MainColor.black(),
-      MainColor.red(),
-      MainColor.pink(),
-      MainColor.purple(),
-      MainColor.blue(),
-      MainColor.green(),
-      MainColor.yellow(),
-      MainColor.orange(),
-      MainColor.brown()
+      MainColor.fromId(MainColorId.white),
+      MainColor.fromId(MainColorId.grey),
+      MainColor.fromId(MainColorId.black),
+      MainColor.fromId(MainColorId.red),
+      MainColor.fromId(MainColorId.pink),
+      MainColor.fromId(MainColorId.purple),
+      MainColor.fromId(MainColorId.blue),
+      MainColor.fromId(MainColorId.green),
+      MainColor.fromId(MainColorId.yellow),
+      MainColor.fromId(MainColorId.orange),
+      MainColor.fromId(MainColorId.brown)
     ];
   }
 
@@ -123,5 +80,5 @@ class MainColor {
   bool operator ==(other) => other is MainColor && id == other.id;
 
   @override
-  int get hashCode => id != null ? id.hashCode : 0;
+  int get hashCode => id.hashCode;
 }

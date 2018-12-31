@@ -2,40 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/utils/utils.dart';
 
-class MainColorBox extends StatefulWidget {
-  final MainColorBoxState _state;
-
-  MainColorBoxState get state => _state;
-
-  MainColorBox(this._state);
-
-  @override
-  State<StatefulWidget> createState() => _state;
-}
-
-class MainColorBoxState extends State<MainColorBox> {
-  bool _selected = false;
-
-  bool get selected => _selected;
+class MainColorBox extends StatelessWidget {
   final MainColor _mainColor;
+  final bool selected;
+  final OnColorTapped _onColorTapped;
 
-  MainColor get mainColor => _mainColor;
-  final Function(MainColorBox colorBox) _onSelectedChanged;
-
-  MainColorBoxState(this._mainColor, this._selected, this._onSelectedChanged);
-
-  set selected(value) {
-    setState(() {
-      _selected = value;
-    });
-  }
+  const MainColorBox(this._mainColor, this.selected, this._onColorTapped);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        selected = !selected;
-        _onSelectedChanged(widget);
+        _onColorTapped(_mainColor);
       },
       child: Container(
         width: 24.0,
@@ -64,3 +42,25 @@ class MainColorBoxState extends State<MainColorBox> {
     );
   }
 }
+
+//class MainColorBoxState extends State<MainColorBox> {
+//  bool _selected = false;
+//
+//  bool get selected => _selected;
+//  final MainColor _mainColor;
+//
+//  MainColor get mainColor => _mainColor;
+//  final OnColorChanged _onColorChanged;
+//
+//  MainColorBoxState(this._mainColor, this._selected, this._onColorChanged);
+//
+//  set selected(value) {
+//    setState(() {
+//      _selected = value;
+//    });
+//  }
+//
+//
+//}
+
+typedef OnColorTapped = Function(MainColor color);

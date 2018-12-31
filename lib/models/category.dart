@@ -19,20 +19,18 @@ enum CategoryId {
   tshirt
 }
 
+@immutable
 class ItemCategory {
-  CategoryId categoryId;
+  final CategoryId categoryId;
 
   ItemCategory(this.categoryId);
 
-  ItemCategory.fromString(String categoryIdString) {
-    categoryId = CategoryId.values.firstWhere(
-        (c) => c.toString() == 'CategoryId.$categoryIdString',
-        orElse: () => null);
-  }
+  ItemCategory.fromString(String categoryIdString)
+      : categoryId = CategoryId.values.firstWhere(
+            (c) => c.toString() == 'CategoryId.$categoryIdString',
+            orElse: () => null);
 
-  ItemCategory.fromId(CategoryId enumId) {
-    categoryId = enumId;
-  }
+  ItemCategory.fromId(CategoryId categoryId) : categoryId = categoryId;
 
   static List<ItemCategory> allCategories() {
     return CategoryId.values.map((id) {
@@ -73,6 +71,7 @@ class ItemCategory {
       case CategoryId.tshirt:
         return S.of(context).tshirtCategory(howMany);
     }
+    return "";
   }
 
   @override

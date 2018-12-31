@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:outfitter/generated/i18n.dart';
 import 'package:outfitter/models/category.dart';
 import 'package:outfitter/models/item.dart';
-import 'package:outfitter/models/main_color.dart';
 import 'package:outfitter/models/picture.dart';
 import 'package:outfitter/pages/category_picker.dart';
 import 'package:outfitter/pages/itemeditor/brand_form.dart';
@@ -17,7 +16,6 @@ import 'package:outfitter/pages/itemeditor/price_form.dart';
 import 'package:outfitter/pages/itemeditor/size_form.dart';
 import 'package:outfitter/utils/utils.dart';
 import 'package:outfitter/widgets/beveled_rectangle_button.dart';
-import 'package:outfitter/widgets/main_color_box.dart';
 import 'package:outfitter/widgets/widgets.dart';
 import 'package:uuid/uuid.dart';
 
@@ -37,7 +35,8 @@ class ItemWizardPageState extends State<ItemWizardPage> {
   ItemDescriptionForm _descriptionForm;
   ItemBrandForm _brandForm;
   ItemSizeForm _sizeForm;
-  List<MainColorBox> _mainColorBoxes;
+
+//  List<MainColorBox> _mainColorBoxes;
   PicturesListView _picturesListView;
   BeveledRectangleProgressButtonState _saveButtonState;
 
@@ -67,10 +66,10 @@ class ItemWizardPageState extends State<ItemWizardPage> {
       _model.item.size = text;
     }));
 
-    _mainColorBoxes = MainColor.allColors().map((mainColor) {
-      return MainColorBox(MainColorBoxState(mainColor,
-          _model.item.mainColor == mainColor, _onColorSelectionChanged));
-    }).toList(growable: false);
+//    _mainColorBoxes = MainColor.allColors().map((mainColor) {
+//      return MainColorBox(MainColorBoxState(mainColor,
+//          _model.item.mainColor == mainColor, _onColorSelectionChanged));
+//    }).toList(growable: false);
 
     _picturesListView =
         PicturesListView(_model.item.pictures, _addImageFromGallery);
@@ -182,12 +181,12 @@ class ItemWizardPageState extends State<ItemWizardPage> {
                             style: TextStyleFactory.overline(),
                           ),
                           SizedBox(height: PaddingSizeConfig.SMALL),
-                          Container(
-                            height: 40.0,
-                            child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: _mainColorBoxes),
-                          )
+//                          Container(
+//                            height: 40.0,
+//                            child: ListView(
+//                                scrollDirection: Axis.horizontal,
+//                                children: _mainColorBoxes),
+//                          )
                         ],
                       ),
                     ),
@@ -292,21 +291,18 @@ class ItemWizardPageState extends State<ItemWizardPage> {
     }
   }
 
-  _onColorSelectionChanged(MainColorBox mainColorBox) {
-    if (mainColorBox.state.selected) {
-      _model.item.mainColor = mainColorBox.state.mainColor;
-      _mainColorBoxes.forEach((colorBox) {
-        if (colorBox != mainColorBox) colorBox.state.selected = false;
-      });
-    } else {
-      _model.item.mainColor = null;
-    }
-  }
+//  _onColorSelectionChanged(MainColorBox mainColorBox) {
+//    if (mainColorBox.state.selected) {
+//      _model.item.mainColor = mainColorBox.state.mainColor;
+//      _mainColorBoxes.forEach((colorBox) {
+//        if (colorBox != mainColorBox) colorBox.state.selected = false;
+//      });
+//    } else {
+//      _model.item.mainColor = null;
+//    }
+//  }
 
   void _addImageFromGallery() {
-//    final url = 'https://firebasestorage.googleapis.com/v0/b/pocket-outfitter.appspot.com/o/pictures%2F0284e33d-f03b-463d-8bd1-b5ad3db401d0.jpg?alt=media&token=0aabd1f6-cc44-4013-be5d-fb27190dc9e2';
-//    _model.item.pictures.add(url);
-//    _picturesListView.state.urls = _model.item.pictures;
     final uid = Uuid().v1();
     ImagePicker.pickImage(
             source: ImageSource.gallery, maxWidth: 1200.0, maxHeight: 1200.0)

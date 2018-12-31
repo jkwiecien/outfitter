@@ -6,7 +6,7 @@
 //import 'package:outfitter/models/category.dart';
 //import 'package:outfitter/models/item.dart';
 //import 'package:outfitter/pages/category_picker.dart';
-//import 'package:outfitter/pages/discover/model.dart';
+//import 'package:outfitter/pages/discover/discover_model.dart';
 //import 'package:outfitter/pages/item/item_page.dart';
 //import 'package:outfitter/pages/itemeditor/item_wizard.dart';
 //import 'package:outfitter/utils/utils.dart';
